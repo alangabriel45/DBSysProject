@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBSYSPROJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="hotelId" />
+          </Key>
+          <Property Name="hotelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hotelName" Type="nvarchar" MaxLength="128" />
+          <Property Name="hotelAddress" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="nvarchar" MaxLength="128" />
+          <Property Name="roleDescription" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomId" />
+          </Key>
+          <Property Name="roomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomNumber" Type="nvarchar" MaxLength="128" />
+          <Property Name="roomType" Type="nvarchar" MaxLength="128" />
+          <Property Name="roomAc" Type="nvarchar" MaxLength="50" />
+          <Property Name="roomBed" Type="int" />
+          <Property Name="roomMin" Type="int" />
+          <Property Name="roomMax" Type="int" />
+          <Property Name="hotelId" Type="int" />
+        </EntityType>
+        <EntityType Name="RoomAc">
+          <Key>
+            <PropertyRef Name="acId" />
+          </Key>
+          <Property Name="acId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="acRoom" Type="nvarchar" MaxLength="50" />
+          <Property Name="acDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RoomBed">
+          <Key>
+            <PropertyRef Name="bedId" />
+          </Key>
+          <Property Name="bedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bedNum" Type="int" />
+          <Property Name="bedDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RoomMax">
+          <Key>
+            <PropertyRef Name="maxId" />
+          </Key>
+          <Property Name="maxId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maxNum" Type="int" />
+          <Property Name="maxDescription" Type="int" />
+        </EntityType>
+        <EntityType Name="RoomMin">
+          <Key>
+            <PropertyRef Name="minId" />
+          </Key>
+          <Property Name="minId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="minNum" Type="int" />
+          <Property Name="midDescription" Type="int" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="typeId" />
+          </Key>
+          <Property Name="typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="typeDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userMiddleInitial" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="userEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="userPhone" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="userPass" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_RoomTable">
+          <Key>
+            <PropertyRef Name="Room Id" />
+            <PropertyRef Name="Hotel Id" />
+          </Key>
+          <Property Name="Room Id" Type="int" Nullable="false" />
+          <Property Name="Room Number" Type="nvarchar" MaxLength="128" />
+          <Property Name="Room Type" Type="nvarchar" MaxLength="128" />
+          <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bed" Type="int" />
+          <Property Name="Minimum Guest" Type="int" />
+          <Property Name="Maximum Guest" Type="int" />
+          <Property Name="Hotel Id" Type="int" Nullable="false" />
+          <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
+          <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_Room_Hotel">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="hotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_AddRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="rType" Type="nvarchar" Mode="In" />
+          <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+          <Parameter Name="rBed" Type="int" Mode="In" />
+          <Parameter Name="rMin" Type="int" Mode="In" />
+          <Parameter Name="rMax" Type="int" Mode="In" />
+          <Parameter Name="hId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DBSYSPROJModelStoreContainer">
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomAc" EntityType="Self.RoomAc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomBed" EntityType="Self.RoomBed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomMax" EntityType="Self.RoomMax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomMin" EntityType="Self.RoomMin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_RoomTable].[Room Id] AS [Room Id], 
+[vw_RoomTable].[Room Number] AS [Room Number], 
+[vw_RoomTable].[Room Type] AS [Room Type], 
+[vw_RoomTable].[Aircon] AS [Aircon], 
+[vw_RoomTable].[Bed] AS [Bed], 
+[vw_RoomTable].[Minimum Guest] AS [Minimum Guest], 
+[vw_RoomTable].[Maximum Guest] AS [Maximum Guest], 
+[vw_RoomTable].[Hotel Id] AS [Hotel Id], 
+[vw_RoomTable].[Hotel] AS [Hotel], 
+[vw_RoomTable].[Hotel Address] AS [Hotel Address]
+FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBSYSPROJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBSYSPROJEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
+          <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
+          <EntitySet Name="Room" EntityType="DBSYSPROJModel.Room" />
+          <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
+          <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
+          <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
+          <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
+          <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
+          <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+          <AssociationSet Name="FK_Room_Hotel" Association="DBSYSPROJModel.FK_Room_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
+        </EntityContainer>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="hotelId" />
+          </Key>
+          <Property Name="hotelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hotelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="hotelAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Room" Relationship="DBSYSPROJModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="roleDescription" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomId" />
+          </Key>
+          <Property Name="roomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="roomType" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="roomAc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="roomBed" Type="Int32" />
+          <Property Name="roomMin" Type="Int32" />
+          <Property Name="roomMax" Type="Int32" />
+          <Property Name="hotelId" Type="Int32" />
+          <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="RoomAc">
+          <Key>
+            <PropertyRef Name="acId" />
+          </Key>
+          <Property Name="acId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="acRoom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="acDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RoomBed">
+          <Key>
+            <PropertyRef Name="bedId" />
+          </Key>
+          <Property Name="bedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bedNum" Type="Int32" />
+          <Property Name="bedDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RoomMax">
+          <Key>
+            <PropertyRef Name="maxId" />
+          </Key>
+          <Property Name="maxId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maxNum" Type="Int32" />
+          <Property Name="maxDescription" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RoomMin">
+          <Key>
+            <PropertyRef Name="minId" />
+          </Key>
+          <Property Name="minId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="minNum" Type="Int32" />
+          <Property Name="midDescription" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="typeId" />
+          </Key>
+          <Property Name="typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="typeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userLastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userFirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userMiddleInitial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="userEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="userPhone" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Room_Hotel">
+          <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
+          <End Type="DBSYSPROJModel.Room" Role="Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="hotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vw_RoomTable">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+            <PropertyRef Name="Hotel_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="Int32" Nullable="false" />
+          <Property Name="Room_Number" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Room_Type" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bed" Type="Int32" />
+          <Property Name="Minimum_Guest" Type="Int32" />
+          <Property Name="Maximum_Guest" Type="Int32" />
+          <Property Name="Hotel_Id" Type="Int32" Nullable="false" />
+          <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBSYSPROJModelStoreContainer" CdmEntityContainer="DBSYSPROJEntities">
+          <EntitySetMapping Name="Hotel">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="hotelAddress" ColumnName="hotelAddress" />
+                <ScalarProperty Name="hotelName" ColumnName="hotelName" />
+                <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="roleDescription" ColumnName="roleDescription" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+                <ScalarProperty Name="roomMax" ColumnName="roomMax" />
+                <ScalarProperty Name="roomMin" ColumnName="roomMin" />
+                <ScalarProperty Name="roomBed" ColumnName="roomBed" />
+                <ScalarProperty Name="roomAc" ColumnName="roomAc" />
+                <ScalarProperty Name="roomType" ColumnName="roomType" />
+                <ScalarProperty Name="roomNumber" ColumnName="roomNumber" />
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomAc">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.RoomAc">
+              <MappingFragment StoreEntitySet="RoomAc">
+                <ScalarProperty Name="acDescription" ColumnName="acDescription" />
+                <ScalarProperty Name="acRoom" ColumnName="acRoom" />
+                <ScalarProperty Name="acId" ColumnName="acId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomBed">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.RoomBed">
+              <MappingFragment StoreEntitySet="RoomBed">
+                <ScalarProperty Name="bedDescription" ColumnName="bedDescription" />
+                <ScalarProperty Name="bedNum" ColumnName="bedNum" />
+                <ScalarProperty Name="bedId" ColumnName="bedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomMax">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.RoomMax">
+              <MappingFragment StoreEntitySet="RoomMax">
+                <ScalarProperty Name="maxDescription" ColumnName="maxDescription" />
+                <ScalarProperty Name="maxNum" ColumnName="maxNum" />
+                <ScalarProperty Name="maxId" ColumnName="maxId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomMin">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.RoomMin">
+              <MappingFragment StoreEntitySet="RoomMin">
+                <ScalarProperty Name="midDescription" ColumnName="midDescription" />
+                <ScalarProperty Name="minNum" ColumnName="minNum" />
+                <ScalarProperty Name="minId" ColumnName="minId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomType">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.RoomType">
+              <MappingFragment StoreEntitySet="RoomType">
+                <ScalarProperty Name="typeDescription" ColumnName="typeDescription" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+                <ScalarProperty Name="typeId" ColumnName="typeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccount">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="userPass" ColumnName="userPass" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userPhone" ColumnName="userPhone" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+                <ScalarProperty Name="userMiddleInitial" ColumnName="userMiddleInitial" />
+                <ScalarProperty Name="userFirstName" ColumnName="userFirstName" />
+                <ScalarProperty Name="userLastName" ColumnName="userLastName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_RoomTable">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_RoomTable">
+              <MappingFragment StoreEntitySet="vw_RoomTable">
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+                <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+                <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

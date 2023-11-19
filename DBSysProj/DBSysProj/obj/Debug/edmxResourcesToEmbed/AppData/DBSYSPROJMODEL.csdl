@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBSYSPROJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBSYSPROJEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
+    <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
+    <EntitySet Name="Room" EntityType="DBSYSPROJModel.Room" />
+    <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
+    <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
+    <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
+    <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
+    <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
+    <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+    <AssociationSet Name="FK_Room_Hotel" Association="DBSYSPROJModel.FK_Room_Hotel">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+    <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
+  </EntityContainer>
+  <EntityType Name="Hotel">
+    <Key>
+      <PropertyRef Name="hotelId" />
+    </Key>
+    <Property Name="hotelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hotelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="hotelAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Room" Relationship="DBSYSPROJModel.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="roleId" />
+    </Key>
+    <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roleName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="roleDescription" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="roomId" />
+    </Key>
+    <Property Name="roomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roomNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="roomType" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="roomAc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="roomBed" Type="Int32" />
+    <Property Name="roomMin" Type="Int32" />
+    <Property Name="roomMax" Type="Int32" />
+    <Property Name="hotelId" Type="Int32" />
+    <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+  </EntityType>
+  <EntityType Name="RoomAc">
+    <Key>
+      <PropertyRef Name="acId" />
+    </Key>
+    <Property Name="acId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="acRoom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="acDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RoomBed">
+    <Key>
+      <PropertyRef Name="bedId" />
+    </Key>
+    <Property Name="bedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bedNum" Type="Int32" />
+    <Property Name="bedDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RoomMax">
+    <Key>
+      <PropertyRef Name="maxId" />
+    </Key>
+    <Property Name="maxId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="maxNum" Type="Int32" />
+    <Property Name="maxDescription" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RoomMin">
+    <Key>
+      <PropertyRef Name="minId" />
+    </Key>
+    <Property Name="minId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="minNum" Type="Int32" />
+    <Property Name="midDescription" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RoomType">
+    <Key>
+      <PropertyRef Name="typeId" />
+    </Key>
+    <Property Name="typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="typeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userLastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userFirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userMiddleInitial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="userEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="userPhone" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="userName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Room_Hotel">
+    <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
+    <End Type="DBSYSPROJModel.Room" Role="Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hotel">
+        <PropertyRef Name="hotelId" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="hotelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vw_RoomTable">
+    <Key>
+      <PropertyRef Name="Room_Id" />
+      <PropertyRef Name="Hotel_Id" />
+    </Key>
+    <Property Name="Room_Id" Type="Int32" Nullable="false" />
+    <Property Name="Room_Number" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Room_Type" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bed" Type="Int32" />
+    <Property Name="Minimum_Guest" Type="Int32" />
+    <Property Name="Maximum_Guest" Type="Int32" />
+    <Property Name="Hotel_Id" Type="Int32" Nullable="false" />
+    <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
