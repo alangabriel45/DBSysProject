@@ -42,5 +42,11 @@ namespace DBSysProj.Forms
             ucRooms uc = new ucRooms();
             addUserControl(uc);
         }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+            ucUsers uc = new ucUsers();
+            addUserControl(uc);
+        }
     }
 }

@@ -74,9 +74,6 @@
     <Compile Include="AppData\Role.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="AppData\Room.cs">
-      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
-    </Compile>
     <Compile Include="AppData\RoomAc.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
@@ -89,10 +86,16 @@
     <Compile Include="AppData\RoomMin.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\Rooms.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\RoomType.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\UserAccount.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\vw_AllUsers.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\vw_RoomTable.cs">
@@ -169,6 +172,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\ucRooms.resx">
       <DependentUpon>ucRooms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucUsers.resx">
+      <DependentUpon>ucUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="AppData\DBSYSPROJMODEL.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

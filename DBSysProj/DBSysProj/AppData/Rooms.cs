@@ -12,17 +12,17 @@ namespace DBSysProj.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class Hotel
+    public partial class Rooms
     {
-        public Hotel()
-        {
-            this.Rooms = new HashSet<Rooms>();
-        }
+        public int roomId { get; set; }
+        public string roomNumber { get; set; }
+        public string roomType { get; set; }
+        public string roomAc { get; set; }
+        public Nullable<int> roomBed { get; set; }
+        public Nullable<int> roomMin { get; set; }
+        public Nullable<int> roomMax { get; set; }
+        public Nullable<int> hotelId { get; set; }
     
-        public int hotelId { get; set; }
-        public string hotelName { get; set; }
-        public string hotelAddress { get; set; }
-    
-        public virtual ICollection<Rooms> Rooms { get; set; }
+        public virtual Hotel Hotel { get; set; }
     }
 }

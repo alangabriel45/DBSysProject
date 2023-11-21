@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DBSYSPROJModelStoreContainer" CdmEntityContainer="DBSYSPROJEntities">
+    <FunctionImportMapping FunctionImportName="sp_InsertRoom1" FunctionName="DBSYSPROJModel.Store.sp_InsertRoom" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateRoom" FunctionName="DBSYSPROJModel.Store.sp_UpdateRoom" />
     <EntitySetMapping Name="Hotel">
       <EntityTypeMapping TypeName="DBSYSPROJModel.Hotel">
         <MappingFragment StoreEntitySet="Hotel">
@@ -16,20 +18,6 @@
           <ScalarProperty Name="roleDescription" ColumnName="roleDescription" />
           <ScalarProperty Name="roleName" ColumnName="roleName" />
           <ScalarProperty Name="roleId" ColumnName="roleId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Room">
-      <EntityTypeMapping TypeName="DBSYSPROJModel.Room">
-        <MappingFragment StoreEntitySet="Room">
-          <ScalarProperty Name="hotelId" ColumnName="hotelId" />
-          <ScalarProperty Name="roomMax" ColumnName="roomMax" />
-          <ScalarProperty Name="roomMin" ColumnName="roomMin" />
-          <ScalarProperty Name="roomBed" ColumnName="roomBed" />
-          <ScalarProperty Name="roomAc" ColumnName="roomAc" />
-          <ScalarProperty Name="roomType" ColumnName="roomType" />
-          <ScalarProperty Name="roomNumber" ColumnName="roomNumber" />
-          <ScalarProperty Name="roomId" ColumnName="roomId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,6 +57,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.Rooms">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+          <ScalarProperty Name="roomMax" ColumnName="roomMax" />
+          <ScalarProperty Name="roomMin" ColumnName="roomMin" />
+          <ScalarProperty Name="roomBed" ColumnName="roomBed" />
+          <ScalarProperty Name="roomAc" ColumnName="roomAc" />
+          <ScalarProperty Name="roomType" ColumnName="roomType" />
+          <ScalarProperty Name="roomNumber" ColumnName="roomNumber" />
+          <ScalarProperty Name="roomId" ColumnName="roomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="RoomType">
       <EntityTypeMapping TypeName="DBSYSPROJModel.RoomType">
         <MappingFragment StoreEntitySet="RoomType">
@@ -97,7 +99,7 @@
       <EntityTypeMapping TypeName="DBSYSPROJModel.vw_RoomTable">
         <MappingFragment StoreEntitySet="vw_RoomTable">
           <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
-          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
           <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
           <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
           <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
@@ -106,6 +108,22 @@
           <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
           <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
           <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_DeleteRoom1" FunctionName="DBSYSPROJModel.Store.sp_DeleteRoom" />
+    <EntitySetMapping Name="vw_AllUsers">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
+        <MappingFragment StoreEntitySet="vw_AllUsers">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Middle_Initial" ColumnName="Middle Initial" />
+          <ScalarProperty Name="First_Name" ColumnName="First Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+          <ScalarProperty Name="User_Id" ColumnName="User Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

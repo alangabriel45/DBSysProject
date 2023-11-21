@@ -97,6 +97,7 @@
             this.btnUsers.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnUsers.TabIndex = 11;
             this.btnUsers.TabStop = false;
+            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
             // btnCheckout
             // 

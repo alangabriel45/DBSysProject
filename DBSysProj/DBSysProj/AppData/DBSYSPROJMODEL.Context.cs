@@ -12,6 +12,9 @@ namespace DBSysProj.AppData
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class DBSYSPROJEntities : DbContext
     {
@@ -27,13 +30,181 @@ namespace DBSysProj.AppData
     
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<Room> Room { get; set; }
         public DbSet<RoomAc> RoomAc { get; set; }
         public DbSet<RoomBed> RoomBed { get; set; }
         public DbSet<RoomMax> RoomMax { get; set; }
         public DbSet<RoomMin> RoomMin { get; set; }
+        public DbSet<Rooms> Rooms { get; set; }
         public DbSet<RoomType> RoomType { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<vw_RoomTable> vw_RoomTable { get; set; }
+        public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
+    
+        public virtual int sp_InsertRoom(string roomNum, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
+        {
+            var roomNumParameter = roomNum != null ?
+                new ObjectParameter("RoomNum", roomNum) :
+                new ObjectParameter("RoomNum", typeof(string));
+    
+            var roomTypeParameter = roomType != null ?
+                new ObjectParameter("RoomType", roomType) :
+                new ObjectParameter("RoomType", typeof(string));
+    
+            var roomAcParameter = roomAc != null ?
+                new ObjectParameter("RoomAc", roomAc) :
+                new ObjectParameter("RoomAc", typeof(string));
+    
+            var roomBedParameter = roomBed.HasValue ?
+                new ObjectParameter("RoomBed", roomBed) :
+                new ObjectParameter("RoomBed", typeof(int));
+    
+            var roomMinParameter = roomMin.HasValue ?
+                new ObjectParameter("RoomMin", roomMin) :
+                new ObjectParameter("RoomMin", typeof(int));
+    
+            var roomMaxParameter = roomMax.HasValue ?
+                new ObjectParameter("RoomMax", roomMax) :
+                new ObjectParameter("RoomMax", typeof(int));
+    
+            var hotelIdParameter = hotelId.HasValue ?
+                new ObjectParameter("HotelId", hotelId) :
+                new ObjectParameter("HotelId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertRoom", roomNumParameter, roomTypeParameter, roomAcParameter, roomBedParameter, roomMinParameter, roomMaxParameter, hotelIdParameter);
+        }
+    
+        public virtual int sp_AddRoom(string rNum, string rType, string rAc, Nullable<int> rBed, Nullable<int> rMin, Nullable<int> rMax, Nullable<int> hId)
+        {
+            var rNumParameter = rNum != null ?
+                new ObjectParameter("rNum", rNum) :
+                new ObjectParameter("rNum", typeof(string));
+    
+            var rTypeParameter = rType != null ?
+                new ObjectParameter("rType", rType) :
+                new ObjectParameter("rType", typeof(string));
+    
+            var rAcParameter = rAc != null ?
+                new ObjectParameter("rAc", rAc) :
+                new ObjectParameter("rAc", typeof(string));
+    
+            var rBedParameter = rBed.HasValue ?
+                new ObjectParameter("rBed", rBed) :
+                new ObjectParameter("rBed", typeof(int));
+    
+            var rMinParameter = rMin.HasValue ?
+                new ObjectParameter("rMin", rMin) :
+                new ObjectParameter("rMin", typeof(int));
+    
+            var rMaxParameter = rMax.HasValue ?
+                new ObjectParameter("rMax", rMax) :
+                new ObjectParameter("rMax", typeof(int));
+    
+            var hIdParameter = hId.HasValue ?
+                new ObjectParameter("hId", hId) :
+                new ObjectParameter("hId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddRoom", rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, hIdParameter);
+        }
+    
+        public virtual int sp_InsertRoom1(string roomNumber, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
+        {
+            var roomNumberParameter = roomNumber != null ?
+                new ObjectParameter("roomNumber", roomNumber) :
+                new ObjectParameter("roomNumber", typeof(string));
+    
+            var roomTypeParameter = roomType != null ?
+                new ObjectParameter("roomType", roomType) :
+                new ObjectParameter("roomType", typeof(string));
+    
+            var roomAcParameter = roomAc != null ?
+                new ObjectParameter("roomAc", roomAc) :
+                new ObjectParameter("roomAc", typeof(string));
+    
+            var roomBedParameter = roomBed.HasValue ?
+                new ObjectParameter("roomBed", roomBed) :
+                new ObjectParameter("roomBed", typeof(int));
+    
+            var roomMinParameter = roomMin.HasValue ?
+                new ObjectParameter("roomMin", roomMin) :
+                new ObjectParameter("roomMin", typeof(int));
+    
+            var roomMaxParameter = roomMax.HasValue ?
+                new ObjectParameter("roomMax", roomMax) :
+                new ObjectParameter("roomMax", typeof(int));
+    
+            var hotelIdParameter = hotelId.HasValue ?
+                new ObjectParameter("hotelId", hotelId) :
+                new ObjectParameter("hotelId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertRoom1", roomNumberParameter, roomTypeParameter, roomAcParameter, roomBedParameter, roomMinParameter, roomMaxParameter, hotelIdParameter);
+        }
+    
+        public virtual int sp_UpdateRoom(Nullable<int> rId, string rNum, string rType, string rAc, Nullable<int> rBed, Nullable<int> rMin, Nullable<int> rMax, Nullable<int> hId)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var rNumParameter = rNum != null ?
+                new ObjectParameter("rNum", rNum) :
+                new ObjectParameter("rNum", typeof(string));
+    
+            var rTypeParameter = rType != null ?
+                new ObjectParameter("rType", rType) :
+                new ObjectParameter("rType", typeof(string));
+    
+            var rAcParameter = rAc != null ?
+                new ObjectParameter("rAc", rAc) :
+                new ObjectParameter("rAc", typeof(string));
+    
+            var rBedParameter = rBed.HasValue ?
+                new ObjectParameter("rBed", rBed) :
+                new ObjectParameter("rBed", typeof(int));
+    
+            var rMinParameter = rMin.HasValue ?
+                new ObjectParameter("rMin", rMin) :
+                new ObjectParameter("rMin", typeof(int));
+    
+            var rMaxParameter = rMax.HasValue ?
+                new ObjectParameter("rMax", rMax) :
+                new ObjectParameter("rMax", typeof(int));
+    
+            var hIdParameter = hId.HasValue ?
+                new ObjectParameter("hId", hId) :
+                new ObjectParameter("hId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateRoom", rIdParameter, rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, hIdParameter);
+        }
+    
+        public virtual int sp_DeleteRoom(Nullable<int> rId)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom", rIdParameter);
+        }
+    
+        public virtual int sp_DeleteRooms(Nullable<int> rId, Nullable<int> rRow)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var rRowParameter = rRow.HasValue ?
+                new ObjectParameter("rRow", rRow) :
+                new ObjectParameter("rRow", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRooms", rIdParameter, rRowParameter);
+        }
+    
+        public virtual int sp_DeleteRoom1(Nullable<int> rId)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom1", rIdParameter);
+        }
     }
 }

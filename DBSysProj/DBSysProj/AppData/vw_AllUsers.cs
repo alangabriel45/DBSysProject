@@ -12,17 +12,16 @@ namespace DBSysProj.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class Room
+    public partial class vw_AllUsers
     {
-        public int roomId { get; set; }
-        public string roomNumber { get; set; }
-        public string roomType { get; set; }
-        public string roomAc { get; set; }
-        public Nullable<int> roomBed { get; set; }
-        public Nullable<int> roomMin { get; set; }
-        public Nullable<int> roomMax { get; set; }
-        public Nullable<int> hotelId { get; set; }
-    
-        public virtual Hotel Hotel { get; set; }
+        public int User_Id { get; set; }
+        public string Last_Name { get; set; }
+        public string First_Name { get; set; }
+        public string Middle_Initial { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Phone_Number { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

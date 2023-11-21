@@ -16,19 +16,6 @@
     <Property Name="roleName" Type="nvarchar" MaxLength="128" />
     <Property Name="roleDescription" Type="nvarchar" MaxLength="128" />
   </EntityType>
-  <EntityType Name="Room">
-    <Key>
-      <PropertyRef Name="roomId" />
-    </Key>
-    <Property Name="roomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="roomNumber" Type="nvarchar" MaxLength="128" />
-    <Property Name="roomType" Type="nvarchar" MaxLength="128" />
-    <Property Name="roomAc" Type="nvarchar" MaxLength="50" />
-    <Property Name="roomBed" Type="int" />
-    <Property Name="roomMin" Type="int" />
-    <Property Name="roomMax" Type="int" />
-    <Property Name="hotelId" Type="int" />
-  </EntityType>
   <EntityType Name="RoomAc">
     <Key>
       <PropertyRef Name="acId" />
@@ -61,6 +48,19 @@
     <Property Name="minNum" Type="int" />
     <Property Name="midDescription" Type="int" />
   </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="roomId" />
+    </Key>
+    <Property Name="roomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roomNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="roomType" Type="nvarchar" MaxLength="50" />
+    <Property Name="roomAc" Type="nvarchar" MaxLength="50" />
+    <Property Name="roomBed" Type="int" />
+    <Property Name="roomMin" Type="int" />
+    <Property Name="roomMax" Type="int" />
+    <Property Name="hotelId" Type="int" />
+  </EntityType>
   <EntityType Name="RoomType">
     <Key>
       <PropertyRef Name="typeId" />
@@ -84,45 +84,59 @@
     <Property Name="userPass" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_AllUsers">
+    <Key>
+      <PropertyRef Name="User Id" />
+      <PropertyRef Name="Last Name" />
+      <PropertyRef Name="First Name" />
+      <PropertyRef Name="Middle Initial" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="Email" />
+      <PropertyRef Name="Phone Number" />
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="User Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Last Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="First Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Middle Initial" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Phone Number" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vw_RoomTable">
     <Key>
       <PropertyRef Name="Room Id" />
-      <PropertyRef Name="Hotel Id" />
     </Key>
     <Property Name="Room Id" Type="int" Nullable="false" />
-    <Property Name="Room Number" Type="nvarchar" MaxLength="128" />
-    <Property Name="Room Type" Type="nvarchar" MaxLength="128" />
+    <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
     <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
     <Property Name="Bed" Type="int" />
     <Property Name="Minimum Guest" Type="int" />
     <Property Name="Maximum Guest" Type="int" />
-    <Property Name="Hotel Id" Type="int" Nullable="false" />
-    <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
+    <Property Name="Hotel Id" Type="int" />
+    <Property Name="Hotel Name" Type="nvarchar" MaxLength="128" />
     <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
   </EntityType>
-  <Association Name="FK_Room_Hotel">
+  <Association Name="FK_Rooms_Hotel">
     <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
-    <End Role="Room" Type="Self.Room" Multiplicity="*" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Hotel">
         <PropertyRef Name="hotelId" />
       </Principal>
-      <Dependent Role="Room">
+      <Dependent Role="Rooms">
         <PropertyRef Name="hotelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="sp_AddRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="rNum" Type="nvarchar" Mode="In" />
-    <Parameter Name="rType" Type="nvarchar" Mode="In" />
-    <Parameter Name="rAc" Type="nvarchar" Mode="In" />
-    <Parameter Name="rBed" Type="int" Mode="In" />
-    <Parameter Name="rMin" Type="int" Mode="In" />
-    <Parameter Name="rMax" Type="int" Mode="In" />
-    <Parameter Name="hId" Type="int" Mode="In" />
-  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -134,6 +148,9 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <Parameter Name="owner_id" Type="int" Mode="In" />
     <Parameter Name="version" Type="int" Mode="In" />
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rId" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -147,22 +164,54 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_InsertRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="roomNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="roomType" Type="nvarchar" Mode="In" />
+    <Parameter Name="roomAc" Type="nvarchar" Mode="In" />
+    <Parameter Name="roomBed" Type="int" Mode="In" />
+    <Parameter Name="roomMin" Type="int" Mode="In" />
+    <Parameter Name="roomMax" Type="int" Mode="In" />
+    <Parameter Name="hotelId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="sp_UpdateRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rId" Type="int" Mode="In" />
+    <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+    <Parameter Name="rType" Type="nvarchar" Mode="In" />
+    <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+    <Parameter Name="rBed" Type="int" Mode="In" />
+    <Parameter Name="rMin" Type="int" Mode="In" />
+    <Parameter Name="rMax" Type="int" Mode="In" />
+    <Parameter Name="hId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="DBSYSPROJModelStoreContainer">
     <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomAc" EntityType="Self.RoomAc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomBed" EntityType="Self.RoomBed" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomMax" EntityType="Self.RoomMax" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomMin" EntityType="Self.RoomMin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[vw_AllUsers].[User Id] AS [User Id], 
+[vw_AllUsers].[Last Name] AS [Last Name], 
+[vw_AllUsers].[First Name] AS [First Name], 
+[vw_AllUsers].[Middle Initial] AS [Middle Initial], 
+[vw_AllUsers].[Address] AS [Address], 
+[vw_AllUsers].[Email] AS [Email], 
+[vw_AllUsers].[Phone Number] AS [Phone Number], 
+[vw_AllUsers].[Username] AS [Username], 
+[vw_AllUsers].[Password] AS [Password]
+FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
 [vw_RoomTable].[Room Id] AS [Room Id], 
@@ -173,13 +222,13 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
 [vw_RoomTable].[Minimum Guest] AS [Minimum Guest], 
 [vw_RoomTable].[Maximum Guest] AS [Maximum Guest], 
 [vw_RoomTable].[Hotel Id] AS [Hotel Id], 
-[vw_RoomTable].[Hotel] AS [Hotel], 
+[vw_RoomTable].[Hotel Name] AS [Hotel Name], 
 [vw_RoomTable].[Hotel Address] AS [Hotel Address]
 FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
+    <AssociationSet Name="FK_Rooms_Hotel" Association="Self.FK_Rooms_Hotel">
       <End Role="Hotel" EntitySet="Hotel" />
-      <End Role="Room" EntitySet="Room" />
+      <End Role="Rooms" EntitySet="Rooms" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
