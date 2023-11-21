@@ -127,5 +127,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
   </EntityContainerMapping>
 </Mapping>

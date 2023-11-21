@@ -29,25 +29,27 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtMiddleInitial = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtPhoneNum = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txtPass = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.PictureBox();
             this.btnUpdate = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.PictureBox();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.txtConfirmPass = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
@@ -63,19 +65,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Last Name";
             // 
-            // textBox1
+            // txtLastName
             // 
-            this.textBox1.Location = new System.Drawing.Point(440, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(168, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtLastName.Location = new System.Drawing.Point(440, 32);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(257, 20);
+            this.txtLastName.TabIndex = 1;
             // 
-            // textBox2
+            // txtFirstName
             // 
-            this.textBox2.Location = new System.Drawing.Point(440, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(168, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtFirstName.Location = new System.Drawing.Point(440, 71);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(257, 20);
+            this.txtFirstName.TabIndex = 3;
             // 
             // label2
             // 
@@ -86,12 +88,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "First Name";
             // 
-            // textBox3
+            // txtMiddleInitial
             // 
-            this.textBox3.Location = new System.Drawing.Point(440, 110);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(168, 20);
-            this.textBox3.TabIndex = 5;
+            this.txtMiddleInitial.Location = new System.Drawing.Point(440, 110);
+            this.txtMiddleInitial.Name = "txtMiddleInitial";
+            this.txtMiddleInitial.Size = new System.Drawing.Size(257, 20);
+            this.txtMiddleInitial.TabIndex = 5;
             // 
             // label3
             // 
@@ -102,12 +104,12 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Middle Initial";
             // 
-            // textBox4
+            // txtAddress
             // 
-            this.textBox4.Location = new System.Drawing.Point(440, 149);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(168, 20);
-            this.textBox4.TabIndex = 7;
+            this.txtAddress.Location = new System.Drawing.Point(440, 149);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(257, 20);
+            this.txtAddress.TabIndex = 7;
             // 
             // label4
             // 
@@ -118,12 +120,12 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Address";
             // 
-            // textBox5
+            // txtEmail
             // 
-            this.textBox5.Location = new System.Drawing.Point(440, 188);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(168, 20);
-            this.textBox5.TabIndex = 9;
+            this.txtEmail.Location = new System.Drawing.Point(440, 188);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(257, 20);
+            this.txtEmail.TabIndex = 9;
             // 
             // label5
             // 
@@ -134,12 +136,12 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Email";
             // 
-            // textBox6
+            // txtPhoneNum
             // 
-            this.textBox6.Location = new System.Drawing.Point(440, 227);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(168, 20);
-            this.textBox6.TabIndex = 11;
+            this.txtPhoneNum.Location = new System.Drawing.Point(440, 227);
+            this.txtPhoneNum.Name = "txtPhoneNum";
+            this.txtPhoneNum.Size = new System.Drawing.Size(257, 20);
+            this.txtPhoneNum.TabIndex = 11;
             // 
             // label6
             // 
@@ -150,12 +152,12 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Phone Number";
             // 
-            // textBox7
+            // txtUserName
             // 
-            this.textBox7.Location = new System.Drawing.Point(440, 266);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(168, 20);
-            this.textBox7.TabIndex = 13;
+            this.txtUserName.Location = new System.Drawing.Point(440, 266);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(257, 20);
+            this.txtUserName.TabIndex = 13;
             // 
             // label7
             // 
@@ -166,12 +168,12 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Username";
             // 
-            // textBox8
+            // txtPass
             // 
-            this.textBox8.Location = new System.Drawing.Point(440, 305);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(168, 20);
-            this.textBox8.TabIndex = 15;
+            this.txtPass.Location = new System.Drawing.Point(440, 305);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.Size = new System.Drawing.Size(257, 20);
+            this.txtPass.TabIndex = 15;
             // 
             // label8
             // 
@@ -186,34 +188,37 @@
             // 
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_19_141620;
-            this.btnDelete.Location = new System.Drawing.Point(618, 331);
+            this.btnDelete.Location = new System.Drawing.Point(614, 370);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(83, 29);
             this.btnDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnDelete.TabIndex = 20;
             this.btnDelete.TabStop = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
             this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUpdate.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_19_141607;
-            this.btnUpdate.Location = new System.Drawing.Point(529, 331);
+            this.btnUpdate.Location = new System.Drawing.Point(525, 370);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(83, 29);
             this.btnUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnUpdate.TabIndex = 19;
             this.btnUpdate.TabStop = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_19_141548;
-            this.btnAdd.Location = new System.Drawing.Point(440, 331);
+            this.btnAdd.Location = new System.Drawing.Point(436, 370);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(83, 29);
             this.btnAdd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnAdd.TabIndex = 18;
             this.btnAdd.TabStop = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dgvUsers
             // 
@@ -222,31 +227,50 @@
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.Size = new System.Drawing.Size(419, 344);
             this.dgvUsers.TabIndex = 21;
+            this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
+            // 
+            // txtConfirmPass
+            // 
+            this.txtConfirmPass.Location = new System.Drawing.Point(440, 344);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.Size = new System.Drawing.Size(257, 20);
+            this.txtConfirmPass.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(437, 328);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(91, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Confirm Password";
             // 
             // ucUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.txtConfirmPass);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.dgvUsers);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.txtPass);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtPhoneNum);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtMiddleInitial);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.label1);
             this.Name = "ucUsers";
             this.Size = new System.Drawing.Size(704, 402);
@@ -263,24 +287,27 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtMiddleInitial;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtPhoneNum;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox btnDelete;
         private System.Windows.Forms.PictureBox btnUpdate;
         private System.Windows.Forms.PictureBox btnAdd;
         private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.TextBox txtConfirmPass;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

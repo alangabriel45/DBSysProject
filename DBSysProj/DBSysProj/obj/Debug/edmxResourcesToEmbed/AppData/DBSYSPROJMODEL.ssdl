@@ -137,6 +137,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_AddUserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="lName" Type="nvarchar" Mode="In" />
+    <Parameter Name="fNam" Type="nvarchar" Mode="In" />
+    <Parameter Name="mInitial" Type="nvarchar" Mode="In" />
+    <Parameter Name="uAddress" Type="nvarchar" Mode="In" />
+    <Parameter Name="uEmail" Type="nvarchar" Mode="In" />
+    <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
+    <Parameter Name="uName" Type="nvarchar" Mode="In" />
+    <Parameter Name="uPass" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -151,6 +161,9 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
   </Function>
   <Function Name="sp_DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="rId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteUserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uId" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -187,6 +200,17 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <Parameter Name="rMin" Type="int" Mode="In" />
     <Parameter Name="rMax" Type="int" Mode="In" />
     <Parameter Name="hId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uId" Type="int" Mode="In" />
+    <Parameter Name="lName" Type="nvarchar" Mode="In" />
+    <Parameter Name="fName" Type="nvarchar" Mode="In" />
+    <Parameter Name="mInitial" Type="nvarchar" Mode="In" />
+    <Parameter Name="uAddress" Type="nvarchar" Mode="In" />
+    <Parameter Name="uEmail" Type="nvarchar" Mode="In" />
+    <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
+    <Parameter Name="uName" Type="nvarchar" Mode="In" />
+    <Parameter Name="uPass" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="DBSYSPROJModelStoreContainer">

@@ -98,5 +98,58 @@ namespace DBSysProj.Repositories
                 return db.Rooms.Where(s => s.roomNumber == roomNum).FirstOrDefault();
             }
         }
+
+        public ErrorCode InsertUserUsingStoredProf(String lName, String fName, String mInitial, String address, String email, String pNum, String uName, String pass, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                try
+                {
+                    db.sp_AddUserAccount(lName, fName, mInitial, address, email, pNum, uName, pass);
+                    szResponse = "Added";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
+            }
+        }
+        public ErrorCode UpdateUserUsingStoredProf(int? uId,String lName, String fName, String mInitial, String address, String email, String pNum, String uName, String pass, ref String szResponse)
+        { 
+            using (db = new DBSYSPROJEntities()) 
+            {
+                try
+                {
+                    db.sp_UpdateUser(uId, lName, fName, mInitial, address, email, pNum, uName, pass);
+                    szResponse = "Updated";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
+            }
+        }
+        public ErrorCode DeleteUserUsingStoredProf(int? uId, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                try
+                {
+                    db.sp_DeleteUserAccount(uId);
+                    szResponse = "Deleted";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }     
+            }
+        }
     }
 }

@@ -63,6 +63,40 @@
       <Parameter Name="rId" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+    <FunctionImport Name="sp_AddUserAccount">
+      <Parameter Name="lName" Mode="In" Type="String" />
+      <Parameter Name="fNam" Mode="In" Type="String" />
+      <Parameter Name="mInitial" Mode="In" Type="String" />
+      <Parameter Name="uAddress" Mode="In" Type="String" />
+      <Parameter Name="uEmail" Mode="In" Type="String" />
+      <Parameter Name="uPhone" Mode="In" Type="String" />
+      <Parameter Name="uName" Mode="In" Type="String" />
+      <Parameter Name="uPass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteUserAccount">
+      <Parameter Name="uId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateUserAccount">
+      <Parameter Name="lName" Mode="In" Type="String" />
+      <Parameter Name="fNam" Mode="In" Type="String" />
+      <Parameter Name="mInitial" Mode="In" Type="String" />
+      <Parameter Name="uAddress" Mode="In" Type="String" />
+      <Parameter Name="uEmail" Mode="In" Type="String" />
+      <Parameter Name="uPhone" Mode="In" Type="String" />
+      <Parameter Name="uName" Mode="In" Type="String" />
+      <Parameter Name="uPass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateUser">
+      <Parameter Name="uId" Mode="In" Type="Int32" />
+      <Parameter Name="lName" Mode="In" Type="String" />
+      <Parameter Name="fName" Mode="In" Type="String" />
+      <Parameter Name="mInitial" Mode="In" Type="String" />
+      <Parameter Name="uAddress" Mode="In" Type="String" />
+      <Parameter Name="uEmail" Mode="In" Type="String" />
+      <Parameter Name="uPhone" Mode="In" Type="String" />
+      <Parameter Name="uName" Mode="In" Type="String" />
+      <Parameter Name="uPass" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Hotel">
     <Key>

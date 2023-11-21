@@ -142,6 +142,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_AddUserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="lName" Type="nvarchar" Mode="In" />
+          <Parameter Name="fNam" Type="nvarchar" Mode="In" />
+          <Parameter Name="mInitial" Type="nvarchar" Mode="In" />
+          <Parameter Name="uAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="uEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
+          <Parameter Name="uName" Type="nvarchar" Mode="In" />
+          <Parameter Name="uPass" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -156,6 +166,9 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
         </Function>
         <Function Name="sp_DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteUserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -192,6 +205,17 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <Parameter Name="rMin" Type="int" Mode="In" />
           <Parameter Name="rMax" Type="int" Mode="In" />
           <Parameter Name="hId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uId" Type="int" Mode="In" />
+          <Parameter Name="lName" Type="nvarchar" Mode="In" />
+          <Parameter Name="fName" Type="nvarchar" Mode="In" />
+          <Parameter Name="mInitial" Type="nvarchar" Mode="In" />
+          <Parameter Name="uAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="uEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
+          <Parameter Name="uName" Type="nvarchar" Mode="In" />
+          <Parameter Name="uPass" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBSYSPROJModelStoreContainer">
@@ -303,6 +327,40 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Parameter Name="rId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+          <FunctionImport Name="sp_AddUserAccount">
+            <Parameter Name="lName" Mode="In" Type="String" />
+            <Parameter Name="fNam" Mode="In" Type="String" />
+            <Parameter Name="mInitial" Mode="In" Type="String" />
+            <Parameter Name="uAddress" Mode="In" Type="String" />
+            <Parameter Name="uEmail" Mode="In" Type="String" />
+            <Parameter Name="uPhone" Mode="In" Type="String" />
+            <Parameter Name="uName" Mode="In" Type="String" />
+            <Parameter Name="uPass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteUserAccount">
+          <Parameter Name="uId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateUserAccount">
+            <Parameter Name="lName" Mode="In" Type="String" />
+            <Parameter Name="fNam" Mode="In" Type="String" />
+            <Parameter Name="mInitial" Mode="In" Type="String" />
+            <Parameter Name="uAddress" Mode="In" Type="String" />
+            <Parameter Name="uEmail" Mode="In" Type="String" />
+            <Parameter Name="uPhone" Mode="In" Type="String" />
+            <Parameter Name="uName" Mode="In" Type="String" />
+            <Parameter Name="uPass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateUser">
+            <Parameter Name="uId" Mode="In" Type="Int32" />
+            <Parameter Name="lName" Mode="In" Type="String" />
+            <Parameter Name="fName" Mode="In" Type="String" />
+            <Parameter Name="mInitial" Mode="In" Type="String" />
+            <Parameter Name="uAddress" Mode="In" Type="String" />
+            <Parameter Name="uEmail" Mode="In" Type="String" />
+            <Parameter Name="uPhone" Mode="In" Type="String" />
+            <Parameter Name="uName" Mode="In" Type="String" />
+            <Parameter Name="uPass" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Hotel">
           <Key>
@@ -570,6 +628,9 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
