@@ -1,5 +1,7 @@
-﻿using DBSysProj.Model;
+﻿using DBSysProj.AppData;
+using DBSysProj.Model;
 using DBSysProj.Repositories;
+using DBSysProj.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +9,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -65,8 +68,25 @@ namespace DBSysProj.Forms
                 if (userLogged.userPass.Equals(txtPassword.Text))
                 {
                     UserLogged.GetInstance().UserAccount = userLogged;
-                    new FrmAdmin().Show();
-                    this.Close();
+
+                    switch ((Roles)userLogged.roleId)
+                    {
+                        case Roles.User:
+                            new FrmUser().Show();
+                            this.Hide();
+                            break;
+                        case Roles.Staff:
+                            new FrmStaff().Show();
+                            this.Hide();
+                            break;
+                        case Roles.Admin:
+                            new FrmAdmin().Show();
+                            this.Hide();
+                            break;
+                        default:
+                            MessageBox.Show("User has no role!");
+                            break;
+                    }
                 }
                 else
                 {

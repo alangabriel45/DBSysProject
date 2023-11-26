@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBSysProj.AppData;
+using DBSysProj.Model;
 using DBSysProj.Repositories;
 using DBSysProj.Utils;
 
@@ -26,89 +27,103 @@ namespace DBSysProj.UserControls
         {
             userRepo = new UserRepository();
             loadUsers();
+            loadRole();
         }
         public void loadUsers()
         {
-            dgvUsers.DataSource = userRepo.AllUserTable();
+            dgvUsers.DataSource = userRepo.AllUsersTable();
+        }
+        public void loadRole()
+        {
+            using (var db = new DBSYSPROJEntities())
+            {
+                var rl = db.Role.ToList();
+
+                cbRole.ValueMember = "roleId";
+                cbRole.DisplayMember = "roleName";
+                cbRole.DataSource = rl;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            using (var db = new DBSYSPROJEntities())
+            {
+                UserAccount nUser = new UserAccount();
 
-            String strOutputMsg = "";
-            if (String.IsNullOrEmpty(txtLastName.Text))
-            {
-                errorProvider1.SetError(txtLastName, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtFirstName.Text))
-            {
-                errorProvider1.SetError(txtFirstName, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtMiddleInitial.Text))
-            {
-                errorProvider1.SetError(txtMiddleInitial, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtAddress.Text))
-            {
-                errorProvider1.SetError(txtAddress, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtEmail.Text))
-            {
-                errorProvider1.SetError(txtEmail, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtPhoneNum.Text))
-            {
-                errorProvider1.SetError(txtPhoneNum, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtUserName.Text))
-            {
-                errorProvider1.SetError(txtUserName, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtPass.Text))
-            {
-                errorProvider1.SetError(txtPass, "Empty field");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtConfirmPass.Text))
-            {
-                errorProvider1.SetError(txtConfirmPass, "Empty field");
-                return;
-            }
-            if (!txtPass.Text.Equals(txtConfirmPass.Text))
-            {
-                errorProvider1.Clear();
-                errorProvider1.SetError(txtConfirmPass, "Password not match");
-                return;
-            }
+                String strOutputMsg = "";
+                if (String.IsNullOrEmpty(txtLastName.Text))
+                {
+                    errorProvider1.SetError(txtLastName, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtFirstName.Text))
+                {
+                    errorProvider1.SetError(txtFirstName, "Empty field");
+                    return;
+                }              
+                if (String.IsNullOrEmpty(txtAddress.Text))
+                {
+                    errorProvider1.SetError(txtAddress, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtEmail.Text))
+                {
+                    errorProvider1.SetError(txtEmail, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtPhoneNum.Text))
+                {
+                    errorProvider1.SetError(txtPhoneNum, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtUserName.Text))
+                {
+                    errorProvider1.SetError(txtUserName, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtPass.Text))
+                {
+                    errorProvider1.SetError(txtPass, "Empty field");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txtConfirmPass.Text))
+                {
+                    errorProvider1.SetError(txtConfirmPass, "Empty field");
+                    return;
+                }
+                if (!txtPass.Text.Equals(txtConfirmPass.Text))
+                {
+                    errorProvider1.Clear();
+                    errorProvider1.SetError(txtConfirmPass, "Password not match");
+                    return;
+                }
 
-            ErrorCode retValue = userRepo.InsertUserUsingStoredProf(txtLastName.Text, txtFirstName.Text, txtMiddleInitial.Text, txtAddress.Text, txtEmail.Text, txtPhoneNum.Text, txtUserName.Text, txtPass.Text, ref strOutputMsg);
-            if (retValue != ErrorCode.Success)
-            {
-                MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                loadUsers();
+                int createdBy = UserLogged.GetInstance().UserAccount.userId;
+                ErrorCode retValue = userRepo.InsertUserUsingStoredProf(txtLastName.Text, txtFirstName.Text, txtMiddleInitial.Text, txtAddress.Text, txtEmail.Text, txtPhoneNum.Text, txtUserName.Text, txtPass.Text, cbRole.SelectedIndex + 1, Convert.ToString(createdBy), ref strOutputMsg);
+                if (retValue != ErrorCode.Success)
+                {                  
 
-                txtLastName.Clear();
-                txtFirstName.Clear();
-                txtMiddleInitial.Clear();
-                txtAddress.Clear();
-                txtEmail.Clear();
-                txtPhoneNum.Clear();
-                txtUserName.Clear();
-                txtPass.Clear();
-                txtConfirmPass.Clear();
-                MessageBox.Show("Registed!");
+                    MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    loadUsers();
+
+                    txtLastName.Clear();
+                    txtFirstName.Clear();
+                    txtMiddleInitial.Clear();
+                    txtAddress.Clear();
+                    txtEmail.Clear();
+                    txtPhoneNum.Clear();
+                    txtUserName.Clear();
+                    cbRole.SelectedIndex = 0;
+                    txtPass.Clear();
+                    txtConfirmPass.Clear();
+                    MessageBox.Show("Registed!");
+                }
+                else
+                {
+                    MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
-            else
-            {
-                MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }        
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -123,12 +138,7 @@ namespace DBSysProj.UserControls
             {
                 errorProvider1.SetError(txtFirstName, "Empty field");
                 return;
-            }
-            if (String.IsNullOrEmpty(txtMiddleInitial.Text))
-            {
-                errorProvider1.SetError(txtMiddleInitial, "Empty field");
-                return;
-            }
+            }          
             if (String.IsNullOrEmpty(txtAddress.Text))
             {
                 errorProvider1.SetError(txtAddress, "Empty field");
@@ -222,12 +232,7 @@ namespace DBSysProj.UserControls
             {
                 errorProvider1.SetError(txtFirstName, "Empty field");
                 return;
-            }
-            if (String.IsNullOrEmpty(txtMiddleInitial.Text))
-            {
-                errorProvider1.SetError(txtMiddleInitial, "Empty field");
-                return;
-            }
+            }           
             if (String.IsNullOrEmpty(txtAddress.Text))
             {
                 errorProvider1.SetError(txtAddress, "Empty field");

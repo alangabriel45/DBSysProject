@@ -32,14 +32,13 @@ namespace DBSysProj.Repositories
                 return db.vw_RoomTable.ToList();
             }
         }
-        public List<vw_AllUsers> AllUserTable()
-        { 
-            using(db = new DBSYSPROJEntities()) 
-            {
+        public List<vw_AllUsers> AllUsersTable()
+        {
+            using (db = new DBSYSPROJEntities())
+            { 
                 return db.vw_AllUsers.ToList();
             }
         }
-
         public ErrorCode InserRoomUsingStoredProf(String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int hId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
@@ -99,13 +98,13 @@ namespace DBSysProj.Repositories
             }
         }
 
-        public ErrorCode InsertUserUsingStoredProf(String lName, String fName, String mInitial, String address, String email, String pNum, String uName, String pass, ref String szResponse)
+        public ErrorCode InsertUserUsingStoredProf(String lName, String fName, String mInitial, String address, String email, String pNum, String uName, String pass, int rId, String cB, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
             {
                 try
                 {
-                    db.sp_AddUserAccount(lName, fName, mInitial, address, email, pNum, uName, pass);
+                    db.sp_AddUsers(lName, fName, mInitial, address, email, pNum, uName, pass, rId, cB);
                     szResponse = "Added";
                     return ErrorCode.Success;
                 }

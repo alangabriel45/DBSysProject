@@ -87,30 +87,32 @@
           <Property Name="userPhone" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="userName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="userPass" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="roleId" Type="int" />
+          <Property Name="createdBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_AllUsers">
           <Key>
-            <PropertyRef Name="User Id" />
             <PropertyRef Name="Last Name" />
             <PropertyRef Name="First Name" />
             <PropertyRef Name="Middle Initial" />
             <PropertyRef Name="Address" />
             <PropertyRef Name="Email" />
             <PropertyRef Name="Phone Number" />
-            <PropertyRef Name="Username" />
+            <PropertyRef Name="User Name" />
             <PropertyRef Name="Password" />
           </Key>
-          <Property Name="User Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Last Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="First Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Middle Initial" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Phone Number" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="User Name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="128" />
+          <Property Name="Created By" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -151,6 +153,18 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
           <Parameter Name="uName" Type="nvarchar" Mode="In" />
           <Parameter Name="uPass" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_AddUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uLName" Type="nvarchar" Mode="In" />
+          <Parameter Name="uFName" Type="nvarchar" Mode="In" />
+          <Parameter Name="uMI" Type="nvarchar" Mode="In" />
+          <Parameter Name="uA" Type="nvarchar" Mode="In" />
+          <Parameter Name="uE" Type="nvarchar" Mode="In" />
+          <Parameter Name="uPN" Type="nvarchar" Mode="In" />
+          <Parameter Name="uN" Type="nvarchar" Mode="In" />
+          <Parameter Name="uP" Type="nvarchar" Mode="In" />
+          <Parameter Name="rId" Type="int" Mode="In" />
+          <Parameter Name="cB" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -230,15 +244,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[vw_AllUsers].[User Id] AS [User Id], 
 [vw_AllUsers].[Last Name] AS [Last Name], 
 [vw_AllUsers].[First Name] AS [First Name], 
 [vw_AllUsers].[Middle Initial] AS [Middle Initial], 
 [vw_AllUsers].[Address] AS [Address], 
 [vw_AllUsers].[Email] AS [Email], 
 [vw_AllUsers].[Phone Number] AS [Phone Number], 
-[vw_AllUsers].[Username] AS [Username], 
-[vw_AllUsers].[Password] AS [Password]
+[vw_AllUsers].[User Name] AS [User Name], 
+[vw_AllUsers].[Password] AS [Password], 
+[vw_AllUsers].[Role] AS [Role], 
+[vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">
@@ -305,20 +320,6 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <FunctionImport Name="sp_DeleteRoom">
           <Parameter Name="rId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
-          <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
-          <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
-          <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
-          <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
-          <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
-          <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
-          <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
-          <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
-          <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
-          <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
-            <End Role="Hotel" EntitySet="Hotel" />
-            <End Role="Rooms" EntitySet="Rooms" />
-          </AssociationSet>
           <FunctionImport Name="sp_DeleteRooms">
             <Parameter Name="rId" Mode="In" Type="Int32" />
             <Parameter Name="rRow" Mode="In" Type="Int32" />
@@ -326,7 +327,6 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <FunctionImport Name="sp_DeleteRoom1">
           <Parameter Name="rId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
           <FunctionImport Name="sp_AddUserAccount">
             <Parameter Name="lName" Mode="In" Type="String" />
             <Parameter Name="fNam" Mode="In" Type="String" />
@@ -360,6 +360,33 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             <Parameter Name="uPhone" Mode="In" Type="String" />
             <Parameter Name="uName" Mode="In" Type="String" />
             <Parameter Name="uPass" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
+          <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
+          <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
+          <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
+          <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
+          <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
+          <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
+          <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
+          <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+          <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+          <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
+          <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <FunctionImport Name="sp_AddUsers">
+            <Parameter Name="uLName" Mode="In" Type="String" />
+            <Parameter Name="uFName" Mode="In" Type="String" />
+            <Parameter Name="uMI" Mode="In" Type="String" />
+            <Parameter Name="uA" Mode="In" Type="String" />
+            <Parameter Name="uE" Mode="In" Type="String" />
+            <Parameter Name="uPN" Mode="In" Type="String" />
+            <Parameter Name="uN" Mode="In" Type="String" />
+            <Parameter Name="uP" Mode="In" Type="String" />
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="cB" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Hotel">
@@ -446,6 +473,30 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Property Name="userPhone" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="userName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="roleId" Type="Int32" />
+          <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_AllUsers">
+          <Key>
+            <PropertyRef Name="Last_Name" />
+            <PropertyRef Name="First_Name" />
+            <PropertyRef Name="Middle_Initial" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone_Number" />
+            <PropertyRef Name="User_Name" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Middle_Initial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="User_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vw_RoomTable">
           <Key>
@@ -474,28 +525,6 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="vw_AllUsers">
-          <Key>
-            <PropertyRef Name="User_Id" />
-            <PropertyRef Name="Last_Name" />
-            <PropertyRef Name="First_Name" />
-            <PropertyRef Name="Middle_Initial" />
-            <PropertyRef Name="Address" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Phone_Number" />
-            <PropertyRef Name="Username" />
-            <PropertyRef Name="Password" />
-          </Key>
-          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Middle_Initial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -504,6 +533,10 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
         <EntityContainerMapping StorageEntityContainer="DBSYSPROJModelStoreContainer" CdmEntityContainer="DBSYSPROJEntities">
           <FunctionImportMapping FunctionImportName="sp_InsertRoom1" FunctionName="DBSYSPROJModel.Store.sp_InsertRoom" />
           <FunctionImportMapping FunctionImportName="sp_UpdateRoom" FunctionName="DBSYSPROJModel.Store.sp_UpdateRoom" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteRoom1" FunctionName="DBSYSPROJModel.Store.sp_DeleteRoom" />
+          <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
           <EntitySetMapping Name="Hotel">
             <EntityTypeMapping TypeName="DBSYSPROJModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
@@ -584,6 +617,8 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <EntitySetMapping Name="UserAccount">
             <EntityTypeMapping TypeName="DBSYSPROJModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
                 <ScalarProperty Name="userPass" ColumnName="userPass" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="userPhone" ColumnName="userPhone" />
@@ -593,6 +628,22 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
                 <ScalarProperty Name="userFirstName" ColumnName="userFirstName" />
                 <ScalarProperty Name="userLastName" ColumnName="userLastName" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_AllUsers">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
+              <MappingFragment StoreEntitySet="vw_AllUsers">
+                <ScalarProperty Name="Created_By" ColumnName="Created By" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_Name" ColumnName="User Name" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Middle_Initial" ColumnName="Middle Initial" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -612,25 +663,7 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_DeleteRoom1" FunctionName="DBSYSPROJModel.Store.sp_DeleteRoom" />
-          <EntitySetMapping Name="vw_AllUsers">
-            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
-              <MappingFragment StoreEntitySet="vw_AllUsers">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Middle_Initial" ColumnName="Middle Initial" />
-                <ScalarProperty Name="First_Name" ColumnName="First Name" />
-                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
-                <ScalarProperty Name="User_Id" ColumnName="User Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
-          <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
-          <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
+          <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

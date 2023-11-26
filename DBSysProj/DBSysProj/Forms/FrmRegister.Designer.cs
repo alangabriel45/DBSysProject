@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCreate = new System.Windows.Forms.PictureBox();
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnCreate = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -81,10 +81,23 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtLastName);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(202, 85);
+            this.panel1.Location = new System.Drawing.Point(367, 162);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(369, 355);
             this.panel1.TabIndex = 5;
+            // 
+            // btnCreate
+            // 
+            this.btnCreate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCreate.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_19_021022;
+            this.btnCreate.Location = new System.Drawing.Point(132, 305);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(115, 31);
+            this.btnCreate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnCreate.TabIndex = 18;
+            this.btnCreate.TabStop = false;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            this.btnCreate.MouseHover += new System.EventHandler(this.pictureBox4_MouseHover);
             // 
             // txtConfirmPass
             // 
@@ -230,24 +243,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Last Name";
             // 
-            // btnCreate
-            // 
-            this.btnCreate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCreate.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_19_021022;
-            this.btnCreate.Location = new System.Drawing.Point(132, 305);
-            this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(115, 31);
-            this.btnCreate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnCreate.TabIndex = 18;
-            this.btnCreate.TabStop = false;
-            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
-            this.btnCreate.MouseHover += new System.EventHandler(this.pictureBox4_MouseHover);
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::DBSysProj.Properties.Resources.minimize_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox3.Location = new System.Drawing.Point(656, 7);
+            this.pictureBox3.Location = new System.Drawing.Point(986, 12);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(29, 23);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -258,7 +258,7 @@
             // 
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::DBSysProj.Properties.Resources.close_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox2.Location = new System.Drawing.Point(687, 7);
+            this.pictureBox2.Location = new System.Drawing.Point(1017, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(29, 23);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -269,9 +269,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DBSysProj.Properties.Resources.Lobby_interior__P60_project_;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 51);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(726, 461);
+            this.pictureBox1.Size = new System.Drawing.Size(1060, 579);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -281,7 +281,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
-            this.ClientSize = new System.Drawing.Size(726, 499);
+            this.ClientSize = new System.Drawing.Size(1058, 680);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);

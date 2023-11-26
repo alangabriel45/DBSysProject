@@ -11,4 +11,10 @@ namespace DBSysProj.Utils
         Success = 0,
         Error = 1
     }
+    public enum Roles
+    { 
+        User = 1,
+        Staff = 2,
+        Admin = 3
+    }
 }

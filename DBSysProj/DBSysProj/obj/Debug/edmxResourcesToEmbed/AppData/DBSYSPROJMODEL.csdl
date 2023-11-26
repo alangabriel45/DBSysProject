@@ -41,20 +41,6 @@
     <FunctionImport Name="sp_DeleteRoom">
       <Parameter Name="rId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
-    <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
-    <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
-    <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
-    <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
-    <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
-    <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
-    <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
-    <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
-    <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
-    <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
-      <End Role="Hotel" EntitySet="Hotel" />
-      <End Role="Rooms" EntitySet="Rooms" />
-    </AssociationSet>
     <FunctionImport Name="sp_DeleteRooms">
       <Parameter Name="rId" Mode="In" Type="Int32" />
       <Parameter Name="rRow" Mode="In" Type="Int32" />
@@ -62,7 +48,6 @@
     <FunctionImport Name="sp_DeleteRoom1">
       <Parameter Name="rId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
     <FunctionImport Name="sp_AddUserAccount">
       <Parameter Name="lName" Mode="In" Type="String" />
       <Parameter Name="fNam" Mode="In" Type="String" />
@@ -96,6 +81,33 @@
       <Parameter Name="uPhone" Mode="In" Type="String" />
       <Parameter Name="uName" Mode="In" Type="String" />
       <Parameter Name="uPass" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
+    <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
+    <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
+    <EntitySet Name="RoomBed" EntityType="DBSYSPROJModel.RoomBed" />
+    <EntitySet Name="RoomMax" EntityType="DBSYSPROJModel.RoomMax" />
+    <EntitySet Name="RoomMin" EntityType="DBSYSPROJModel.RoomMin" />
+    <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
+    <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
+    <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+    <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+    <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
+    <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <FunctionImport Name="sp_AddUsers">
+      <Parameter Name="uLName" Mode="In" Type="String" />
+      <Parameter Name="uFName" Mode="In" Type="String" />
+      <Parameter Name="uMI" Mode="In" Type="String" />
+      <Parameter Name="uA" Mode="In" Type="String" />
+      <Parameter Name="uE" Mode="In" Type="String" />
+      <Parameter Name="uPN" Mode="In" Type="String" />
+      <Parameter Name="uN" Mode="In" Type="String" />
+      <Parameter Name="uP" Mode="In" Type="String" />
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="cB" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="Hotel">
@@ -182,6 +194,30 @@
     <Property Name="userPhone" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="userName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="roleId" Type="Int32" />
+    <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vw_AllUsers">
+    <Key>
+      <PropertyRef Name="Last_Name" />
+      <PropertyRef Name="First_Name" />
+      <PropertyRef Name="Middle_Initial" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="Email" />
+      <PropertyRef Name="Phone_Number" />
+      <PropertyRef Name="User_Name" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Middle_Initial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="User_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="vw_RoomTable">
     <Key>
@@ -210,26 +246,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="vw_AllUsers">
-    <Key>
-      <PropertyRef Name="User_Id" />
-      <PropertyRef Name="Last_Name" />
-      <PropertyRef Name="First_Name" />
-      <PropertyRef Name="Middle_Initial" />
-      <PropertyRef Name="Address" />
-      <PropertyRef Name="Email" />
-      <PropertyRef Name="Phone_Number" />
-      <PropertyRef Name="Username" />
-      <PropertyRef Name="Password" />
-    </Key>
-    <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="First_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Middle_Initial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-  </EntityType>
 </Schema>

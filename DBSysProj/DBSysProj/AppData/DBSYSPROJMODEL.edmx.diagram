@@ -14,9 +14,9 @@
         <EntityTypeShape EntityType="DBSYSPROJModel.Rooms" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="DBSYSPROJModel.RoomType" Width="1.5" PointX="6.75" PointY="6.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.UserAccount" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.vw_RoomTable" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllUsers" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.vw_RoomTable" Width="1.5" PointX="8.75" PointY="0.75" />
         <AssociationConnector Association="DBSYSPROJModel.FK_Rooms_Hotel" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllUsers" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

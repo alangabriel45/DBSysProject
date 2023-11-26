@@ -23,5 +23,7 @@ namespace DBSysProj.AppData
         public string userPhone { get; set; }
         public string userName { get; set; }
         public string userPass { get; set; }
+        public Nullable<int> roleId { get; set; }
+        public string createdBy { get; set; }
     }
 }

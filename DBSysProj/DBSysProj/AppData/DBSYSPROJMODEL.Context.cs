@@ -37,9 +37,9 @@ namespace DBSysProj.AppData
         public DbSet<Rooms> Rooms { get; set; }
         public DbSet<RoomType> RoomType { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
-        public DbSet<vw_RoomTable> vw_RoomTable { get; set; }
         public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
-       
+        public DbSet<vw_RoomTable> vw_RoomTable { get; set; }
+    
         public virtual int sp_InsertRoom1(string roomNumber, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
         {
             var roomNumberParameter = roomNumber != null ?
@@ -71,7 +71,8 @@ namespace DBSysProj.AppData
                 new ObjectParameter("hotelId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertRoom1", roomNumberParameter, roomTypeParameter, roomAcParameter, roomBedParameter, roomMinParameter, roomMaxParameter, hotelIdParameter);
-        }  
+        }
+    
         public virtual int sp_UpdateRoom(Nullable<int> rId, string rNum, string rType, string rAc, Nullable<int> rBed, Nullable<int> rMin, Nullable<int> rMax, Nullable<int> hId)
         {
             var rIdParameter = rId.HasValue ?
@@ -108,16 +109,7 @@ namespace DBSysProj.AppData
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateRoom", rIdParameter, rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, hIdParameter);
         }
-    
-        public virtual int sp_DeleteRoom(Nullable<int> rId)
-        {
-            var rIdParameter = rId.HasValue ?
-                new ObjectParameter("rId", rId) :
-                new ObjectParameter("rId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom", rIdParameter);
-        }  
-        public virtual int sp_DeleteRoom1(Nullable<int> rId)
+    public virtual int sp_DeleteRoom1(Nullable<int> rId)
         {
             var rIdParameter = rId.HasValue ?
                 new ObjectParameter("rId", rId) :
@@ -125,8 +117,16 @@ namespace DBSysProj.AppData
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom1", rIdParameter);
         }
+     public virtual int sp_DeleteUserAccount(Nullable<int> uId)
+        {
+            var uIdParameter = uId.HasValue ?
+                new ObjectParameter("uId", uId) :
+                new ObjectParameter("uId", typeof(int));
     
-        public virtual int sp_AddUserAccount(string lName, string fNam, string mInitial, string uAddress, string uEmail, string uPhone, string uName, string uPass)
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteUserAccount", uIdParameter);
+        }
+    
+        public virtual int sp_UpdateUserAccount(string lName, string fNam, string mInitial, string uAddress, string uEmail, string uPhone, string uName, string uPass)
         {
             var lNameParameter = lName != null ?
                 new ObjectParameter("lName", lName) :
@@ -160,17 +160,9 @@ namespace DBSysProj.AppData
                 new ObjectParameter("uPass", uPass) :
                 new ObjectParameter("uPass", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUserAccount", lNameParameter, fNamParameter, mInitialParameter, uAddressParameter, uEmailParameter, uPhoneParameter, uNameParameter, uPassParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateUserAccount", lNameParameter, fNamParameter, mInitialParameter, uAddressParameter, uEmailParameter, uPhoneParameter, uNameParameter, uPassParameter);
         }
     
-        public virtual int sp_DeleteUserAccount(Nullable<int> uId)
-        {
-            var uIdParameter = uId.HasValue ?
-                new ObjectParameter("uId", uId) :
-                new ObjectParameter("uId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteUserAccount", uIdParameter);
-        }
         public virtual int sp_UpdateUser(Nullable<int> uId, string lName, string fName, string mInitial, string uAddress, string uEmail, string uPhone, string uName, string uPass)
         {
             var uIdParameter = uId.HasValue ?
@@ -210,6 +202,51 @@ namespace DBSysProj.AppData
                 new ObjectParameter("uPass", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateUser", uIdParameter, lNameParameter, fNameParameter, mInitialParameter, uAddressParameter, uEmailParameter, uPhoneParameter, uNameParameter, uPassParameter);
+        }
+    
+        public virtual int sp_AddUsers(string uLName, string uFName, string uMI, string uA, string uE, string uPN, string uN, string uP, Nullable<int> rId, string cB)
+        {
+            var uLNameParameter = uLName != null ?
+                new ObjectParameter("uLName", uLName) :
+                new ObjectParameter("uLName", typeof(string));
+    
+            var uFNameParameter = uFName != null ?
+                new ObjectParameter("uFName", uFName) :
+                new ObjectParameter("uFName", typeof(string));
+    
+            var uMIParameter = uMI != null ?
+                new ObjectParameter("uMI", uMI) :
+                new ObjectParameter("uMI", typeof(string));
+    
+            var uAParameter = uA != null ?
+                new ObjectParameter("uA", uA) :
+                new ObjectParameter("uA", typeof(string));
+    
+            var uEParameter = uE != null ?
+                new ObjectParameter("uE", uE) :
+                new ObjectParameter("uE", typeof(string));
+    
+            var uPNParameter = uPN != null ?
+                new ObjectParameter("uPN", uPN) :
+                new ObjectParameter("uPN", typeof(string));
+    
+            var uNParameter = uN != null ?
+                new ObjectParameter("uN", uN) :
+                new ObjectParameter("uN", typeof(string));
+    
+            var uPParameter = uP != null ?
+                new ObjectParameter("uP", uP) :
+                new ObjectParameter("uP", typeof(string));
+    
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var cBParameter = cB != null ?
+                new ObjectParameter("cB", cB) :
+                new ObjectParameter("cB", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUsers", uLNameParameter, uFNameParameter, uMIParameter, uAParameter, uEParameter, uPNParameter, uNParameter, uPParameter, rIdParameter, cBParameter);
         }
     }
 }

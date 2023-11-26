@@ -82,30 +82,32 @@
     <Property Name="userPhone" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="userName" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="userPass" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="roleId" Type="int" />
+    <Property Name="createdBy" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vw_AllUsers">
     <Key>
-      <PropertyRef Name="User Id" />
       <PropertyRef Name="Last Name" />
       <PropertyRef Name="First Name" />
       <PropertyRef Name="Middle Initial" />
       <PropertyRef Name="Address" />
       <PropertyRef Name="Email" />
       <PropertyRef Name="Phone Number" />
-      <PropertyRef Name="Username" />
+      <PropertyRef Name="User Name" />
       <PropertyRef Name="Password" />
     </Key>
-    <Property Name="User Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Last Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="First Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Middle Initial" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Phone Number" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Username" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="User Name" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="128" />
+    <Property Name="Created By" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -146,6 +148,18 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <Parameter Name="uPhone" Type="nvarchar" Mode="In" />
     <Parameter Name="uName" Type="nvarchar" Mode="In" />
     <Parameter Name="uPass" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AddUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uLName" Type="nvarchar" Mode="In" />
+    <Parameter Name="uFName" Type="nvarchar" Mode="In" />
+    <Parameter Name="uMI" Type="nvarchar" Mode="In" />
+    <Parameter Name="uA" Type="nvarchar" Mode="In" />
+    <Parameter Name="uE" Type="nvarchar" Mode="In" />
+    <Parameter Name="uPN" Type="nvarchar" Mode="In" />
+    <Parameter Name="uN" Type="nvarchar" Mode="In" />
+    <Parameter Name="uP" Type="nvarchar" Mode="In" />
+    <Parameter Name="rId" Type="int" Mode="In" />
+    <Parameter Name="cB" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -225,15 +239,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-[vw_AllUsers].[User Id] AS [User Id], 
 [vw_AllUsers].[Last Name] AS [Last Name], 
 [vw_AllUsers].[First Name] AS [First Name], 
 [vw_AllUsers].[Middle Initial] AS [Middle Initial], 
 [vw_AllUsers].[Address] AS [Address], 
 [vw_AllUsers].[Email] AS [Email], 
 [vw_AllUsers].[Phone Number] AS [Phone Number], 
-[vw_AllUsers].[Username] AS [Username], 
-[vw_AllUsers].[Password] AS [Password]
+[vw_AllUsers].[User Name] AS [User Name], 
+[vw_AllUsers].[Password] AS [Password], 
+[vw_AllUsers].[Role] AS [Role], 
+[vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">

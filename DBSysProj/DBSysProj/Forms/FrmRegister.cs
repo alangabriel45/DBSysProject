@@ -90,6 +90,7 @@ namespace DBSysProj.Forms
             nUserAccount.userPhone = txtPhoneNum.Text;
             nUserAccount.userName = txtUsername.Text;
             nUserAccount.userPass = txtPassword.Text;
+            nUserAccount.roleId = 1;
 
             db.UserAccount.Add(nUserAccount);
             db.SaveChanges();

@@ -63,7 +63,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtUsername);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(223, 101);
+            this.panel1.Location = new System.Drawing.Point(394, 189);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(304, 289);
             this.panel1.TabIndex = 2;
@@ -92,9 +92,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(102, 173);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(93, 173);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(107, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Forgot password?";
             // 
@@ -146,9 +147,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DBSysProj.Properties.Resources.Lobby_interior__P60_project_;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 39);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 49);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(726, 417);
+            this.pictureBox1.Size = new System.Drawing.Size(1060, 579);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -157,7 +158,7 @@
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::DBSysProj.Properties.Resources.minimize_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox3.Location = new System.Drawing.Point(656, 7);
+            this.pictureBox3.Location = new System.Drawing.Point(986, 12);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(29, 23);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -168,7 +169,7 @@
             // 
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::DBSysProj.Properties.Resources.close_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox2.Location = new System.Drawing.Point(687, 7);
+            this.pictureBox2.Location = new System.Drawing.Point(1017, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(29, 23);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -181,7 +182,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
-            this.ClientSize = new System.Drawing.Size(726, 499);
+            this.ClientSize = new System.Drawing.Size(1058, 680);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.panel1);
