@@ -141,6 +141,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="UserControls\ucBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucBook.Designer.cs">
+      <DependentUpon>ucBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ucCheckout.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +194,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\ucBook.resx">
+      <DependentUpon>ucBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucCheckout.resx">
       <DependentUpon>ucCheckout.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,6 +238,10 @@
       <DependentUpon>DBSYSPROJMODEL.edmx</DependentUpon>
       <LastGenOutput>DBSYSPROJMODEL.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\Screenshot 2023-12-02 190258.png" />
+    <None Include="Resources\Screenshot 2023-12-02 190237.png" />
+    <None Include="Resources\Screenshot 2023-12-02 183252.png" />
+    <None Include="Resources\Screenshot 2023-12-02 183240.png" />
     <None Include="Resources\Screenshot 2023-11-19 141620.png" />
     <None Include="Resources\Screenshot 2023-11-19 141607.png" />
     <None Include="Resources\Screenshot 2023-11-19 141548.png" />

@@ -16,5 +16,15 @@ namespace DBSysProj.Forms
         {
             InitializeComponent();
         }
+
+        private void btnYourCart_MouseHover(object sender, EventArgs e)
+        {
+            toolTip3.SetToolTip(btnYourCart, "Your Cart");
+        }
+
+        private void btnBook_MouseHover(object sender, EventArgs e)
+        {
+            toolTip4.SetToolTip(btnBook, "Book");
+        }
     }
 }

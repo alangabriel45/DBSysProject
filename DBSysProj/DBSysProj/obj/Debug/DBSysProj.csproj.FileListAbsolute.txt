@@ -36,3 +36,4 @@ C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.User
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCheckout.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.Forms.FrmStaff.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.Forms.FrmUser.resources
+C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucBook.resources
