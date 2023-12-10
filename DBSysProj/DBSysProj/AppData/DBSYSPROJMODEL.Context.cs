@@ -28,6 +28,7 @@ namespace DBSysProj.AppData
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Cart> Cart { get; set; }
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<RoomAc> RoomAc { get; set; }
@@ -39,6 +40,72 @@ namespace DBSysProj.AppData
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
         public DbSet<vw_RoomTable> vw_RoomTable { get; set; }
+    
+        public virtual int sp_InsertRoom(string roomNum, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
+        {
+            var roomNumParameter = roomNum != null ?
+                new ObjectParameter("RoomNum", roomNum) :
+                new ObjectParameter("RoomNum", typeof(string));
+    
+            var roomTypeParameter = roomType != null ?
+                new ObjectParameter("RoomType", roomType) :
+                new ObjectParameter("RoomType", typeof(string));
+    
+            var roomAcParameter = roomAc != null ?
+                new ObjectParameter("RoomAc", roomAc) :
+                new ObjectParameter("RoomAc", typeof(string));
+    
+            var roomBedParameter = roomBed.HasValue ?
+                new ObjectParameter("RoomBed", roomBed) :
+                new ObjectParameter("RoomBed", typeof(int));
+    
+            var roomMinParameter = roomMin.HasValue ?
+                new ObjectParameter("RoomMin", roomMin) :
+                new ObjectParameter("RoomMin", typeof(int));
+    
+            var roomMaxParameter = roomMax.HasValue ?
+                new ObjectParameter("RoomMax", roomMax) :
+                new ObjectParameter("RoomMax", typeof(int));
+    
+            var hotelIdParameter = hotelId.HasValue ?
+                new ObjectParameter("HotelId", hotelId) :
+                new ObjectParameter("HotelId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertRoom", roomNumParameter, roomTypeParameter, roomAcParameter, roomBedParameter, roomMinParameter, roomMaxParameter, hotelIdParameter);
+        }
+    
+        public virtual int sp_AddRoom(string rNum, string rType, string rAc, Nullable<int> rBed, Nullable<int> rMin, Nullable<int> rMax, Nullable<int> hId)
+        {
+            var rNumParameter = rNum != null ?
+                new ObjectParameter("rNum", rNum) :
+                new ObjectParameter("rNum", typeof(string));
+    
+            var rTypeParameter = rType != null ?
+                new ObjectParameter("rType", rType) :
+                new ObjectParameter("rType", typeof(string));
+    
+            var rAcParameter = rAc != null ?
+                new ObjectParameter("rAc", rAc) :
+                new ObjectParameter("rAc", typeof(string));
+    
+            var rBedParameter = rBed.HasValue ?
+                new ObjectParameter("rBed", rBed) :
+                new ObjectParameter("rBed", typeof(int));
+    
+            var rMinParameter = rMin.HasValue ?
+                new ObjectParameter("rMin", rMin) :
+                new ObjectParameter("rMin", typeof(int));
+    
+            var rMaxParameter = rMax.HasValue ?
+                new ObjectParameter("rMax", rMax) :
+                new ObjectParameter("rMax", typeof(int));
+    
+            var hIdParameter = hId.HasValue ?
+                new ObjectParameter("hId", hId) :
+                new ObjectParameter("hId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddRoom", rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, hIdParameter);
+        }
     
         public virtual int sp_InsertRoom1(string roomNumber, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
         {
@@ -109,7 +176,30 @@ namespace DBSysProj.AppData
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateRoom", rIdParameter, rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, hIdParameter);
         }
-    public virtual int sp_DeleteRoom1(Nullable<int> rId)
+    
+        public virtual int sp_DeleteRoom(Nullable<int> rId)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom", rIdParameter);
+        }
+    
+        public virtual int sp_DeleteRooms(Nullable<int> rId, Nullable<int> rRow)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var rRowParameter = rRow.HasValue ?
+                new ObjectParameter("rRow", rRow) :
+                new ObjectParameter("rRow", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRooms", rIdParameter, rRowParameter);
+        }
+    
+        public virtual int sp_DeleteRoom1(Nullable<int> rId)
         {
             var rIdParameter = rId.HasValue ?
                 new ObjectParameter("rId", rId) :
@@ -117,7 +207,45 @@ namespace DBSysProj.AppData
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRoom1", rIdParameter);
         }
-     public virtual int sp_DeleteUserAccount(Nullable<int> uId)
+    
+        public virtual int sp_AddUserAccount(string lName, string fNam, string mInitial, string uAddress, string uEmail, string uPhone, string uName, string uPass)
+        {
+            var lNameParameter = lName != null ?
+                new ObjectParameter("lName", lName) :
+                new ObjectParameter("lName", typeof(string));
+    
+            var fNamParameter = fNam != null ?
+                new ObjectParameter("fNam", fNam) :
+                new ObjectParameter("fNam", typeof(string));
+    
+            var mInitialParameter = mInitial != null ?
+                new ObjectParameter("mInitial", mInitial) :
+                new ObjectParameter("mInitial", typeof(string));
+    
+            var uAddressParameter = uAddress != null ?
+                new ObjectParameter("uAddress", uAddress) :
+                new ObjectParameter("uAddress", typeof(string));
+    
+            var uEmailParameter = uEmail != null ?
+                new ObjectParameter("uEmail", uEmail) :
+                new ObjectParameter("uEmail", typeof(string));
+    
+            var uPhoneParameter = uPhone != null ?
+                new ObjectParameter("uPhone", uPhone) :
+                new ObjectParameter("uPhone", typeof(string));
+    
+            var uNameParameter = uName != null ?
+                new ObjectParameter("uName", uName) :
+                new ObjectParameter("uName", typeof(string));
+    
+            var uPassParameter = uPass != null ?
+                new ObjectParameter("uPass", uPass) :
+                new ObjectParameter("uPass", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUserAccount", lNameParameter, fNamParameter, mInitialParameter, uAddressParameter, uEmailParameter, uPhoneParameter, uNameParameter, uPassParameter);
+        }
+    
+        public virtual int sp_DeleteUserAccount(Nullable<int> uId)
         {
             var uIdParameter = uId.HasValue ?
                 new ObjectParameter("uId", uId) :
@@ -247,6 +375,32 @@ namespace DBSysProj.AppData
                 new ObjectParameter("cB", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddUsers", uLNameParameter, uFNameParameter, uMIParameter, uAParameter, uEParameter, uPNParameter, uNParameter, uPParameter, rIdParameter, cBParameter);
+        }
+    
+        public virtual ObjectResult<sp_YourCart_Result> sp_YourCart(Nullable<int> uId)
+        {
+            var uIdParameter = uId.HasValue ?
+                new ObjectParameter("uId", uId) :
+                new ObjectParameter("uId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_YourCart_Result>("sp_YourCart", uIdParameter);
+        }
+    
+        public virtual int sp_AddToCart(Nullable<int> rId, Nullable<int> hId, Nullable<int> bId)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var hIdParameter = hId.HasValue ?
+                new ObjectParameter("hId", hId) :
+                new ObjectParameter("hId", typeof(int));
+    
+            var bIdParameter = bId.HasValue ?
+                new ObjectParameter("bId", bId) :
+                new ObjectParameter("bId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddToCart", rIdParameter, hIdParameter, bIdParameter);
         }
     }
 }

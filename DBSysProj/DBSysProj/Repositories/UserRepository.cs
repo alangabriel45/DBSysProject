@@ -39,6 +39,13 @@ namespace DBSysProj.Repositories
                 return db.vw_AllUsers.ToList();
             }
         }
+        public List<sp_YourCart_Result> AllCartTable(int uId)
+        {
+            using (db = new DBSYSPROJEntities())
+            {           
+                   return db.sp_YourCart(uId).ToList();
+            }
+        }
         public ErrorCode InserRoomUsingStoredProf(String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int hId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
@@ -148,6 +155,24 @@ namespace DBSysProj.Repositories
                     szResponse = ex.Message;
                     return ErrorCode.Error;
                 }     
+            }
+        }
+        public ErrorCode AddToCartUsingStoredProf(int rId, int hId, int bBy, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                try
+                {
+                    db.sp_AddToCart(rId, hId, bBy);
+                    szResponse = "Added to you cart!";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
             }
         }
     }

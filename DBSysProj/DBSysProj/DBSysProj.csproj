@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppData\Cart.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\DBSYSPROJMODEL.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +93,9 @@
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\RoomType.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\sp_YourCart_Result.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\UserAccount.cs">
@@ -147,6 +153,12 @@
     <Compile Include="UserControls\ucBook.Designer.cs">
       <DependentUpon>ucBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ucCart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ucCart.Designer.cs">
+      <DependentUpon>ucCart.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ucCheckout.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,6 +208,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\ucBook.resx">
       <DependentUpon>ucBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ucCart.resx">
+      <DependentUpon>ucCart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ucCheckout.resx">
       <DependentUpon>ucCheckout.cs</DependentUpon>

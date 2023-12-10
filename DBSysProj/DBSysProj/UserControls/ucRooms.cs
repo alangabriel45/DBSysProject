@@ -276,9 +276,6 @@ namespace DBSysProj.UserControls
             {
                 MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-
-
         }
     }
 }

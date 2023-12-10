@@ -5,17 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1fa52c8f5a744f0ab1ad766d6e6331cd" Name="Diagram1">
+        <EntityTypeShape EntityType="DBSYSPROJModel.Cart" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.Hotel" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.Role" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.RoomAc" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.RoomBed" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.RoomMax" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.RoomMin" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.Role" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.RoomAc" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.RoomBed" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.RoomMax" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.RoomMin" Width="1.5" PointX="6.75" PointY="6.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.Rooms" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.RoomType" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.RoomType" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.UserAccount" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllUsers" Width="1.5" PointX="2.75" PointY="7.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.vw_RoomTable" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.vw_RoomTable" Width="1.5" PointX="8.75" PointY="3.75" />
         <AssociationConnector Association="DBSYSPROJModel.FK_Rooms_Hotel" />
       </Diagram>
     </edmx:Diagrams>

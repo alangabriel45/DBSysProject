@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DBSYSPROJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomId" Type="int" />
+          <Property Name="hotelId" Type="int" />
+          <Property Name="bookedBy" Type="int" />
+        </EntityType>
         <EntityType Name="Hotel">
           <Key>
             <PropertyRef Name="hotelId" />
@@ -144,6 +153,11 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_AddToCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rId" Type="int" Mode="In" />
+          <Parameter Name="hId" Type="int" Mode="In" />
+          <Parameter Name="bId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_AddUserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="lName" Type="nvarchar" Mode="In" />
           <Parameter Name="fNam" Type="nvarchar" Mode="In" />
@@ -232,7 +246,11 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <Parameter Name="uPass" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_YourCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DBSYSPROJModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomAc" EntityType="Self.RoomAc" Schema="dbo" store:Type="Tables" />
@@ -361,6 +379,19 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             <Parameter Name="uName" Mode="In" Type="String" />
             <Parameter Name="uPass" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_AddUsers">
+            <Parameter Name="uLName" Mode="In" Type="String" />
+            <Parameter Name="uFName" Mode="In" Type="String" />
+            <Parameter Name="uMI" Mode="In" Type="String" />
+            <Parameter Name="uA" Mode="In" Type="String" />
+            <Parameter Name="uE" Mode="In" Type="String" />
+            <Parameter Name="uPN" Mode="In" Type="String" />
+            <Parameter Name="uN" Mode="In" Type="String" />
+            <Parameter Name="uP" Mode="In" Type="String" />
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="cB" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
           <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
           <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
           <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
@@ -376,19 +407,24 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
-          <FunctionImport Name="sp_AddUsers">
-            <Parameter Name="uLName" Mode="In" Type="String" />
-            <Parameter Name="uFName" Mode="In" Type="String" />
-            <Parameter Name="uMI" Mode="In" Type="String" />
-            <Parameter Name="uA" Mode="In" Type="String" />
-            <Parameter Name="uE" Mode="In" Type="String" />
-            <Parameter Name="uPN" Mode="In" Type="String" />
-            <Parameter Name="uN" Mode="In" Type="String" />
-            <Parameter Name="uP" Mode="In" Type="String" />
+          <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
+          <Parameter Name="uId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddToCart">
             <Parameter Name="rId" Mode="In" Type="Int32" />
-            <Parameter Name="cB" Mode="In" Type="String" />
+            <Parameter Name="hId" Mode="In" Type="Int32" />
+            <Parameter Name="bId" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomId" Type="Int32" />
+          <Property Name="hotelId" Type="Int32" />
+          <Property Name="bookedBy" Type="Int32" />
+        </EntityType>
         <EntityType Name="Hotel">
           <Key>
             <PropertyRef Name="hotelId" />
@@ -525,6 +561,16 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_YourCart_Result">
+          <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Bed" Nullable="true" />
+          <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+          <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+          <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -537,6 +583,17 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
           <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
           <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
+          <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="bookedBy" ColumnName="bookedBy" />
+                <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+                <ScalarProperty Name="cartId" ColumnName="cartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Hotel">
             <EntityTypeMapping TypeName="DBSYSPROJModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
@@ -663,7 +720,21 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
+          <FunctionImportMapping FunctionImportName="sp_YourCart" FunctionName="DBSYSPROJModel.Store.sp_YourCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCart_Result">
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddToCart" FunctionName="DBSYSPROJModel.Store.sp_AddToCart" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

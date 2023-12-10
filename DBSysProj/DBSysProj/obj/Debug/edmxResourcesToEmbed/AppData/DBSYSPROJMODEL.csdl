@@ -82,6 +82,19 @@
       <Parameter Name="uName" Mode="In" Type="String" />
       <Parameter Name="uPass" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_AddUsers">
+      <Parameter Name="uLName" Mode="In" Type="String" />
+      <Parameter Name="uFName" Mode="In" Type="String" />
+      <Parameter Name="uMI" Mode="In" Type="String" />
+      <Parameter Name="uA" Mode="In" Type="String" />
+      <Parameter Name="uE" Mode="In" Type="String" />
+      <Parameter Name="uPN" Mode="In" Type="String" />
+      <Parameter Name="uN" Mode="In" Type="String" />
+      <Parameter Name="uP" Mode="In" Type="String" />
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="cB" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
     <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
     <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
     <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
@@ -97,19 +110,24 @@
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Rooms" EntitySet="Rooms" />
     </AssociationSet>
-    <FunctionImport Name="sp_AddUsers">
-      <Parameter Name="uLName" Mode="In" Type="String" />
-      <Parameter Name="uFName" Mode="In" Type="String" />
-      <Parameter Name="uMI" Mode="In" Type="String" />
-      <Parameter Name="uA" Mode="In" Type="String" />
-      <Parameter Name="uE" Mode="In" Type="String" />
-      <Parameter Name="uPN" Mode="In" Type="String" />
-      <Parameter Name="uN" Mode="In" Type="String" />
-      <Parameter Name="uP" Mode="In" Type="String" />
+    <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
+      <Parameter Name="uId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AddToCart">
       <Parameter Name="rId" Mode="In" Type="Int32" />
-      <Parameter Name="cB" Mode="In" Type="String" />
+      <Parameter Name="hId" Mode="In" Type="Int32" />
+      <Parameter Name="bId" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="cartId" />
+    </Key>
+    <Property Name="cartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roomId" Type="Int32" />
+    <Property Name="hotelId" Type="Int32" />
+    <Property Name="bookedBy" Type="Int32" />
+  </EntityType>
   <EntityType Name="Hotel">
     <Key>
       <PropertyRef Name="hotelId" />
@@ -246,4 +264,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="sp_YourCart_Result">
+    <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Bed" Nullable="true" />
+    <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+    <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+  </ComplexType>
 </Schema>

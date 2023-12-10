@@ -7,6 +7,17 @@
     <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
     <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
     <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
+    <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
+    <EntitySetMapping Name="Cart">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="bookedBy" ColumnName="bookedBy" />
+          <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+          <ScalarProperty Name="roomId" ColumnName="roomId" />
+          <ScalarProperty Name="cartId" ColumnName="cartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Hotel">
       <EntityTypeMapping TypeName="DBSYSPROJModel.Hotel">
         <MappingFragment StoreEntitySet="Hotel">
@@ -133,6 +144,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
+    <FunctionImportMapping FunctionImportName="sp_YourCart" FunctionName="DBSYSPROJModel.Store.sp_YourCart">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCart_Result">
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddToCart" FunctionName="DBSYSPROJModel.Store.sp_AddToCart" />
   </EntityContainerMapping>
 </Mapping>
