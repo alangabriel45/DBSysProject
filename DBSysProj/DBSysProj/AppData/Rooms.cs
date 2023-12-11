@@ -21,7 +21,9 @@ namespace DBSysProj.AppData
         public Nullable<int> roomBed { get; set; }
         public Nullable<int> roomMin { get; set; }
         public Nullable<int> roomMax { get; set; }
+        public Nullable<int> roomPrice { get; set; }
         public Nullable<int> hotelId { get; set; }
+        public string isAvailable { get; set; }
     
         public virtual Hotel Hotel { get; set; }
     }

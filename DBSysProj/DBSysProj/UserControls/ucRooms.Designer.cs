@@ -50,6 +50,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).BeginInit();
@@ -59,7 +61,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(764, 219);
+            this.label1.Location = new System.Drawing.Point(764, 183);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 0;
@@ -67,7 +69,7 @@
             // 
             // txtRoomNum
             // 
-            this.txtRoomNum.Location = new System.Drawing.Point(767, 235);
+            this.txtRoomNum.Location = new System.Drawing.Point(767, 199);
             this.txtRoomNum.Name = "txtRoomNum";
             this.txtRoomNum.Size = new System.Drawing.Size(100, 20);
             this.txtRoomNum.TabIndex = 1;
@@ -75,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(764, 297);
+            this.label2.Location = new System.Drawing.Point(764, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 2;
@@ -84,7 +86,7 @@
             // cbRoomType
             // 
             this.cbRoomType.FormattingEnabled = true;
-            this.cbRoomType.Location = new System.Drawing.Point(767, 313);
+            this.cbRoomType.Location = new System.Drawing.Point(767, 277);
             this.cbRoomType.Name = "cbRoomType";
             this.cbRoomType.Size = new System.Drawing.Size(172, 21);
             this.cbRoomType.TabIndex = 3;
@@ -92,7 +94,7 @@
             // cbRoomAc
             // 
             this.cbRoomAc.FormattingEnabled = true;
-            this.cbRoomAc.Location = new System.Drawing.Point(767, 353);
+            this.cbRoomAc.Location = new System.Drawing.Point(767, 317);
             this.cbRoomAc.Name = "cbRoomAc";
             this.cbRoomAc.Size = new System.Drawing.Size(172, 21);
             this.cbRoomAc.TabIndex = 5;
@@ -100,7 +102,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(764, 337);
+            this.label3.Location = new System.Drawing.Point(764, 301);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 4;
@@ -109,7 +111,7 @@
             // cbRoomBed
             // 
             this.cbRoomBed.FormattingEnabled = true;
-            this.cbRoomBed.Location = new System.Drawing.Point(767, 393);
+            this.cbRoomBed.Location = new System.Drawing.Point(767, 357);
             this.cbRoomBed.Name = "cbRoomBed";
             this.cbRoomBed.Size = new System.Drawing.Size(172, 21);
             this.cbRoomBed.TabIndex = 7;
@@ -117,7 +119,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(764, 377);
+            this.label4.Location = new System.Drawing.Point(764, 341);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 13);
             this.label4.TabIndex = 6;
@@ -126,7 +128,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(764, 258);
+            this.label5.Location = new System.Drawing.Point(764, 222);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 8;
@@ -135,7 +137,7 @@
             // cbRoomMin
             // 
             this.cbRoomMin.FormattingEnabled = true;
-            this.cbRoomMin.Location = new System.Drawing.Point(767, 433);
+            this.cbRoomMin.Location = new System.Drawing.Point(767, 397);
             this.cbRoomMin.Name = "cbRoomMin";
             this.cbRoomMin.Size = new System.Drawing.Size(172, 21);
             this.cbRoomMin.TabIndex = 11;
@@ -143,7 +145,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(764, 417);
+            this.label6.Location = new System.Drawing.Point(764, 381);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 10;
@@ -152,7 +154,7 @@
             // cbRoomMax
             // 
             this.cbRoomMax.FormattingEnabled = true;
-            this.cbRoomMax.Location = new System.Drawing.Point(767, 473);
+            this.cbRoomMax.Location = new System.Drawing.Point(767, 437);
             this.cbRoomMax.Name = "cbRoomMax";
             this.cbRoomMax.Size = new System.Drawing.Size(172, 21);
             this.cbRoomMax.TabIndex = 13;
@@ -160,7 +162,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(764, 457);
+            this.label7.Location = new System.Drawing.Point(764, 421);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 13);
             this.label7.TabIndex = 12;
@@ -169,7 +171,7 @@
             // cbHotel
             // 
             this.cbHotel.FormattingEnabled = true;
-            this.cbHotel.Location = new System.Drawing.Point(767, 274);
+            this.cbHotel.Location = new System.Drawing.Point(767, 238);
             this.cbHotel.Name = "cbHotel";
             this.cbHotel.Size = new System.Drawing.Size(172, 21);
             this.cbHotel.TabIndex = 14;
@@ -223,11 +225,29 @@
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
+            // txtPrice
+            // 
+            this.txtPrice.Location = new System.Drawing.Point(767, 477);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(100, 20);
+            this.txtPrice.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(764, 461);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Price";
+            // 
             // ucRooms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.txtPrice);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -282,5 +302,7 @@
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ErrorProvider errorProviderCustom;
+        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.Label label8;
     }
 }

@@ -73,7 +73,9 @@
           <Property Name="roomBed" Type="int" />
           <Property Name="roomMin" Type="int" />
           <Property Name="roomMax" Type="int" />
+          <Property Name="roomPrice" Type="int" />
           <Property Name="hotelId" Type="int" />
+          <Property Name="isAvailable" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RoomType">
           <Key>
@@ -100,6 +102,24 @@
           <Property Name="createdBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllRooms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_AllRooms">
+          <Key>
+            <PropertyRef Name="Room Id" />
+          </Key>
+          <Property Name="Room Id" Type="int" Nullable="false" />
+          <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bed" Type="int" />
+          <Property Name="Minimum Guest" Type="int" />
+          <Property Name="Maximum Guest" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Hotel Id" Type="int" />
+          <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
+          <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_AllUsers">
           <Key>
@@ -123,24 +143,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
           <Property Name="Role" Type="nvarchar" MaxLength="128" />
           <Property Name="Created By" Type="nvarchar" MaxLength="128" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_RoomTable">
-          <Key>
-            <PropertyRef Name="Room Id" />
-          </Key>
-          <Property Name="Room Id" Type="int" Nullable="false" />
-          <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
-          <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bed" Type="int" />
-          <Property Name="Minimum Guest" Type="int" />
-          <Property Name="Maximum Guest" Type="int" />
-          <Property Name="Hotel Id" Type="int" />
-          <Property Name="Hotel Name" Type="nvarchar" MaxLength="128" />
-          <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
-        </EntityType>
-        <Association Name="FK_Rooms_Hotel">
+        <Association Name="FK_Rooms_Hotel1">
           <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
           <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
           <ReferentialConstraint>
@@ -153,6 +156,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_AddRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="rType" Type="nvarchar" Mode="In" />
+          <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+          <Parameter Name="rBed" Type="int" Mode="In" />
+          <Parameter Name="rMin" Type="int" Mode="In" />
+          <Parameter Name="rMax" Type="int" Mode="In" />
+          <Parameter Name="rPrice" Type="int" Mode="In" />
+          <Parameter Name="hId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_AddToCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rId" Type="int" Mode="In" />
           <Parameter Name="hId" Type="int" Mode="In" />
@@ -234,6 +247,17 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <Parameter Name="rMax" Type="int" Mode="In" />
           <Parameter Name="hId" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_UpdateRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rId" Type="int" Mode="In" />
+          <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="rType" Type="nvarchar" Mode="In" />
+          <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+          <Parameter Name="rBed" Type="int" Mode="In" />
+          <Parameter Name="rMin" Type="int" Mode="In" />
+          <Parameter Name="rMax" Type="int" Mode="In" />
+          <Parameter Name="rPrice" Type="int" Mode="In" />
+          <Parameter Name="hId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uId" Type="int" Mode="In" />
           <Parameter Name="lName" Type="nvarchar" Mode="In" />
@@ -260,6 +284,21 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
           <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_AllRooms" EntityType="Self.vw_AllRooms" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_AllRooms].[Room Id] AS [Room Id], 
+[vw_AllRooms].[Room Number] AS [Room Number], 
+[vw_AllRooms].[Room Type] AS [Room Type], 
+[vw_AllRooms].[Aircon] AS [Aircon], 
+[vw_AllRooms].[Bed] AS [Bed], 
+[vw_AllRooms].[Minimum Guest] AS [Minimum Guest], 
+[vw_AllRooms].[Maximum Guest] AS [Maximum Guest], 
+[vw_AllRooms].[Price] AS [Price], 
+[vw_AllRooms].[Hotel Id] AS [Hotel Id], 
+[vw_AllRooms].[Hotel] AS [Hotel], 
+[vw_AllRooms].[Hotel Address] AS [Hotel Address]
+FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [vw_AllUsers].[Last Name] AS [Last Name], 
@@ -274,21 +313,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
 [vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[vw_RoomTable].[Room Id] AS [Room Id], 
-[vw_RoomTable].[Room Number] AS [Room Number], 
-[vw_RoomTable].[Room Type] AS [Room Type], 
-[vw_RoomTable].[Aircon] AS [Aircon], 
-[vw_RoomTable].[Bed] AS [Bed], 
-[vw_RoomTable].[Minimum Guest] AS [Minimum Guest], 
-[vw_RoomTable].[Maximum Guest] AS [Maximum Guest], 
-[vw_RoomTable].[Hotel Id] AS [Hotel Id], 
-[vw_RoomTable].[Hotel Name] AS [Hotel Name], 
-[vw_RoomTable].[Hotel Address] AS [Hotel Address]
-FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Rooms_Hotel" Association="Self.FK_Rooms_Hotel">
+          <AssociationSet Name="FK_Rooms_Hotel1" Association="Self.FK_Rooms_Hotel1">
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
@@ -391,6 +416,35 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             <Parameter Name="rId" Mode="In" Type="Int32" />
             <Parameter Name="cB" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
+          <Parameter Name="uId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddToCart">
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="hId" Mode="In" Type="Int32" />
+            <Parameter Name="bId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddRooms">
+            <Parameter Name="rNum" Mode="In" Type="String" />
+            <Parameter Name="rType" Mode="In" Type="String" />
+            <Parameter Name="rAc" Mode="In" Type="String" />
+            <Parameter Name="rBed" Mode="In" Type="Int32" />
+            <Parameter Name="rMin" Mode="In" Type="Int32" />
+            <Parameter Name="rMax" Mode="In" Type="Int32" />
+            <Parameter Name="rPrice" Mode="In" Type="Int32" />
+            <Parameter Name="hId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateRooms">
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="rNum" Mode="In" Type="String" />
+            <Parameter Name="rType" Mode="In" Type="String" />
+            <Parameter Name="rAc" Mode="In" Type="String" />
+            <Parameter Name="rBed" Mode="In" Type="Int32" />
+            <Parameter Name="rMin" Mode="In" Type="Int32" />
+            <Parameter Name="rMax" Mode="In" Type="Int32" />
+            <Parameter Name="rPrice" Mode="In" Type="Int32" />
+            <Parameter Name="hId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
           <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
           <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
@@ -401,21 +455,23 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
           <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
           <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+          <EntitySet Name="vw_AllRooms" EntityType="DBSYSPROJModel.vw_AllRooms" />
           <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
-          <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
-          <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
+          <AssociationSet Name="FK_Rooms_Hotel1" Association="DBSYSPROJModel.FK_Rooms_Hotel1">
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
-          <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
-          <Parameter Name="uId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_AddToCart">
-            <Parameter Name="rId" Mode="In" Type="Int32" />
-            <Parameter Name="hId" Mode="In" Type="Int32" />
-            <Parameter Name="bId" Mode="In" Type="Int32" />
-          </FunctionImport>
           </EntityContainer>
+        <ComplexType Name="sp_YourCart_Result">
+          <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Bed" Nullable="true" />
+          <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+          <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+          <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+        </ComplexType>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="cartId" />
@@ -432,7 +488,7 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Property Name="hotelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="hotelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="hotelAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_Rooms_Hotel" FromRole="Hotel" ToRole="Rooms" />
+          <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Hotel" ToRole="Rooms" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -485,8 +541,10 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Property Name="roomBed" Type="Int32" />
           <Property Name="roomMin" Type="Int32" />
           <Property Name="roomMax" Type="Int32" />
+          <Property Name="roomPrice" Type="Int32" />
           <Property Name="hotelId" Type="Int32" />
-          <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel" FromRole="Rooms" ToRole="Hotel" />
+          <Property Name="isAvailable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Rooms" ToRole="Hotel" />
         </EntityType>
         <EntityType Name="RoomType">
           <Key>
@@ -512,6 +570,22 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Property Name="roleId" Type="Int32" />
           <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="vw_AllRooms">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="Int32" Nullable="false" />
+          <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bed" Type="Int32" />
+          <Property Name="Minimum_Guest" Type="Int32" />
+          <Property Name="Maximum_Guest" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Hotel_Id" Type="Int32" />
+          <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="vw_AllUsers">
           <Key>
             <PropertyRef Name="Last_Name" />
@@ -534,22 +608,7 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="vw_RoomTable">
-          <Key>
-            <PropertyRef Name="Room_Id" />
-          </Key>
-          <Property Name="Room_Id" Type="Int32" Nullable="false" />
-          <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bed" Type="Int32" />
-          <Property Name="Minimum_Guest" Type="Int32" />
-          <Property Name="Maximum_Guest" Type="Int32" />
-          <Property Name="Hotel_Id" Type="Int32" />
-          <Property Name="Hotel_Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Rooms_Hotel">
+        <Association Name="FK_Rooms_Hotel1">
           <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
           <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="*" />
           <ReferentialConstraint>
@@ -561,16 +620,6 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_YourCart_Result">
-          <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="Bed" Nullable="true" />
-          <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
-          <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
-          <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -584,6 +633,23 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
           <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="DBSYSPROJModel.Store.sp_UpdateUser" />
           <FunctionImportMapping FunctionImportName="sp_AddUsers" FunctionName="DBSYSPROJModel.Store.sp_AddUsers" />
+          <FunctionImportMapping FunctionImportName="sp_YourCart" FunctionName="DBSYSPROJModel.Store.sp_YourCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCart_Result">
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddToCart" FunctionName="DBSYSPROJModel.Store.sp_AddToCart" />
+          <FunctionImportMapping FunctionImportName="sp_AddRooms" FunctionName="DBSYSPROJModel.Store.sp_AddRooms" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateRooms" FunctionName="DBSYSPROJModel.Store.sp_UpdateRooms" />
           <EntitySetMapping Name="Cart">
             <EntityTypeMapping TypeName="DBSYSPROJModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
@@ -651,7 +717,9 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="DBSYSPROJModel.Rooms">
               <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
                 <ScalarProperty Name="hotelId" ColumnName="hotelId" />
+                <ScalarProperty Name="roomPrice" ColumnName="roomPrice" />
                 <ScalarProperty Name="roomMax" ColumnName="roomMax" />
                 <ScalarProperty Name="roomMin" ColumnName="roomMin" />
                 <ScalarProperty Name="roomBed" ColumnName="roomBed" />
@@ -688,6 +756,23 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vw_AllRooms">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllRooms">
+              <MappingFragment StoreEntitySet="vw_AllRooms">
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+                <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+                <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vw_AllUsers">
             <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
               <MappingFragment StoreEntitySet="vw_AllUsers">
@@ -704,37 +789,6 @@ FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vw_RoomTable">
-            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_RoomTable">
-              <MappingFragment StoreEntitySet="vw_RoomTable">
-                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
-                <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
-                <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
-                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
-                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
-                <ScalarProperty Name="Bed" ColumnName="Bed" />
-                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
-                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
-                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
-                <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_YourCart" FunctionName="DBSYSPROJModel.Store.sp_YourCart">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCart_Result">
-                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
-                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
-                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
-                <ScalarProperty Name="Bed" ColumnName="Bed" />
-                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
-                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
-                <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
-                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_AddToCart" FunctionName="DBSYSPROJModel.Store.sp_AddToCart" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

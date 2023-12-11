@@ -168,7 +168,7 @@ namespace DBSysProj.UserControls
                 MessageBox.Show("Added");*/
 
 
-                ErrorCode retValue = userRepo.InserRoomUsingStoredProf(txtRoomNum.Text, cbRoomType.Text, cbRoomAc.Text, cbRoomBed.SelectedIndex + 1, cbRoomMin.SelectedIndex + 1, cbRoomMax.SelectedIndex + 1, cbHotel.SelectedIndex + 1, ref strOutputMsg);
+                ErrorCode retValue = userRepo.InserRoomUsingStoredProf(txtRoomNum.Text, cbRoomType.Text, cbRoomAc.Text, cbRoomBed.SelectedIndex + 1, cbRoomMin.SelectedIndex + 1, cbRoomMax.SelectedIndex + 1, Convert.ToInt32(txtPrice.Text), cbHotel.SelectedIndex + 1, ref strOutputMsg);
                 if (retValue != ErrorCode.Success)
                 {
                     MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -181,6 +181,7 @@ namespace DBSysProj.UserControls
                     cbRoomBed.SelectedIndex = 0;
                     cbRoomMin.SelectedIndex = 0;
                     cbRoomMax.SelectedIndex = 0;
+                    txtPrice.Clear();
                 }
                 else
                 {
@@ -200,7 +201,7 @@ namespace DBSysProj.UserControls
                 return;
             }
 
-            ErrorCode retValue = userRepo.UpdateRoomUsingStoredProf((Int32)roomSelectedId, txtRoomNum.Text, cbRoomType.Text, cbRoomAc.Text, cbRoomBed.SelectedIndex + 1, cbRoomMin.SelectedIndex + 1, cbRoomMax.SelectedIndex + 1, cbHotel.SelectedIndex + 1, ref strOutputMsg);
+            ErrorCode retValue = userRepo.UpdateRoomUsingStoredProf((Int32)roomSelectedId, txtRoomNum.Text, cbRoomType.Text, cbRoomAc.Text, cbRoomBed.SelectedIndex + 1, cbRoomMin.SelectedIndex + 1, cbRoomMax.SelectedIndex + 1, Convert.ToInt32(txtPrice.Text), cbHotel.SelectedIndex + 1, ref strOutputMsg);
             if (retValue != ErrorCode.Success)
             {
                 errorProviderCustom.Clear();
@@ -215,6 +216,7 @@ namespace DBSysProj.UserControls
                 cbRoomBed.SelectedIndex = 0;
                 cbRoomMin.SelectedIndex = 0;
                 cbRoomMax.SelectedIndex = 0;
+                txtPrice.Clear();
             }
             else
             {
@@ -234,6 +236,7 @@ namespace DBSysProj.UserControls
                     cbRoomAc.Text = dataGridView1.Rows[e.RowIndex].Cells["Aircon"].Value.ToString();
                     cbRoomMin.Text = dataGridView1.Rows[e.RowIndex].Cells["Minimum_Guest"].Value.ToString();
                     cbRoomMax.Text = dataGridView1.Rows[e.RowIndex].Cells["Maximum_Guest"].Value.ToString();
+                    txtPrice.Text = dataGridView1.Rows[e.RowIndex].Cells["Price"].Value.ToString();
                     cbHotel.SelectedValue = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Hotel_Id"].Value;
                 }
             }

@@ -33,8 +33,8 @@ C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.cspr
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.exe
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.pdb
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucUsers.resources
-C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCheckout.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.Forms.FrmStaff.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.Forms.FrmUser.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucBook.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCart.resources
+C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCheckout.resources

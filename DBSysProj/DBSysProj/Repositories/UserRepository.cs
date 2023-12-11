@@ -25,11 +25,11 @@ namespace DBSysProj.Repositories
                 return db.UserAccount.Where(m => m.userName == username).FirstOrDefault();
             }
         }
-        public List<vw_RoomTable> AllRoomTable()
+        public List<vw_AllRooms> AllRoomTable()
         {
             using (db = new DBSYSPROJEntities())
             {
-                return db.vw_RoomTable.ToList();
+                return db.vw_AllRooms.ToList();
             }
         }
         public List<vw_AllUsers> AllUsersTable()
@@ -46,13 +46,13 @@ namespace DBSysProj.Repositories
                    return db.sp_YourCart(uId).ToList();
             }
         }
-        public ErrorCode InserRoomUsingStoredProf(String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int hId, ref String szResponse)
+        public ErrorCode InserRoomUsingStoredProf(String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int rPrice, int hId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
             {
                 try
                 {
-                    db.sp_InsertRoom1(rNum, rType, rAc, rBed, rMin, rMax, hId);
+                    db.sp_AddRooms(rNum, rType, rAc, rBed, rMin, rMax, rPrice, hId);
                     szResponse = "Added";
                     return ErrorCode.Success;
                 }
@@ -63,13 +63,13 @@ namespace DBSysProj.Repositories
                 }
             }
         }
-        public ErrorCode UpdateRoomUsingStoredProf(int rId, String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int hId, ref String szResponse)
+        public ErrorCode UpdateRoomUsingStoredProf(int rId, String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int rPrice, int hId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
             {
                 try
                 {
-                    db.sp_UpdateRoom(rId, rNum, rType, rAc, rBed, rMin, rMax, hId);
+                    db.sp_UpdateRooms(rId, rNum, rType, rAc, rBed, rMin, rMax, rPrice, hId);
                     szResponse = "Updated";
                     return ErrorCode.Success;
                 }

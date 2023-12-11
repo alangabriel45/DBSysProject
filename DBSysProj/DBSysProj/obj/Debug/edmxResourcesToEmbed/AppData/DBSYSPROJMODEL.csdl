@@ -94,6 +94,35 @@
       <Parameter Name="rId" Mode="In" Type="Int32" />
       <Parameter Name="cB" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
+      <Parameter Name="uId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AddToCart">
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="hId" Mode="In" Type="Int32" />
+      <Parameter Name="bId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AddRooms">
+      <Parameter Name="rNum" Mode="In" Type="String" />
+      <Parameter Name="rType" Mode="In" Type="String" />
+      <Parameter Name="rAc" Mode="In" Type="String" />
+      <Parameter Name="rBed" Mode="In" Type="Int32" />
+      <Parameter Name="rMin" Mode="In" Type="Int32" />
+      <Parameter Name="rMax" Mode="In" Type="Int32" />
+      <Parameter Name="rPrice" Mode="In" Type="Int32" />
+      <Parameter Name="hId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateRooms">
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="rNum" Mode="In" Type="String" />
+      <Parameter Name="rType" Mode="In" Type="String" />
+      <Parameter Name="rAc" Mode="In" Type="String" />
+      <Parameter Name="rBed" Mode="In" Type="Int32" />
+      <Parameter Name="rMin" Mode="In" Type="Int32" />
+      <Parameter Name="rMax" Mode="In" Type="Int32" />
+      <Parameter Name="rPrice" Mode="In" Type="Int32" />
+      <Parameter Name="hId" Mode="In" Type="Int32" />
+    </FunctionImport>
     <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
     <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
     <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
@@ -104,21 +133,23 @@
     <EntitySet Name="Rooms" EntityType="DBSYSPROJModel.Rooms" />
     <EntitySet Name="RoomType" EntityType="DBSYSPROJModel.RoomType" />
     <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
+    <EntitySet Name="vw_AllRooms" EntityType="DBSYSPROJModel.vw_AllRooms" />
     <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
-    <EntitySet Name="vw_RoomTable" EntityType="DBSYSPROJModel.vw_RoomTable" />
-    <AssociationSet Name="FK_Rooms_Hotel" Association="DBSYSPROJModel.FK_Rooms_Hotel">
+    <AssociationSet Name="FK_Rooms_Hotel1" Association="DBSYSPROJModel.FK_Rooms_Hotel1">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Rooms" EntitySet="Rooms" />
     </AssociationSet>
-    <FunctionImport Name="sp_YourCart" ReturnType="Collection(DBSYSPROJModel.sp_YourCart_Result)">
-      <Parameter Name="uId" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_AddToCart">
-      <Parameter Name="rId" Mode="In" Type="Int32" />
-      <Parameter Name="hId" Mode="In" Type="Int32" />
-      <Parameter Name="bId" Mode="In" Type="Int32" />
-    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="sp_YourCart_Result">
+    <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Bed" Nullable="true" />
+    <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+    <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+  </ComplexType>
   <EntityType Name="Cart">
     <Key>
       <PropertyRef Name="cartId" />
@@ -135,7 +166,7 @@
     <Property Name="hotelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="hotelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="hotelAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_Rooms_Hotel" FromRole="Hotel" ToRole="Rooms" />
+    <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Hotel" ToRole="Rooms" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -188,8 +219,10 @@
     <Property Name="roomBed" Type="Int32" />
     <Property Name="roomMin" Type="Int32" />
     <Property Name="roomMax" Type="Int32" />
+    <Property Name="roomPrice" Type="Int32" />
     <Property Name="hotelId" Type="Int32" />
-    <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel" FromRole="Rooms" ToRole="Hotel" />
+    <Property Name="isAvailable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Rooms" ToRole="Hotel" />
   </EntityType>
   <EntityType Name="RoomType">
     <Key>
@@ -215,6 +248,22 @@
     <Property Name="roleId" Type="Int32" />
     <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="vw_AllRooms">
+    <Key>
+      <PropertyRef Name="Room_Id" />
+    </Key>
+    <Property Name="Room_Id" Type="Int32" Nullable="false" />
+    <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bed" Type="Int32" />
+    <Property Name="Minimum_Guest" Type="Int32" />
+    <Property Name="Maximum_Guest" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Hotel_Id" Type="Int32" />
+    <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="vw_AllUsers">
     <Key>
       <PropertyRef Name="Last_Name" />
@@ -237,22 +286,7 @@
     <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="vw_RoomTable">
-    <Key>
-      <PropertyRef Name="Room_Id" />
-    </Key>
-    <Property Name="Room_Id" Type="Int32" Nullable="false" />
-    <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Bed" Type="Int32" />
-    <Property Name="Minimum_Guest" Type="Int32" />
-    <Property Name="Maximum_Guest" Type="Int32" />
-    <Property Name="Hotel_Id" Type="Int32" />
-    <Property Name="Hotel_Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <Association Name="FK_Rooms_Hotel">
+  <Association Name="FK_Rooms_Hotel1">
     <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
     <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="*" />
     <ReferentialConstraint>
@@ -264,14 +298,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="sp_YourCart_Result">
-    <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="Bed" Nullable="true" />
-    <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
-    <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
-    <Property Type="String" Name="Hotel_Name" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
-  </ComplexType>
 </Schema>

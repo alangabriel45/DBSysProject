@@ -1,4 +1,5 @@
 ﻿using DBSysProj.AppData;
+using DBSysProj.Forms;
 using DBSysProj.Model;
 using DBSysProj.Repositories;
 using DBSysProj.Utils;
@@ -10,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace DBSysProj.UserControls
@@ -17,12 +19,23 @@ namespace DBSysProj.UserControls
     public partial class ucBook : UserControl
     {
         UserRepository userRepo;
-        int roomSelectedId;
-        int hotelSelectedId;
+        public int roomSelectedId;
+        public int hotelSelectedId;
         public ucBook()
         {
             InitializeComponent();
             userRepo = new UserRepository();
+        }
+        private void addUserControl(UserControl userControl)
+        {
+            userControl.Dock = DockStyle.Fill;
+            pnlContainer.Controls.Clear();
+            pnlContainer.Controls.Add(userControl);
+            userControl.BringToFront();
+            dataGridView1.SendToBack();
+            panel1.SendToBack();
+            txtSearch.SendToBack();
+            label1.SendToBack();
         }
         private void ucBook_Load(object sender, EventArgs e)
         {
@@ -41,7 +54,7 @@ namespace DBSysProj.UserControls
                 {
 
                     roomSelectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-                    hotelSelectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Hotel_Id"].Value; 
+                    hotelSelectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Hotel_Id"].Value;
                     txtRoomNum.Text = dataGridView1.Rows[e.RowIndex].Cells["Room_Number"].Value.ToString();
                     txtRoomType.Text = dataGridView1.Rows[e.RowIndex].Cells["Room_Type"].Value.ToString();
                     txtAc.Text = dataGridView1.Rows[e.RowIndex].Cells["Aircon"].Value.ToString();
@@ -116,6 +129,26 @@ namespace DBSysProj.UserControls
             {
                 MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void btnBookNow_Click(object sender, EventArgs e)
+        {
+            ucCheckout uc = new ucCheckout();
+
+            if (String.IsNullOrEmpty(txtRoomNum.Text) || (String.IsNullOrEmpty(txtHotel.Text)) || (String.IsNullOrEmpty(txtRoomType.Text)) || (String.IsNullOrEmpty(txtAc.Text)) || (String.IsNullOrEmpty(txtBed.Text)) || (String.IsNullOrEmpty(txtMin.Text)) || (String.IsNullOrEmpty(txtMax.Text)))
+            {
+                MessageBox.Show("Please Select Room!");
+                return;
+            }
+
+            uc.lblhotel.Text = txtHotel.Text;
+            uc.lblRoomNum.Text = txtRoomNum.Text;
+            uc.lblRoomType.Text = txtRoomType.Text;
+            uc.lblAc.Text = txtAc.Text;
+            uc.lblBed.Text = txtBed.Text;
+            uc.lblMin.Text = txtMin.Text;
+            uc.lblMax.Text = txtMax.Text;
+            addUserControl(uc);
         }
     }
 }

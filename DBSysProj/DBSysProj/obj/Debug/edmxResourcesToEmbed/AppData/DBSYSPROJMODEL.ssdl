@@ -68,7 +68,9 @@
     <Property Name="roomBed" Type="int" />
     <Property Name="roomMin" Type="int" />
     <Property Name="roomMax" Type="int" />
+    <Property Name="roomPrice" Type="int" />
     <Property Name="hotelId" Type="int" />
+    <Property Name="isAvailable" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="RoomType">
     <Key>
@@ -95,6 +97,24 @@
     <Property Name="createdBy" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllRooms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_AllRooms">
+    <Key>
+      <PropertyRef Name="Room Id" />
+    </Key>
+    <Property Name="Room Id" Type="int" Nullable="false" />
+    <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bed" Type="int" />
+    <Property Name="Minimum Guest" Type="int" />
+    <Property Name="Maximum Guest" Type="int" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Hotel Id" Type="int" />
+    <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
+    <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vw_AllUsers">
     <Key>
@@ -118,24 +138,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
     <Property Name="Role" Type="nvarchar" MaxLength="128" />
     <Property Name="Created By" Type="nvarchar" MaxLength="128" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vw_RoomTable">
-    <Key>
-      <PropertyRef Name="Room Id" />
-    </Key>
-    <Property Name="Room Id" Type="int" Nullable="false" />
-    <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
-    <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
-    <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
-    <Property Name="Bed" Type="int" />
-    <Property Name="Minimum Guest" Type="int" />
-    <Property Name="Maximum Guest" Type="int" />
-    <Property Name="Hotel Id" Type="int" />
-    <Property Name="Hotel Name" Type="nvarchar" MaxLength="128" />
-    <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
-  </EntityType>
-  <Association Name="FK_Rooms_Hotel">
+  <Association Name="FK_Rooms_Hotel1">
     <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
     <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
     <ReferentialConstraint>
@@ -148,6 +151,16 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_AddRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+    <Parameter Name="rType" Type="nvarchar" Mode="In" />
+    <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+    <Parameter Name="rBed" Type="int" Mode="In" />
+    <Parameter Name="rMin" Type="int" Mode="In" />
+    <Parameter Name="rMax" Type="int" Mode="In" />
+    <Parameter Name="rPrice" Type="int" Mode="In" />
+    <Parameter Name="hId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_AddToCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="rId" Type="int" Mode="In" />
     <Parameter Name="hId" Type="int" Mode="In" />
@@ -229,6 +242,17 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <Parameter Name="rMax" Type="int" Mode="In" />
     <Parameter Name="hId" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_UpdateRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rId" Type="int" Mode="In" />
+    <Parameter Name="rNum" Type="nvarchar" Mode="In" />
+    <Parameter Name="rType" Type="nvarchar" Mode="In" />
+    <Parameter Name="rAc" Type="nvarchar" Mode="In" />
+    <Parameter Name="rBed" Type="int" Mode="In" />
+    <Parameter Name="rMin" Type="int" Mode="In" />
+    <Parameter Name="rMax" Type="int" Mode="In" />
+    <Parameter Name="rPrice" Type="int" Mode="In" />
+    <Parameter Name="hId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="uId" Type="int" Mode="In" />
     <Parameter Name="lName" Type="nvarchar" Mode="In" />
@@ -255,6 +279,21 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
     <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_AllRooms" EntityType="Self.vw_AllRooms" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[vw_AllRooms].[Room Id] AS [Room Id], 
+[vw_AllRooms].[Room Number] AS [Room Number], 
+[vw_AllRooms].[Room Type] AS [Room Type], 
+[vw_AllRooms].[Aircon] AS [Aircon], 
+[vw_AllRooms].[Bed] AS [Bed], 
+[vw_AllRooms].[Minimum Guest] AS [Minimum Guest], 
+[vw_AllRooms].[Maximum Guest] AS [Maximum Guest], 
+[vw_AllRooms].[Price] AS [Price], 
+[vw_AllRooms].[Hotel Id] AS [Hotel Id], 
+[vw_AllRooms].[Hotel] AS [Hotel], 
+[vw_AllRooms].[Hotel Address] AS [Hotel Address]
+FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
 [vw_AllUsers].[Last Name] AS [Last Name], 
@@ -269,21 +308,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_RoomTable' does not have a primar
 [vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="vw_RoomTable" EntityType="Self.vw_RoomTable" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[vw_RoomTable].[Room Id] AS [Room Id], 
-[vw_RoomTable].[Room Number] AS [Room Number], 
-[vw_RoomTable].[Room Type] AS [Room Type], 
-[vw_RoomTable].[Aircon] AS [Aircon], 
-[vw_RoomTable].[Bed] AS [Bed], 
-[vw_RoomTable].[Minimum Guest] AS [Minimum Guest], 
-[vw_RoomTable].[Maximum Guest] AS [Maximum Guest], 
-[vw_RoomTable].[Hotel Id] AS [Hotel Id], 
-[vw_RoomTable].[Hotel Name] AS [Hotel Name], 
-[vw_RoomTable].[Hotel Address] AS [Hotel Address]
-FROM [dbo].[vw_RoomTable] AS [vw_RoomTable]</DefiningQuery>
-    </EntitySet>
-    <AssociationSet Name="FK_Rooms_Hotel" Association="Self.FK_Rooms_Hotel">
+    <AssociationSet Name="FK_Rooms_Hotel1" Association="Self.FK_Rooms_Hotel1">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Rooms" EntitySet="Rooms" />
     </AssociationSet>

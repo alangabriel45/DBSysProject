@@ -29,25 +29,26 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtRoomNum = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtHotel = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtRoomType = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtAc = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtBed = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtMin = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtMax = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.btnBookNow = new System.Windows.Forms.PictureBox();
             this.btnAddtoCart = new System.Windows.Forms.PictureBox();
+            this.txtMax = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtMin = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtBed = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtAc = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtRoomType = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlContainer = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBookNow)).BeginInit();
@@ -63,12 +64,12 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
-            // textBox1
+            // txtSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(17, 111);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(337, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtSearch.Location = new System.Drawing.Point(17, 111);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(337, 20);
+            this.txtSearch.TabIndex = 2;
             // 
             // label1
             // 
@@ -136,69 +137,27 @@
             this.panel1.Size = new System.Drawing.Size(354, 354);
             this.panel1.TabIndex = 1;
             // 
-            // txtRoomType
+            // btnBookNow
             // 
-            this.txtRoomType.Location = new System.Drawing.Point(21, 83);
-            this.txtRoomType.Name = "txtRoomType";
-            this.txtRoomType.Size = new System.Drawing.Size(156, 20);
-            this.txtRoomType.TabIndex = 5;
+            this.btnBookNow.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190258;
+            this.btnBookNow.Location = new System.Drawing.Point(51, 287);
+            this.btnBookNow.Name = "btnBookNow";
+            this.btnBookNow.Size = new System.Drawing.Size(122, 39);
+            this.btnBookNow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnBookNow.TabIndex = 4;
+            this.btnBookNow.TabStop = false;
+            this.btnBookNow.Click += new System.EventHandler(this.btnBookNow_Click);
             // 
-            // label4
+            // btnAddtoCart
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Room Type";
-            // 
-            // txtAc
-            // 
-            this.txtAc.Location = new System.Drawing.Point(21, 122);
-            this.txtAc.Name = "txtAc";
-            this.txtAc.Size = new System.Drawing.Size(156, 20);
-            this.txtAc.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 106);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "With Aircoin";
-            // 
-            // txtBed
-            // 
-            this.txtBed.Location = new System.Drawing.Point(21, 161);
-            this.txtBed.Name = "txtBed";
-            this.txtBed.Size = new System.Drawing.Size(156, 20);
-            this.txtBed.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 145);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Bed";
-            // 
-            // txtMin
-            // 
-            this.txtMin.Location = new System.Drawing.Point(21, 200);
-            this.txtMin.Name = "txtMin";
-            this.txtMin.Size = new System.Drawing.Size(156, 20);
-            this.txtMin.TabIndex = 11;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 184);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(79, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Minimum Guest";
+            this.btnAddtoCart.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190237;
+            this.btnAddtoCart.Location = new System.Drawing.Point(179, 287);
+            this.btnAddtoCart.Name = "btnAddtoCart";
+            this.btnAddtoCart.Size = new System.Drawing.Size(122, 39);
+            this.btnAddtoCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnAddtoCart.TabIndex = 5;
+            this.btnAddtoCart.TabStop = false;
+            this.btnAddtoCart.Click += new System.EventHandler(this.btnAddtoCart_Click);
             // 
             // txtMax
             // 
@@ -216,26 +175,76 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "Maximum Guest";
             // 
-            // btnBookNow
+            // txtMin
             // 
-            this.btnBookNow.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190258;
-            this.btnBookNow.Location = new System.Drawing.Point(51, 287);
-            this.btnBookNow.Name = "btnBookNow";
-            this.btnBookNow.Size = new System.Drawing.Size(122, 39);
-            this.btnBookNow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnBookNow.TabIndex = 4;
-            this.btnBookNow.TabStop = false;
+            this.txtMin.Location = new System.Drawing.Point(21, 200);
+            this.txtMin.Name = "txtMin";
+            this.txtMin.Size = new System.Drawing.Size(156, 20);
+            this.txtMin.TabIndex = 11;
             // 
-            // btnAddtoCart
+            // label7
             // 
-            this.btnAddtoCart.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190237;
-            this.btnAddtoCart.Location = new System.Drawing.Point(179, 287);
-            this.btnAddtoCart.Name = "btnAddtoCart";
-            this.btnAddtoCart.Size = new System.Drawing.Size(122, 39);
-            this.btnAddtoCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnAddtoCart.TabIndex = 5;
-            this.btnAddtoCart.TabStop = false;
-            this.btnAddtoCart.Click += new System.EventHandler(this.btnAddtoCart_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 184);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Minimum Guest";
+            // 
+            // txtBed
+            // 
+            this.txtBed.Location = new System.Drawing.Point(21, 161);
+            this.txtBed.Name = "txtBed";
+            this.txtBed.Size = new System.Drawing.Size(156, 20);
+            this.txtBed.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 145);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Bed";
+            // 
+            // txtAc
+            // 
+            this.txtAc.Location = new System.Drawing.Point(21, 122);
+            this.txtAc.Name = "txtAc";
+            this.txtAc.Size = new System.Drawing.Size(156, 20);
+            this.txtAc.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 106);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "With Aircoin";
+            // 
+            // txtRoomType
+            // 
+            this.txtRoomType.Location = new System.Drawing.Point(21, 83);
+            this.txtRoomType.Name = "txtRoomType";
+            this.txtRoomType.Size = new System.Drawing.Size(156, 20);
+            this.txtRoomType.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Room Type";
+            // 
+            // pnlContainer
+            // 
+            this.pnlContainer.Location = new System.Drawing.Point(0, 0);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1034, 593);
+            this.pnlContainer.TabIndex = 4;
             // 
             // ucBook
             // 
@@ -243,9 +252,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.pnlContainer);
             this.Name = "ucBook";
             this.Size = new System.Drawing.Size(1034, 593);
             this.Load += new System.EventHandler(this.ucBook_Load);
@@ -262,7 +272,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox btnBookNow;
         private System.Windows.Forms.PictureBox btnAddtoCart;
@@ -282,5 +292,6 @@
         private System.Windows.Forms.TextBox txtAc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ErrorProvider errorProviderCustom;
+        private System.Windows.Forms.Panel pnlContainer;
     }
 }

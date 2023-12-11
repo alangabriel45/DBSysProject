@@ -101,10 +101,10 @@
     <Compile Include="AppData\UserAccount.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="AppData\vw_AllUsers.cs">
+    <Compile Include="AppData\vw_AllRooms.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="AppData\vw_RoomTable.cs">
+    <Compile Include="AppData\vw_AllUsers.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form1.cs">
