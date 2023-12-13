@@ -38,3 +38,5 @@ C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.Form
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucBook.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCart.resources
 C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucCheckout.resources
+C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucYourCheckOut.resources
+C:\Users\dosad\Desktop\DBSysProject\DBSysProj\DBSysProj\obj\Debug\DBSysProj.UserControls.ucAdminCheckOut.resources

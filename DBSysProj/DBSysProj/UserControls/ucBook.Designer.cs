@@ -49,6 +49,8 @@
             this.txtRoomType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pnlContainer = new System.Windows.Forms.Panel();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.lblPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBookNow)).BeginInit();
@@ -116,6 +118,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.txtPrice);
+            this.panel1.Controls.Add(this.lblPrice);
             this.panel1.Controls.Add(this.btnBookNow);
             this.panel1.Controls.Add(this.btnAddtoCart);
             this.panel1.Controls.Add(this.txtMax);
@@ -140,7 +144,7 @@
             // btnBookNow
             // 
             this.btnBookNow.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190258;
-            this.btnBookNow.Location = new System.Drawing.Point(51, 287);
+            this.btnBookNow.Location = new System.Drawing.Point(51, 304);
             this.btnBookNow.Name = "btnBookNow";
             this.btnBookNow.Size = new System.Drawing.Size(122, 39);
             this.btnBookNow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -151,7 +155,7 @@
             // btnAddtoCart
             // 
             this.btnAddtoCart.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_02_190237;
-            this.btnAddtoCart.Location = new System.Drawing.Point(179, 287);
+            this.btnAddtoCart.Location = new System.Drawing.Point(179, 304);
             this.btnAddtoCart.Name = "btnAddtoCart";
             this.btnAddtoCart.Size = new System.Drawing.Size(122, 39);
             this.btnAddtoCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -246,6 +250,22 @@
             this.pnlContainer.Size = new System.Drawing.Size(1034, 593);
             this.pnlContainer.TabIndex = 4;
             // 
+            // txtPrice
+            // 
+            this.txtPrice.Location = new System.Drawing.Point(21, 278);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(156, 20);
+            this.txtPrice.TabIndex = 15;
+            // 
+            // lblPrice
+            // 
+            this.lblPrice.AutoSize = true;
+            this.lblPrice.Location = new System.Drawing.Point(18, 262);
+            this.lblPrice.Name = "lblPrice";
+            this.lblPrice.Size = new System.Drawing.Size(31, 13);
+            this.lblPrice.TabIndex = 14;
+            this.lblPrice.Text = "Price";
+            // 
             // ucBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,5 +313,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ErrorProvider errorProviderCustom;
         private System.Windows.Forms.Panel pnlContainer;
+        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.Label lblPrice;
     }
 }

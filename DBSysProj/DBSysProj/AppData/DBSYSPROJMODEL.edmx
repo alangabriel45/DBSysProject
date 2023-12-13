@@ -14,6 +14,23 @@
           <Property Name="hotelId" Type="int" />
           <Property Name="bookedBy" Type="int" />
         </EntityType>
+        <EntityType Name="CheckOut">
+          <Key>
+            <PropertyRef Name="coId" />
+          </Key>
+          <Property Name="coId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomId" Type="int" />
+          <Property Name="coFirstName" Type="nvarchar" MaxLength="128" />
+          <Property Name="coLastName" Type="nvarchar" MaxLength="128" />
+          <Property Name="coAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="coEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="coPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="coCheckIn" Type="datetime" />
+          <Property Name="coCheckOut" Type="datetime" />
+          <Property Name="coPayment" Type="int" />
+          <Property Name="coBalance" Type="int" />
+          <Property Name="bookedBy" Type="int" />
+        </EntityType>
         <EntityType Name="Hotel">
           <Key>
             <PropertyRef Name="hotelId" />
@@ -117,7 +134,8 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllRooms' does not have a primary
           <Property Name="Price" Type="int" />
           <Property Name="Hotel Id" Type="int" />
           <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
-          <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+          <Property Name="Hote Address" Type="nvarchar" MaxLength="128" />
+          <Property Name="Available" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -143,6 +161,62 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
           <Property Name="Role" Type="nvarchar" MaxLength="128" />
           <Property Name="Created By" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_CheckOutTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Booked-by Name" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Room Id" Type="int" />
+          <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bed" Type="int" />
+          <Property Name="Minimum Guest" Type="int" />
+          <Property Name="Maximum Guest" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Hotel Id" Type="int" />
+          <Property Name="Hotel Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+          <Property Name="Available" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="257" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Check-In" Type="datetime" />
+          <Property Name="Check-Out" Type="datetime" />
+          <Property Name="Payment" Type="int" />
+          <Property Name="Balance" Type="int" />
+          <Property Name="Booked-By Id" Type="int" />
+          <Property Name="Booked-by Name" Type="nvarchar" MaxLength="102" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CheckOut_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="CheckOut" Type="Self.CheckOut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="roomId" />
+            </Principal>
+            <Dependent Role="CheckOut">
+              <PropertyRef Name="roomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckOut_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="CheckOut" Type="Self.CheckOut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CheckOut">
+              <PropertyRef Name="bookedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rooms_Hotel1">
           <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
           <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
@@ -199,11 +273,30 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="sp_CheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rId" Type="int" Mode="In" />
+          <Parameter Name="cFName" Type="nvarchar" Mode="In" />
+          <Parameter Name="cLName" Type="nvarchar" Mode="In" />
+          <Parameter Name="cAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="cEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="cPhone" Type="nvarchar" Mode="In" />
+          <Parameter Name="cCheckIn" Type="datetime" Mode="In" />
+          <Parameter Name="cCheckOut" Type="datetime" Mode="In" />
+          <Parameter Name="cPayment" Type="int" Mode="In" />
+          <Parameter Name="cBalance" Type="int" Mode="In" />
+          <Parameter Name="bBy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CheckOutTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="coId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rId" Type="int" Mode="In" />
@@ -223,29 +316,19 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_InsertRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="roomNumber" Type="nvarchar" Mode="In" />
-          <Parameter Name="roomType" Type="nvarchar" Mode="In" />
-          <Parameter Name="roomAc" Type="nvarchar" Mode="In" />
-          <Parameter Name="roomBed" Type="int" Mode="In" />
-          <Parameter Name="roomMin" Type="int" Mode="In" />
-          <Parameter Name="roomMax" Type="int" Mode="In" />
-          <Parameter Name="hotelId" Type="int" Mode="In" />
-        </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="sp_UpdateRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="sp_UpdateCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="coId" Type="int" Mode="In" />
           <Parameter Name="rId" Type="int" Mode="In" />
-          <Parameter Name="rNum" Type="nvarchar" Mode="In" />
-          <Parameter Name="rType" Type="nvarchar" Mode="In" />
-          <Parameter Name="rAc" Type="nvarchar" Mode="In" />
-          <Parameter Name="rBed" Type="int" Mode="In" />
-          <Parameter Name="rMin" Type="int" Mode="In" />
-          <Parameter Name="rMax" Type="int" Mode="In" />
-          <Parameter Name="hId" Type="int" Mode="In" />
+          <Parameter Name="rA" Type="nvarchar" Mode="In" />
+          <Parameter Name="coCI" Type="datetime" Mode="In" />
+          <Parameter Name="coCO" Type="datetime" Mode="In" />
+          <Parameter Name="coP" Type="int" Mode="In" />
+          <Parameter Name="coB" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_UpdateRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rId" Type="int" Mode="In" />
@@ -275,6 +358,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
         </Function>
         <EntityContainer Name="DBSYSPROJModelStoreContainer">
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckOut" EntityType="Self.CheckOut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomAc" EntityType="Self.RoomAc" Schema="dbo" store:Type="Tables" />
@@ -296,7 +380,8 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
 [vw_AllRooms].[Price] AS [Price], 
 [vw_AllRooms].[Hotel Id] AS [Hotel Id], 
 [vw_AllRooms].[Hotel] AS [Hotel], 
-[vw_AllRooms].[Hotel Address] AS [Hotel Address]
+[vw_AllRooms].[Hote Address] AS [Hote Address], 
+[vw_AllRooms].[Available] AS [Available]
 FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
@@ -313,6 +398,41 @@ FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
 [vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vw_CheckOutTable" EntityType="Self.vw_CheckOutTable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_CheckOutTable].[Id] AS [Id], 
+[vw_CheckOutTable].[Room Id] AS [Room Id], 
+[vw_CheckOutTable].[Room Number] AS [Room Number], 
+[vw_CheckOutTable].[Room Type] AS [Room Type], 
+[vw_CheckOutTable].[Aircon] AS [Aircon], 
+[vw_CheckOutTable].[Bed] AS [Bed], 
+[vw_CheckOutTable].[Minimum Guest] AS [Minimum Guest], 
+[vw_CheckOutTable].[Maximum Guest] AS [Maximum Guest], 
+[vw_CheckOutTable].[Price] AS [Price], 
+[vw_CheckOutTable].[Hotel Id] AS [Hotel Id], 
+[vw_CheckOutTable].[Hotel Name] AS [Hotel Name], 
+[vw_CheckOutTable].[Hotel Address] AS [Hotel Address], 
+[vw_CheckOutTable].[Available] AS [Available], 
+[vw_CheckOutTable].[Name] AS [Name], 
+[vw_CheckOutTable].[Address] AS [Address], 
+[vw_CheckOutTable].[Email] AS [Email], 
+[vw_CheckOutTable].[Phone Number] AS [Phone Number], 
+[vw_CheckOutTable].[Check-In] AS [Check-In], 
+[vw_CheckOutTable].[Check-Out] AS [Check-Out], 
+[vw_CheckOutTable].[Payment] AS [Payment], 
+[vw_CheckOutTable].[Balance] AS [Balance], 
+[vw_CheckOutTable].[Booked-By Id] AS [Booked-By Id], 
+[vw_CheckOutTable].[Booked-by Name] AS [Booked-by Name]
+FROM [dbo].[vw_CheckOutTable] AS [vw_CheckOutTable]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CheckOut_Rooms" Association="Self.FK_CheckOut_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="CheckOut" EntitySet="CheckOut" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckOut_UserAccount" Association="Self.FK_CheckOut_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="CheckOut" EntitySet="CheckOut" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rooms_Hotel1" Association="Self.FK_Rooms_Hotel1">
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Rooms" EntitySet="Rooms" />
@@ -446,6 +566,7 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
             <Parameter Name="hId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
+          <EntitySet Name="CheckOut" EntityType="DBSYSPROJModel.CheckOut" />
           <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
           <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
           <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
@@ -457,10 +578,47 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
           <EntitySet Name="vw_AllRooms" EntityType="DBSYSPROJModel.vw_AllRooms" />
           <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+          <AssociationSet Name="FK_CheckOut_Rooms" Association="DBSYSPROJModel.FK_CheckOut_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="CheckOut" EntitySet="CheckOut" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckOut_UserAccount" Association="DBSYSPROJModel.FK_CheckOut_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="CheckOut" EntitySet="CheckOut" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rooms_Hotel1" Association="DBSYSPROJModel.FK_Rooms_Hotel1">
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
+          <FunctionImport Name="sp_CheckOut">
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="cFName" Mode="In" Type="String" />
+            <Parameter Name="cLName" Mode="In" Type="String" />
+            <Parameter Name="cAddress" Mode="In" Type="String" />
+            <Parameter Name="cEmail" Mode="In" Type="String" />
+            <Parameter Name="cPhone" Mode="In" Type="String" />
+            <Parameter Name="cCheckIn" Mode="In" Type="DateTime" />
+            <Parameter Name="cCheckOut" Mode="In" Type="DateTime" />
+            <Parameter Name="cPayment" Mode="In" Type="Int32" />
+            <Parameter Name="cBalance" Mode="In" Type="Int32" />
+            <Parameter Name="bBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CheckOutTable" ReturnType="Collection(DBSYSPROJModel.sp_CheckOutTable_Result)">
+          <Parameter Name="cId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vw_CheckOutTable" EntityType="DBSYSPROJModel.vw_CheckOutTable" />
+          <FunctionImport Name="sp_DeleteCheckOut">
+            <Parameter Name="coId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateCheckOut">
+            <Parameter Name="coId" Mode="In" Type="Int32" />
+            <Parameter Name="rId" Mode="In" Type="Int32" />
+            <Parameter Name="rA" Mode="In" Type="String" />
+            <Parameter Name="coCI" Mode="In" Type="DateTime" />
+            <Parameter Name="coCO" Mode="In" Type="DateTime" />
+            <Parameter Name="coP" Mode="In" Type="Int32" />
+            <Parameter Name="coB" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_YourCart_Result">
           <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
@@ -480,6 +638,25 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <Property Name="roomId" Type="Int32" />
           <Property Name="hotelId" Type="Int32" />
           <Property Name="bookedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CheckOut">
+          <Key>
+            <PropertyRef Name="coId" />
+          </Key>
+          <Property Name="coId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomId" Type="Int32" />
+          <Property Name="coFirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="coLastName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="coAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="coEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="coPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="coCheckIn" Type="DateTime" Precision="3" />
+          <Property Name="coCheckOut" Type="DateTime" Precision="3" />
+          <Property Name="coPayment" Type="Int32" />
+          <Property Name="coBalance" Type="Int32" />
+          <Property Name="bookedBy" Type="Int32" />
+          <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_CheckOut_Rooms" FromRole="CheckOut" ToRole="Rooms" />
+          <NavigationProperty Name="UserAccount" Relationship="DBSYSPROJModel.FK_CheckOut_UserAccount" FromRole="CheckOut" ToRole="UserAccount" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -544,6 +721,7 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <Property Name="roomPrice" Type="Int32" />
           <Property Name="hotelId" Type="Int32" />
           <Property Name="isAvailable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CheckOut" Relationship="DBSYSPROJModel.FK_CheckOut_Rooms" FromRole="Rooms" ToRole="CheckOut" />
           <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Rooms" ToRole="Hotel" />
         </EntityType>
         <EntityType Name="RoomType">
@@ -569,6 +747,7 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="roleId" Type="Int32" />
           <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CheckOut" Relationship="DBSYSPROJModel.FK_CheckOut_UserAccount" FromRole="UserAccount" ToRole="CheckOut" />
         </EntityType>
         <EntityType Name="vw_AllRooms">
           <Key>
@@ -584,7 +763,8 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <Property Name="Price" Type="Int32" />
           <Property Name="Hotel_Id" Type="Int32" />
           <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hote_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vw_AllUsers">
           <Key>
@@ -608,6 +788,30 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_CheckOut_Rooms">
+          <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="0..1" />
+          <End Type="DBSYSPROJModel.CheckOut" Role="CheckOut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="roomId" />
+            </Principal>
+            <Dependent Role="CheckOut">
+              <PropertyRef Name="roomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckOut_UserAccount">
+          <End Type="DBSYSPROJModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="DBSYSPROJModel.CheckOut" Role="CheckOut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CheckOut">
+              <PropertyRef Name="bookedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rooms_Hotel1">
           <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
           <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="*" />
@@ -620,14 +824,66 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_CheckOutTable_Result">
+          <Property Type="Int32" Name="Check_out_Id" Nullable="false" />
+          <Property Type="Int32" Name="Room_Id" Nullable="true" />
+          <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Bed" Nullable="true" />
+          <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+          <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+          <Property Type="Int32" Name="Price" Nullable="true" />
+          <Property Type="Int32" Name="Hotel_Id" Nullable="true" />
+          <Property Type="String" Name="Hotel" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="257" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Check_in" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Check_out" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Payment" Nullable="true" />
+          <Property Type="Int32" Name="Balance" Nullable="true" />
+          <Property Type="Int32" Name="Booked_by_Id" Nullable="true" />
+          <Property Type="String" Name="Booked_by_Name" Nullable="false" MaxLength="153" />
+        </ComplexType>
+        <EntityType Name="vw_CheckOutTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Booked_by_Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Room_Id" Type="Int32" />
+          <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bed" Type="Int32" />
+          <Property Name="Minimum_Guest" Type="Int32" />
+          <Property Name="Maximum_Guest" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Hotel_Id" Type="Int32" />
+          <Property Name="Hotel_Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="257" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Check_In" Type="DateTime" Precision="3" />
+          <Property Name="Check_Out" Type="DateTime" Precision="3" />
+          <Property Name="Payment" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="Booked_By_Id" Type="Int32" />
+          <Property Name="Booked_by_Name" Type="String" Nullable="false" MaxLength="102" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBSYSPROJModelStoreContainer" CdmEntityContainer="DBSYSPROJEntities">
-          <FunctionImportMapping FunctionImportName="sp_InsertRoom1" FunctionName="DBSYSPROJModel.Store.sp_InsertRoom" />
-          <FunctionImportMapping FunctionImportName="sp_UpdateRoom" FunctionName="DBSYSPROJModel.Store.sp_UpdateRoom" />
           <FunctionImportMapping FunctionImportName="sp_DeleteRoom1" FunctionName="DBSYSPROJModel.Store.sp_DeleteRoom" />
           <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
           <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
@@ -657,6 +913,24 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
                 <ScalarProperty Name="hotelId" ColumnName="hotelId" />
                 <ScalarProperty Name="roomId" ColumnName="roomId" />
                 <ScalarProperty Name="cartId" ColumnName="cartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckOut">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.CheckOut">
+              <MappingFragment StoreEntitySet="CheckOut">
+                <ScalarProperty Name="bookedBy" ColumnName="bookedBy" />
+                <ScalarProperty Name="coBalance" ColumnName="coBalance" />
+                <ScalarProperty Name="coPayment" ColumnName="coPayment" />
+                <ScalarProperty Name="coCheckOut" ColumnName="coCheckOut" />
+                <ScalarProperty Name="coCheckIn" ColumnName="coCheckIn" />
+                <ScalarProperty Name="coPhone" ColumnName="coPhone" />
+                <ScalarProperty Name="coEmail" ColumnName="coEmail" />
+                <ScalarProperty Name="coAddress" ColumnName="coAddress" />
+                <ScalarProperty Name="coLastName" ColumnName="coLastName" />
+                <ScalarProperty Name="coFirstName" ColumnName="coFirstName" />
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+                <ScalarProperty Name="coId" ColumnName="coId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -759,7 +1033,8 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
           <EntitySetMapping Name="vw_AllRooms">
             <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllRooms">
               <MappingFragment StoreEntitySet="vw_AllRooms">
-                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Hote_Address" ColumnName="Hote Address" />
                 <ScalarProperty Name="Hotel" ColumnName="Hotel" />
                 <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -789,6 +1064,66 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CheckOut" FunctionName="DBSYSPROJModel.Store.sp_CheckOut" />
+          <FunctionImportMapping FunctionImportName="sp_CheckOutTable" FunctionName="DBSYSPROJModel.Store.sp_CheckOutTable">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_CheckOutTable_Result">
+                <ScalarProperty Name="Check_out_Id" ColumnName="Check-out Id" />
+                <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+                <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Check_in" ColumnName="Check-in" />
+                <ScalarProperty Name="Check_out" ColumnName="Check-out" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Booked_by_Id" ColumnName="Booked-by Id" />
+                <ScalarProperty Name="Booked_by_Name" ColumnName="Booked-by Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vw_CheckOutTable">
+            <EntityTypeMapping TypeName="DBSYSPROJModel.vw_CheckOutTable">
+              <MappingFragment StoreEntitySet="vw_CheckOutTable">
+                <ScalarProperty Name="Booked_by_Name" ColumnName="Booked-by Name" />
+                <ScalarProperty Name="Booked_By_Id" ColumnName="Booked-By Id" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Check_Out" ColumnName="Check-Out" />
+                <ScalarProperty Name="Check_In" ColumnName="Check-In" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+                <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
+                <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+                <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+                <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+                <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_DeleteCheckOut" FunctionName="DBSYSPROJModel.Store.sp_DeleteCheckOut" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateCheckOut" FunctionName="DBSYSPROJModel.Store.sp_UpdateCheckOut" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

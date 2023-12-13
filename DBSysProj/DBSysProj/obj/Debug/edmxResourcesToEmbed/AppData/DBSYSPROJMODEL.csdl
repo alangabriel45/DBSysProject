@@ -124,6 +124,7 @@
       <Parameter Name="hId" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="Cart" EntityType="DBSYSPROJModel.Cart" />
+    <EntitySet Name="CheckOut" EntityType="DBSYSPROJModel.CheckOut" />
     <EntitySet Name="Hotel" EntityType="DBSYSPROJModel.Hotel" />
     <EntitySet Name="Role" EntityType="DBSYSPROJModel.Role" />
     <EntitySet Name="RoomAc" EntityType="DBSYSPROJModel.RoomAc" />
@@ -135,10 +136,47 @@
     <EntitySet Name="UserAccount" EntityType="DBSYSPROJModel.UserAccount" />
     <EntitySet Name="vw_AllRooms" EntityType="DBSYSPROJModel.vw_AllRooms" />
     <EntitySet Name="vw_AllUsers" EntityType="DBSYSPROJModel.vw_AllUsers" />
+    <AssociationSet Name="FK_CheckOut_Rooms" Association="DBSYSPROJModel.FK_CheckOut_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="CheckOut" EntitySet="CheckOut" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckOut_UserAccount" Association="DBSYSPROJModel.FK_CheckOut_UserAccount">
+      <End Role="UserAccount" EntitySet="UserAccount" />
+      <End Role="CheckOut" EntitySet="CheckOut" />
+    </AssociationSet>
     <AssociationSet Name="FK_Rooms_Hotel1" Association="DBSYSPROJModel.FK_Rooms_Hotel1">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Rooms" EntitySet="Rooms" />
     </AssociationSet>
+    <FunctionImport Name="sp_CheckOut">
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="cFName" Mode="In" Type="String" />
+      <Parameter Name="cLName" Mode="In" Type="String" />
+      <Parameter Name="cAddress" Mode="In" Type="String" />
+      <Parameter Name="cEmail" Mode="In" Type="String" />
+      <Parameter Name="cPhone" Mode="In" Type="String" />
+      <Parameter Name="cCheckIn" Mode="In" Type="DateTime" />
+      <Parameter Name="cCheckOut" Mode="In" Type="DateTime" />
+      <Parameter Name="cPayment" Mode="In" Type="Int32" />
+      <Parameter Name="cBalance" Mode="In" Type="Int32" />
+      <Parameter Name="bBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CheckOutTable" ReturnType="Collection(DBSYSPROJModel.sp_CheckOutTable_Result)">
+      <Parameter Name="cId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vw_CheckOutTable" EntityType="DBSYSPROJModel.vw_CheckOutTable" />
+    <FunctionImport Name="sp_DeleteCheckOut">
+      <Parameter Name="coId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateCheckOut">
+      <Parameter Name="coId" Mode="In" Type="Int32" />
+      <Parameter Name="rId" Mode="In" Type="Int32" />
+      <Parameter Name="rA" Mode="In" Type="String" />
+      <Parameter Name="coCI" Mode="In" Type="DateTime" />
+      <Parameter Name="coCO" Mode="In" Type="DateTime" />
+      <Parameter Name="coP" Mode="In" Type="Int32" />
+      <Parameter Name="coB" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_YourCart_Result">
     <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
@@ -158,6 +196,25 @@
     <Property Name="roomId" Type="Int32" />
     <Property Name="hotelId" Type="Int32" />
     <Property Name="bookedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CheckOut">
+    <Key>
+      <PropertyRef Name="coId" />
+    </Key>
+    <Property Name="coId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roomId" Type="Int32" />
+    <Property Name="coFirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="coLastName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="coAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="coEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="coPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="coCheckIn" Type="DateTime" Precision="3" />
+    <Property Name="coCheckOut" Type="DateTime" Precision="3" />
+    <Property Name="coPayment" Type="Int32" />
+    <Property Name="coBalance" Type="Int32" />
+    <Property Name="bookedBy" Type="Int32" />
+    <NavigationProperty Name="Rooms" Relationship="DBSYSPROJModel.FK_CheckOut_Rooms" FromRole="CheckOut" ToRole="Rooms" />
+    <NavigationProperty Name="UserAccount" Relationship="DBSYSPROJModel.FK_CheckOut_UserAccount" FromRole="CheckOut" ToRole="UserAccount" />
   </EntityType>
   <EntityType Name="Hotel">
     <Key>
@@ -222,6 +279,7 @@
     <Property Name="roomPrice" Type="Int32" />
     <Property Name="hotelId" Type="Int32" />
     <Property Name="isAvailable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CheckOut" Relationship="DBSYSPROJModel.FK_CheckOut_Rooms" FromRole="Rooms" ToRole="CheckOut" />
     <NavigationProperty Name="Hotel" Relationship="DBSYSPROJModel.FK_Rooms_Hotel1" FromRole="Rooms" ToRole="Hotel" />
   </EntityType>
   <EntityType Name="RoomType">
@@ -247,6 +305,7 @@
     <Property Name="userPass" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="roleId" Type="Int32" />
     <Property Name="createdBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CheckOut" Relationship="DBSYSPROJModel.FK_CheckOut_UserAccount" FromRole="UserAccount" ToRole="CheckOut" />
   </EntityType>
   <EntityType Name="vw_AllRooms">
     <Key>
@@ -262,7 +321,8 @@
     <Property Name="Price" Type="Int32" />
     <Property Name="Hotel_Id" Type="Int32" />
     <Property Name="Hotel" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Hote_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Available" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="vw_AllUsers">
     <Key>
@@ -286,6 +346,30 @@
     <Property Name="Role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
+  <Association Name="FK_CheckOut_Rooms">
+    <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="0..1" />
+    <End Type="DBSYSPROJModel.CheckOut" Role="CheckOut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="roomId" />
+      </Principal>
+      <Dependent Role="CheckOut">
+        <PropertyRef Name="roomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CheckOut_UserAccount">
+    <End Type="DBSYSPROJModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+    <End Type="DBSYSPROJModel.CheckOut" Role="CheckOut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="CheckOut">
+        <PropertyRef Name="bookedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Rooms_Hotel1">
     <End Type="DBSYSPROJModel.Hotel" Role="Hotel" Multiplicity="0..1" />
     <End Type="DBSYSPROJModel.Rooms" Role="Rooms" Multiplicity="*" />
@@ -298,4 +382,58 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="sp_CheckOutTable_Result">
+    <Property Type="Int32" Name="Check_out_Id" Nullable="false" />
+    <Property Type="Int32" Name="Room_Id" Nullable="true" />
+    <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Bed" Nullable="true" />
+    <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Price" Nullable="true" />
+    <Property Type="Int32" Name="Hotel_Id" Nullable="true" />
+    <Property Type="String" Name="Hotel" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="257" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Check_in" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Check_out" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Payment" Nullable="true" />
+    <Property Type="Int32" Name="Balance" Nullable="true" />
+    <Property Type="Int32" Name="Booked_by_Id" Nullable="true" />
+    <Property Type="String" Name="Booked_by_Name" Nullable="false" MaxLength="153" />
+  </ComplexType>
+  <EntityType Name="vw_CheckOutTable">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Booked_by_Name" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Room_Id" Type="Int32" />
+    <Property Name="Room_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Aircon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bed" Type="Int32" />
+    <Property Name="Minimum_Guest" Type="Int32" />
+    <Property Name="Maximum_Guest" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Hotel_Id" Type="Int32" />
+    <Property Name="Hotel_Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Hotel_Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Available" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="257" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Check_In" Type="DateTime" Precision="3" />
+    <Property Name="Check_Out" Type="DateTime" Precision="3" />
+    <Property Name="Payment" Type="Int32" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="Booked_By_Id" Type="Int32" />
+    <Property Name="Booked_by_Name" Type="String" Nullable="false" MaxLength="102" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

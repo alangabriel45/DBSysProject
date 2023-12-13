@@ -29,20 +29,62 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnRooms = new System.Windows.Forms.PictureBox();
-            this.btnUsers = new System.Windows.Forms.PictureBox();
             this.btnCheckout = new System.Windows.Forms.PictureBox();
+            this.btnUsers = new System.Windows.Forms.PictureBox();
+            this.btnRooms = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRooms)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRooms)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnUsers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCheckout)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pnlContainer
+            // 
+            this.pnlContainer.BackColor = System.Drawing.Color.DarkGray;
+            this.pnlContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlContainer.Location = new System.Drawing.Point(12, 85);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1034, 583);
+            this.pnlContainer.TabIndex = 9;
+            // 
+            // btnCheckout
+            // 
+            this.btnCheckout.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010630;
+            this.btnCheckout.Location = new System.Drawing.Point(267, 39);
+            this.btnCheckout.Name = "btnCheckout";
+            this.btnCheckout.Size = new System.Drawing.Size(121, 40);
+            this.btnCheckout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnCheckout.TabIndex = 12;
+            this.btnCheckout.TabStop = false;
+            this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
+            // 
+            // btnUsers
+            // 
+            this.btnUsers.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010623;
+            this.btnUsers.Location = new System.Drawing.Point(140, 39);
+            this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Size = new System.Drawing.Size(121, 40);
+            this.btnUsers.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnUsers.TabIndex = 11;
+            this.btnUsers.TabStop = false;
+            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
+            // 
+            // btnRooms
+            // 
+            this.btnRooms.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010606;
+            this.btnRooms.Location = new System.Drawing.Point(13, 39);
+            this.btnRooms.Name = "btnRooms";
+            this.btnRooms.Size = new System.Drawing.Size(121, 40);
+            this.btnRooms.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnRooms.TabIndex = 10;
+            this.btnRooms.TabStop = false;
+            this.btnRooms.Click += new System.EventHandler(this.btnRooms_Click);
             // 
             // pictureBox3
             // 
@@ -68,47 +110,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.MouseHover += new System.EventHandler(this.pictureBox2_MouseHover);
             // 
-            // pnlContainer
-            // 
-            this.pnlContainer.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlContainer.Location = new System.Drawing.Point(12, 85);
-            this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(1034, 583);
-            this.pnlContainer.TabIndex = 9;
-            // 
-            // btnRooms
-            // 
-            this.btnRooms.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010606;
-            this.btnRooms.Location = new System.Drawing.Point(13, 39);
-            this.btnRooms.Name = "btnRooms";
-            this.btnRooms.Size = new System.Drawing.Size(121, 40);
-            this.btnRooms.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnRooms.TabIndex = 10;
-            this.btnRooms.TabStop = false;
-            this.btnRooms.Click += new System.EventHandler(this.btnRooms_Click);
-            // 
-            // btnUsers
-            // 
-            this.btnUsers.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010623;
-            this.btnUsers.Location = new System.Drawing.Point(140, 39);
-            this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(121, 40);
-            this.btnUsers.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnUsers.TabIndex = 11;
-            this.btnUsers.TabStop = false;
-            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
-            // 
-            // btnCheckout
-            // 
-            this.btnCheckout.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_11_15_010630;
-            this.btnCheckout.Location = new System.Drawing.Point(267, 39);
-            this.btnCheckout.Name = "btnCheckout";
-            this.btnCheckout.Size = new System.Drawing.Size(121, 40);
-            this.btnCheckout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnCheckout.TabIndex = 12;
-            this.btnCheckout.TabStop = false;
-            // 
             // FrmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -124,11 +125,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmAdmin";
             this.Text = "FrmAdmin";
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRooms)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRooms)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnUsers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCheckout)).EndInit();
             this.ResumeLayout(false);
 
         }

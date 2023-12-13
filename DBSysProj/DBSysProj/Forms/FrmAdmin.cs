@@ -48,5 +48,11 @@ namespace DBSysProj.Forms
             ucUsers uc = new ucUsers();
             addUserControl(uc);
         }
+
+        private void btnCheckout_Click(object sender, EventArgs e)
+        {
+            ucAdminCheckOut uc = new ucAdminCheckOut();
+            addUserControl(uc);
+        }
     }
 }

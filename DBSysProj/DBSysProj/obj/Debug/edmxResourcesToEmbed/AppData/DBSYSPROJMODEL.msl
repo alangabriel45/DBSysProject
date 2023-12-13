@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DBSYSPROJModelStoreContainer" CdmEntityContainer="DBSYSPROJEntities">
-    <FunctionImportMapping FunctionImportName="sp_InsertRoom1" FunctionName="DBSYSPROJModel.Store.sp_InsertRoom" />
-    <FunctionImportMapping FunctionImportName="sp_UpdateRoom" FunctionName="DBSYSPROJModel.Store.sp_UpdateRoom" />
     <FunctionImportMapping FunctionImportName="sp_DeleteRoom1" FunctionName="DBSYSPROJModel.Store.sp_DeleteRoom" />
     <FunctionImportMapping FunctionImportName="sp_AddUserAccount" FunctionName="DBSYSPROJModel.Store.sp_AddUserAccount" />
     <FunctionImportMapping FunctionImportName="sp_DeleteUserAccount" FunctionName="DBSYSPROJModel.Store.sp_DeleteUserAccount" />
@@ -32,6 +30,24 @@
           <ScalarProperty Name="hotelId" ColumnName="hotelId" />
           <ScalarProperty Name="roomId" ColumnName="roomId" />
           <ScalarProperty Name="cartId" ColumnName="cartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckOut">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.CheckOut">
+        <MappingFragment StoreEntitySet="CheckOut">
+          <ScalarProperty Name="bookedBy" ColumnName="bookedBy" />
+          <ScalarProperty Name="coBalance" ColumnName="coBalance" />
+          <ScalarProperty Name="coPayment" ColumnName="coPayment" />
+          <ScalarProperty Name="coCheckOut" ColumnName="coCheckOut" />
+          <ScalarProperty Name="coCheckIn" ColumnName="coCheckIn" />
+          <ScalarProperty Name="coPhone" ColumnName="coPhone" />
+          <ScalarProperty Name="coEmail" ColumnName="coEmail" />
+          <ScalarProperty Name="coAddress" ColumnName="coAddress" />
+          <ScalarProperty Name="coLastName" ColumnName="coLastName" />
+          <ScalarProperty Name="coFirstName" ColumnName="coFirstName" />
+          <ScalarProperty Name="roomId" ColumnName="roomId" />
+          <ScalarProperty Name="coId" ColumnName="coId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -134,7 +150,8 @@
     <EntitySetMapping Name="vw_AllRooms">
       <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllRooms">
         <MappingFragment StoreEntitySet="vw_AllRooms">
-          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="Hote_Address" ColumnName="Hote Address" />
           <ScalarProperty Name="Hotel" ColumnName="Hotel" />
           <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -164,5 +181,65 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_CheckOut" FunctionName="DBSYSPROJModel.Store.sp_CheckOut" />
+    <FunctionImportMapping FunctionImportName="sp_CheckOutTable" FunctionName="DBSYSPROJModel.Store.sp_CheckOutTable">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_CheckOutTable_Result">
+          <ScalarProperty Name="Check_out_Id" ColumnName="Check-out Id" />
+          <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Check_in" ColumnName="Check-in" />
+          <ScalarProperty Name="Check_out" ColumnName="Check-out" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Booked_by_Id" ColumnName="Booked-by Id" />
+          <ScalarProperty Name="Booked_by_Name" ColumnName="Booked-by Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vw_CheckOutTable">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.vw_CheckOutTable">
+        <MappingFragment StoreEntitySet="vw_CheckOutTable">
+          <ScalarProperty Name="Booked_by_Name" ColumnName="Booked-by Name" />
+          <ScalarProperty Name="Booked_By_Id" ColumnName="Booked-By Id" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="Check_Out" ColumnName="Check-Out" />
+          <ScalarProperty Name="Check_In" ColumnName="Check-In" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Hotel_Name" ColumnName="Hotel Name" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_DeleteCheckOut" FunctionName="DBSYSPROJModel.Store.sp_DeleteCheckOut" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateCheckOut" FunctionName="DBSYSPROJModel.Store.sp_UpdateCheckOut" />
   </EntityContainerMapping>
 </Mapping>

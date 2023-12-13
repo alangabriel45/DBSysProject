@@ -34,10 +34,12 @@
             this.pnlContainer = new System.Windows.Forms.Panel();
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnCheckOut = new System.Windows.Forms.PictureBox();
             this.btnYourCart = new System.Windows.Forms.PictureBox();
             this.btnBook = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYourCart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -51,6 +53,18 @@
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(1034, 593);
             this.pnlContainer.TabIndex = 7;
+            // 
+            // btnCheckOut
+            // 
+            this.btnCheckOut.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCheckOut.Image = global::DBSysProj.Properties.Resources.Screenshot_2023_12_13_221958;
+            this.btnCheckOut.Location = new System.Drawing.Point(266, 29);
+            this.btnCheckOut.Name = "btnCheckOut";
+            this.btnCheckOut.Size = new System.Drawing.Size(121, 40);
+            this.btnCheckOut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnCheckOut.TabIndex = 8;
+            this.btnCheckOut.TabStop = false;
+            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click);
             // 
             // btnYourCart
             // 
@@ -106,6 +120,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
             this.ClientSize = new System.Drawing.Size(1058, 680);
+            this.Controls.Add(this.btnCheckOut);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.btnYourCart);
             this.Controls.Add(this.btnBook);
@@ -114,6 +129,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmUser";
             this.Text = "FrmUser";
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYourCart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -132,5 +148,6 @@
         private System.Windows.Forms.Panel pnlContainer;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
+        private System.Windows.Forms.PictureBox btnCheckOut;
     }
 }

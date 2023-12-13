@@ -48,5 +48,11 @@ namespace DBSysProj.Forms
             ucCart uc = new ucCart();
             addUserControl(uc);
         }
+
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            ucYourCheckOut uc = new ucYourCheckOut();
+            addUserControl(uc);
+        }
     }
 }

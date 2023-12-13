@@ -29,6 +29,7 @@ namespace DBSysProj.AppData
         }
     
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<CheckOut> CheckOut { get; set; }
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<RoomAc> RoomAc { get; set; }
@@ -40,6 +41,7 @@ namespace DBSysProj.AppData
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<vw_AllRooms> vw_AllRooms { get; set; }
         public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
+        public DbSet<vw_CheckOutTable> vw_CheckOutTable { get; set; }
     
         public virtual int sp_InsertRoom(string roomNum, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
         {
@@ -479,6 +481,106 @@ namespace DBSysProj.AppData
                 new ObjectParameter("hId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateRooms", rIdParameter, rNumParameter, rTypeParameter, rAcParameter, rBedParameter, rMinParameter, rMaxParameter, rPriceParameter, hIdParameter);
+        }
+    
+        public virtual int sp_CheckOut(Nullable<int> rId, string cFName, string cLName, string cAddress, string cEmail, string cPhone, Nullable<System.DateTime> cCheckIn, Nullable<System.DateTime> cCheckOut, Nullable<int> cPayment, Nullable<int> cBalance, Nullable<int> bBy)
+        {
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var cFNameParameter = cFName != null ?
+                new ObjectParameter("cFName", cFName) :
+                new ObjectParameter("cFName", typeof(string));
+    
+            var cLNameParameter = cLName != null ?
+                new ObjectParameter("cLName", cLName) :
+                new ObjectParameter("cLName", typeof(string));
+    
+            var cAddressParameter = cAddress != null ?
+                new ObjectParameter("cAddress", cAddress) :
+                new ObjectParameter("cAddress", typeof(string));
+    
+            var cEmailParameter = cEmail != null ?
+                new ObjectParameter("cEmail", cEmail) :
+                new ObjectParameter("cEmail", typeof(string));
+    
+            var cPhoneParameter = cPhone != null ?
+                new ObjectParameter("cPhone", cPhone) :
+                new ObjectParameter("cPhone", typeof(string));
+    
+            var cCheckInParameter = cCheckIn.HasValue ?
+                new ObjectParameter("cCheckIn", cCheckIn) :
+                new ObjectParameter("cCheckIn", typeof(System.DateTime));
+    
+            var cCheckOutParameter = cCheckOut.HasValue ?
+                new ObjectParameter("cCheckOut", cCheckOut) :
+                new ObjectParameter("cCheckOut", typeof(System.DateTime));
+    
+            var cPaymentParameter = cPayment.HasValue ?
+                new ObjectParameter("cPayment", cPayment) :
+                new ObjectParameter("cPayment", typeof(int));
+    
+            var cBalanceParameter = cBalance.HasValue ?
+                new ObjectParameter("cBalance", cBalance) :
+                new ObjectParameter("cBalance", typeof(int));
+    
+            var bByParameter = bBy.HasValue ?
+                new ObjectParameter("bBy", bBy) :
+                new ObjectParameter("bBy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CheckOut", rIdParameter, cFNameParameter, cLNameParameter, cAddressParameter, cEmailParameter, cPhoneParameter, cCheckInParameter, cCheckOutParameter, cPaymentParameter, cBalanceParameter, bByParameter);
+        }
+    
+        public virtual ObjectResult<sp_CheckOutTable_Result> sp_CheckOutTable(Nullable<int> cId)
+        {
+            var cIdParameter = cId.HasValue ?
+                new ObjectParameter("cId", cId) :
+                new ObjectParameter("cId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CheckOutTable_Result>("sp_CheckOutTable", cIdParameter);
+        }
+    
+        public virtual int sp_DeleteCheckOut(Nullable<int> coId)
+        {
+            var coIdParameter = coId.HasValue ?
+                new ObjectParameter("coId", coId) :
+                new ObjectParameter("coId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteCheckOut", coIdParameter);
+        }
+    
+        public virtual int sp_UpdateCheckOut(Nullable<int> coId, Nullable<int> rId, string rA, Nullable<System.DateTime> coCI, Nullable<System.DateTime> coCO, Nullable<int> coP, Nullable<int> coB)
+        {
+            var coIdParameter = coId.HasValue ?
+                new ObjectParameter("coId", coId) :
+                new ObjectParameter("coId", typeof(int));
+    
+            var rIdParameter = rId.HasValue ?
+                new ObjectParameter("rId", rId) :
+                new ObjectParameter("rId", typeof(int));
+    
+            var rAParameter = rA != null ?
+                new ObjectParameter("rA", rA) :
+                new ObjectParameter("rA", typeof(string));
+    
+            var coCIParameter = coCI.HasValue ?
+                new ObjectParameter("coCI", coCI) :
+                new ObjectParameter("coCI", typeof(System.DateTime));
+    
+            var coCOParameter = coCO.HasValue ?
+                new ObjectParameter("coCO", coCO) :
+                new ObjectParameter("coCO", typeof(System.DateTime));
+    
+            var coPParameter = coP.HasValue ?
+                new ObjectParameter("coP", coP) :
+                new ObjectParameter("coP", typeof(int));
+    
+            var coBParameter = coB.HasValue ?
+                new ObjectParameter("coB", coB) :
+                new ObjectParameter("coB", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateCheckOut", coIdParameter, rIdParameter, rAParameter, coCIParameter, coCOParameter, coPParameter, coBParameter);
         }
     }
 }

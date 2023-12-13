@@ -9,6 +9,23 @@
     <Property Name="hotelId" Type="int" />
     <Property Name="bookedBy" Type="int" />
   </EntityType>
+  <EntityType Name="CheckOut">
+    <Key>
+      <PropertyRef Name="coId" />
+    </Key>
+    <Property Name="coId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roomId" Type="int" />
+    <Property Name="coFirstName" Type="nvarchar" MaxLength="128" />
+    <Property Name="coLastName" Type="nvarchar" MaxLength="128" />
+    <Property Name="coAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="coEmail" Type="nvarchar" MaxLength="255" />
+    <Property Name="coPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="coCheckIn" Type="datetime" />
+    <Property Name="coCheckOut" Type="datetime" />
+    <Property Name="coPayment" Type="int" />
+    <Property Name="coBalance" Type="int" />
+    <Property Name="bookedBy" Type="int" />
+  </EntityType>
   <EntityType Name="Hotel">
     <Key>
       <PropertyRef Name="hotelId" />
@@ -112,7 +129,8 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllRooms' does not have a primary
     <Property Name="Price" Type="int" />
     <Property Name="Hotel Id" Type="int" />
     <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
-    <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+    <Property Name="Hote Address" Type="nvarchar" MaxLength="128" />
+    <Property Name="Available" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -138,6 +156,62 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
     <Property Name="Role" Type="nvarchar" MaxLength="128" />
     <Property Name="Created By" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_CheckOutTable">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Booked-by Name" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Room Id" Type="int" />
+    <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bed" Type="int" />
+    <Property Name="Minimum Guest" Type="int" />
+    <Property Name="Maximum Guest" Type="int" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Hotel Id" Type="int" />
+    <Property Name="Hotel Name" Type="nvarchar" MaxLength="128" />
+    <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+    <Property Name="Available" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="257" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Phone Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Check-In" Type="datetime" />
+    <Property Name="Check-Out" Type="datetime" />
+    <Property Name="Payment" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="Booked-By Id" Type="int" />
+    <Property Name="Booked-by Name" Type="nvarchar" MaxLength="102" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CheckOut_Rooms">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="CheckOut" Type="Self.CheckOut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="roomId" />
+      </Principal>
+      <Dependent Role="CheckOut">
+        <PropertyRef Name="roomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CheckOut_UserAccount">
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+    <End Role="CheckOut" Type="Self.CheckOut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="CheckOut">
+        <PropertyRef Name="bookedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Rooms_Hotel1">
     <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
     <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
@@ -194,11 +268,30 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
     <Parameter Name="version" Type="int" Mode="In" />
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
   </Function>
+  <Function Name="sp_CheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rId" Type="int" Mode="In" />
+    <Parameter Name="cFName" Type="nvarchar" Mode="In" />
+    <Parameter Name="cLName" Type="nvarchar" Mode="In" />
+    <Parameter Name="cAddress" Type="nvarchar" Mode="In" />
+    <Parameter Name="cEmail" Type="nvarchar" Mode="In" />
+    <Parameter Name="cPhone" Type="nvarchar" Mode="In" />
+    <Parameter Name="cCheckIn" Type="datetime" Mode="In" />
+    <Parameter Name="cCheckOut" Type="datetime" Mode="In" />
+    <Parameter Name="cPayment" Type="int" Mode="In" />
+    <Parameter Name="cBalance" Type="int" Mode="In" />
+    <Parameter Name="bBy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_CheckOutTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
     <Parameter Name="version" Type="int" Mode="In" />
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="coId" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="rId" Type="int" Mode="In" />
@@ -218,29 +311,19 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
   </Function>
-  <Function Name="sp_InsertRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="roomNumber" Type="nvarchar" Mode="In" />
-    <Parameter Name="roomType" Type="nvarchar" Mode="In" />
-    <Parameter Name="roomAc" Type="nvarchar" Mode="In" />
-    <Parameter Name="roomBed" Type="int" Mode="In" />
-    <Parameter Name="roomMin" Type="int" Mode="In" />
-    <Parameter Name="roomMax" Type="int" Mode="In" />
-    <Parameter Name="hotelId" Type="int" Mode="In" />
-  </Function>
   <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="sp_UpdateRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="sp_UpdateCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="coId" Type="int" Mode="In" />
     <Parameter Name="rId" Type="int" Mode="In" />
-    <Parameter Name="rNum" Type="nvarchar" Mode="In" />
-    <Parameter Name="rType" Type="nvarchar" Mode="In" />
-    <Parameter Name="rAc" Type="nvarchar" Mode="In" />
-    <Parameter Name="rBed" Type="int" Mode="In" />
-    <Parameter Name="rMin" Type="int" Mode="In" />
-    <Parameter Name="rMax" Type="int" Mode="In" />
-    <Parameter Name="hId" Type="int" Mode="In" />
+    <Parameter Name="rA" Type="nvarchar" Mode="In" />
+    <Parameter Name="coCI" Type="datetime" Mode="In" />
+    <Parameter Name="coCO" Type="datetime" Mode="In" />
+    <Parameter Name="coP" Type="int" Mode="In" />
+    <Parameter Name="coB" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_UpdateRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="rId" Type="int" Mode="In" />
@@ -270,6 +353,7 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
   </Function>
   <EntityContainer Name="DBSYSPROJModelStoreContainer">
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckOut" EntityType="Self.CheckOut" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RoomAc" EntityType="Self.RoomAc" Schema="dbo" store:Type="Tables" />
@@ -291,7 +375,8 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary
 [vw_AllRooms].[Price] AS [Price], 
 [vw_AllRooms].[Hotel Id] AS [Hotel Id], 
 [vw_AllRooms].[Hotel] AS [Hotel], 
-[vw_AllRooms].[Hotel Address] AS [Hotel Address]
+[vw_AllRooms].[Hote Address] AS [Hote Address], 
+[vw_AllRooms].[Available] AS [Available]
 FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
@@ -308,6 +393,41 @@ FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
 [vw_AllUsers].[Created By] AS [Created By]
 FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="vw_CheckOutTable" EntityType="Self.vw_CheckOutTable" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[vw_CheckOutTable].[Id] AS [Id], 
+[vw_CheckOutTable].[Room Id] AS [Room Id], 
+[vw_CheckOutTable].[Room Number] AS [Room Number], 
+[vw_CheckOutTable].[Room Type] AS [Room Type], 
+[vw_CheckOutTable].[Aircon] AS [Aircon], 
+[vw_CheckOutTable].[Bed] AS [Bed], 
+[vw_CheckOutTable].[Minimum Guest] AS [Minimum Guest], 
+[vw_CheckOutTable].[Maximum Guest] AS [Maximum Guest], 
+[vw_CheckOutTable].[Price] AS [Price], 
+[vw_CheckOutTable].[Hotel Id] AS [Hotel Id], 
+[vw_CheckOutTable].[Hotel Name] AS [Hotel Name], 
+[vw_CheckOutTable].[Hotel Address] AS [Hotel Address], 
+[vw_CheckOutTable].[Available] AS [Available], 
+[vw_CheckOutTable].[Name] AS [Name], 
+[vw_CheckOutTable].[Address] AS [Address], 
+[vw_CheckOutTable].[Email] AS [Email], 
+[vw_CheckOutTable].[Phone Number] AS [Phone Number], 
+[vw_CheckOutTable].[Check-In] AS [Check-In], 
+[vw_CheckOutTable].[Check-Out] AS [Check-Out], 
+[vw_CheckOutTable].[Payment] AS [Payment], 
+[vw_CheckOutTable].[Balance] AS [Balance], 
+[vw_CheckOutTable].[Booked-By Id] AS [Booked-By Id], 
+[vw_CheckOutTable].[Booked-by Name] AS [Booked-by Name]
+FROM [dbo].[vw_CheckOutTable] AS [vw_CheckOutTable]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_CheckOut_Rooms" Association="Self.FK_CheckOut_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="CheckOut" EntitySet="CheckOut" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckOut_UserAccount" Association="Self.FK_CheckOut_UserAccount">
+      <End Role="UserAccount" EntitySet="UserAccount" />
+      <End Role="CheckOut" EntitySet="CheckOut" />
+    </AssociationSet>
     <AssociationSet Name="FK_Rooms_Hotel1" Association="Self.FK_Rooms_Hotel1">
       <End Role="Hotel" EntitySet="Hotel" />
       <End Role="Rooms" EntitySet="Rooms" />

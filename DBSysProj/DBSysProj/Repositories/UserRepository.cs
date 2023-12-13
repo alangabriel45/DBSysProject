@@ -46,6 +46,20 @@ namespace DBSysProj.Repositories
                    return db.sp_YourCart(uId).ToList();
             }
         }
+        public List<sp_CheckOutTable_Result> UserCheckOutTable(int uId)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                return db.sp_CheckOutTable(uId).ToList();
+            }
+        }
+        public List<vw_CheckOutTable> AdminCheckOutTable()
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                return db.vw_CheckOutTable.ToList();
+            }
+        }
         public ErrorCode InserRoomUsingStoredProf(String rNum, String rType, String rAc, int rBed, int rMin, int rMax, int rPrice, int hId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
@@ -80,6 +94,23 @@ namespace DBSysProj.Repositories
                 }
             }
         }
+        public ErrorCode UpdateCheckOutUsingStoredProf(int coId, int rId, String coA, DateTime coCI, DateTime coCO, int coP, int coB, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                try
+                {
+                    db.sp_UpdateCheckOut(coId, rId, coA, coCI, coCO, coP, coB);
+                    szResponse = "Updated";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
+            }
+        }
         public ErrorCode DeleteRoomUsingStoredProf(int? rId, ref String szResponse)
         {
             using (db = new DBSYSPROJEntities())
@@ -87,6 +118,23 @@ namespace DBSysProj.Repositories
                 try
                 {
                     db.sp_DeleteRoom1(rId);
+                    szResponse = "Deleted";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
+            }
+        }
+        public ErrorCode DeleteCheckOutUsingStoredProf(int cId, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities()) 
+            {
+                try
+                {
+                    db.sp_DeleteCheckOut(cId);
                     szResponse = "Deleted";
                     return ErrorCode.Success;
                 }
@@ -170,6 +218,23 @@ namespace DBSysProj.Repositories
                 catch (Exception ex)
                 {
 
+                    szResponse = ex.Message;
+                    return ErrorCode.Error;
+                }
+            }
+        }
+        public ErrorCode InsertCheckoutUsingStoredProf(int rId, String coFN, String coLN, String coA, String coE, String coP, DateTime coCI, DateTime coCO, int coPay, int coB, int coBB, ref String szResponse)
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                try
+                {
+                    db.sp_CheckOut(rId, coFN, coLN, coA, coE, coP, coCI, coCO, coPay, coB, coBB);
+                    szResponse = "Successful!";
+                    return ErrorCode.Success;
+                }
+                catch (Exception ex)
+                {
                     szResponse = ex.Message;
                     return ErrorCode.Error;
                 }

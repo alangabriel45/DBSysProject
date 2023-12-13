@@ -52,7 +52,6 @@ namespace DBSysProj.UserControls
             {
                 if (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null)
                 {
-
                     roomSelectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
                     hotelSelectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Hotel_Id"].Value;
                     txtRoomNum.Text = dataGridView1.Rows[e.RowIndex].Cells["Room_Number"].Value.ToString();
@@ -61,13 +60,23 @@ namespace DBSysProj.UserControls
                     txtBed.Text = dataGridView1.Rows[e.RowIndex].Cells["Bed"].Value.ToString();
                     txtMin.Text = dataGridView1.Rows[e.RowIndex].Cells["Minimum_Guest"].Value.ToString();
                     txtMax.Text = dataGridView1.Rows[e.RowIndex].Cells["Maximum_Guest"].Value.ToString();
-                    txtHotel.Text = dataGridView1.Rows[e.RowIndex].Cells["Hotel_Name"].Value.ToString();
+                    txtPrice.Text = dataGridView1.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                    txtHotel.Text = dataGridView1.Rows[e.RowIndex].Cells["Hotel"].Value.ToString();
                 }
             }
             catch (Exception)
             {
-
                 MessageBox.Show("1 room at a time!");
+                dataGridView1.ClearSelection();
+                txtRoomNum.Clear();
+                txtHotel.Clear();
+                txtRoomType.Clear();
+                txtAc.Clear();
+                txtBed.Clear();
+                txtMin.Clear();
+                txtMax.Clear();
+                txtPrice.Clear();
+                roomSelectedId = 0;
             }
         }
 
@@ -123,6 +132,7 @@ namespace DBSysProj.UserControls
                 txtBed.Clear();
                 txtMin.Clear();
                 txtMax.Clear();
+                txtPrice.Clear();
                 roomSelectedId = 0;
             }
             else
@@ -141,6 +151,7 @@ namespace DBSysProj.UserControls
                 return;
             }
 
+            uc.roomSelectedId = roomSelectedId;
             uc.lblhotel.Text = txtHotel.Text;
             uc.lblRoomNum.Text = txtRoomNum.Text;
             uc.lblRoomType.Text = txtRoomType.Text;
@@ -148,6 +159,7 @@ namespace DBSysProj.UserControls
             uc.lblBed.Text = txtBed.Text;
             uc.lblMin.Text = txtMin.Text;
             uc.lblMax.Text = txtMax.Text;
+            uc.lblPrice.Text = txtPrice.Text;
             addUserControl(uc);
         }
     }

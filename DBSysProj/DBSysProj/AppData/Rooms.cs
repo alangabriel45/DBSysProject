@@ -14,6 +14,11 @@ namespace DBSysProj.AppData
     
     public partial class Rooms
     {
+        public Rooms()
+        {
+            this.CheckOut = new HashSet<CheckOut>();
+        }
+    
         public int roomId { get; set; }
         public string roomNumber { get; set; }
         public string roomType { get; set; }
@@ -25,6 +30,7 @@ namespace DBSysProj.AppData
         public Nullable<int> hotelId { get; set; }
         public string isAvailable { get; set; }
     
+        public virtual ICollection<CheckOut> CheckOut { get; set; }
         public virtual Hotel Hotel { get; set; }
     }
 }

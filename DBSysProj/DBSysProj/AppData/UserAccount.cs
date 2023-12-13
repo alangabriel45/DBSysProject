@@ -14,6 +14,11 @@ namespace DBSysProj.AppData
     
     public partial class UserAccount
     {
+        public UserAccount()
+        {
+            this.CheckOut = new HashSet<CheckOut>();
+        }
+    
         public int userId { get; set; }
         public string userLastName { get; set; }
         public string userFirstName { get; set; }
@@ -25,5 +30,7 @@ namespace DBSysProj.AppData
         public string userPass { get; set; }
         public Nullable<int> roleId { get; set; }
         public string createdBy { get; set; }
+    
+        public virtual ICollection<CheckOut> CheckOut { get; set; }
     }
 }
