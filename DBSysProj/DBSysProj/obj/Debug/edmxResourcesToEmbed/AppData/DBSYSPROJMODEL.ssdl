@@ -351,6 +351,9 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a pr
   <Function Name="sp_YourCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="uId" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_YourCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uId" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="DBSYSPROJModelStoreContainer">
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CheckOut" EntityType="Self.CheckOut" Schema="dbo" store:Type="Tables" />

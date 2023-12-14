@@ -50,10 +50,17 @@ namespace DBSysProj.UserControls
             
             if (balance != 0)
             {
-                if (Convert.ToInt32(txtPayment.Text) == balance)
+                if (!String.IsNullOrEmpty(txtPayment.Text))
                 {
-                    pay = pay + Convert.ToInt32(txtPayment.Text);
-                    balance = 0;
+                    if (Convert.ToInt32(txtPayment.Text) == balance)
+                    {
+                        pay = pay + Convert.ToInt32(txtPayment.Text);
+                        balance = 0;
+                    }
+                }
+                else 
+                {
+                    balance = balance;
                 }
             }
             ErrorCode retValue = userRepo.UpdateCheckOutUsingStoredProf(selectedId, roomId, txtAvailable.Text, Convert.ToDateTime(dtpCheckIn.Text), Convert.ToDateTime(dtpCheckOut.Text), pay, balance, ref strOutputMsg);
@@ -77,17 +84,33 @@ namespace DBSysProj.UserControls
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            String strOutputMsg = "";
+
             if (String.IsNullOrEmpty(txtAvailable.Text))
             {
                 errorProviderCustom.SetError(txtAvailable, "Empty Field!");
                 return;
             }
-            if (String.IsNullOrEmpty(txtPayment.Text))
+
+            ErrorCode retValue = userRepo.DeleteCheckOutUsingStoredProf(selectedId, ref strOutputMsg);
+            if (retValue != ErrorCode.Success)
             {
-                errorProviderCustom.SetError(txtPayment, "Empty Field!");
-                return;
+                MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                loadCheckOut();
+
+                txtAvailable.Clear();
+                txtPayment.Clear();
+                roomId = 0;
+                selectedId = 0;
+                pay = 0;
+                balance = 0;
+            }
+            else
+            {
+                MessageBox.Show(strOutputMsg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+    
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {

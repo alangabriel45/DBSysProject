@@ -241,5 +241,23 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_DeleteCheckOut" FunctionName="DBSYSPROJModel.Store.sp_DeleteCheckOut" />
     <FunctionImportMapping FunctionImportName="sp_UpdateCheckOut" FunctionName="DBSYSPROJModel.Store.sp_UpdateCheckOut" />
+    <FunctionImportMapping FunctionImportName="sp_YourCarts" FunctionName="DBSYSPROJModel.Store.sp_YourCarts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCarts_Result">
+          <ScalarProperty Name="Cart_Id" ColumnName="Cart Id" />
+          <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

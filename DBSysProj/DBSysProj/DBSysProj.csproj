@@ -101,6 +101,9 @@
     <Compile Include="AppData\sp_CheckOutTable_Result.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\sp_YourCarts_Result.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\sp_YourCart_Result.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>

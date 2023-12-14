@@ -582,5 +582,14 @@ namespace DBSysProj.AppData
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateCheckOut", coIdParameter, rIdParameter, rAParameter, coCIParameter, coCOParameter, coPParameter, coBParameter);
         }
+    
+        public virtual ObjectResult<sp_YourCarts_Result> sp_YourCarts(Nullable<int> uId)
+        {
+            var uIdParameter = uId.HasValue ?
+                new ObjectParameter("uId", uId) :
+                new ObjectParameter("uId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_YourCarts_Result>("sp_YourCarts", uIdParameter);
+        }
     }
 }

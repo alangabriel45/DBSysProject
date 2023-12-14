@@ -64,9 +64,9 @@ namespace DBSysProj.UserControls
             int price = Convert.ToInt32(lblPrice.Text);
             if (payment != price)
             {
-                if (payment == (price / 2))
+                if (payment >= (price / 2))
                 {
-                    bal = payment;
+                    bal = price - payment;
                 }
                 else 
                 {

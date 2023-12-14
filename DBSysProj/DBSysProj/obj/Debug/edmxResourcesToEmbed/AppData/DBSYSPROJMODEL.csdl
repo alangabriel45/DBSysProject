@@ -177,6 +177,9 @@
       <Parameter Name="coP" Mode="In" Type="Int32" />
       <Parameter Name="coB" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="sp_YourCarts" ReturnType="Collection(DBSYSPROJModel.sp_YourCarts_Result)">
+      <Parameter Name="uId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_YourCart_Result">
     <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
@@ -436,4 +439,18 @@
     <Property Name="Booked_By_Id" Type="Int32" />
     <Property Name="Booked_by_Name" Type="String" Nullable="false" MaxLength="102" FixedLength="false" Unicode="true" />
   </EntityType>
+  <ComplexType Name="sp_YourCarts_Result">
+    <Property Type="Int32" Name="Cart_Id" Nullable="false" />
+    <Property Type="Int32" Name="Room_Id" Nullable="true" />
+    <Property Type="String" Name="Room_Number" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Room_Type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Aircon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Bed" Nullable="true" />
+    <Property Type="Int32" Name="Minimum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Maximum_Guest" Nullable="true" />
+    <Property Type="Int32" Name="Hotel_Id" Nullable="true" />
+    <Property Type="String" Name="Hotel" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Hotel_Address" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Available" Nullable="true" MaxLength="50" />
+  </ComplexType>
 </Schema>
