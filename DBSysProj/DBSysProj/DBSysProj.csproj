@@ -101,6 +101,12 @@
     <Compile Include="AppData\sp_CheckOutTable_Result.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\sp_YourCarts1_Result.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\sp_YourCarts2_Result.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\sp_YourCarts_Result.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\vw_CheckOutTable.cs">
+      <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\vw_Rooms.cs">
       <DependentUpon>DBSYSPROJMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form1.cs">

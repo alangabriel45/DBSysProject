@@ -40,8 +40,9 @@ namespace DBSysProj.AppData
         public DbSet<RoomType> RoomType { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<vw_AllRooms> vw_AllRooms { get; set; }
-        public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
         public DbSet<vw_CheckOutTable> vw_CheckOutTable { get; set; }
+        public DbSet<vw_AllUsers> vw_AllUsers { get; set; }
+        public DbSet<vw_Rooms> vw_Rooms { get; set; }
     
         public virtual int sp_InsertRoom(string roomNum, string roomType, string roomAc, Nullable<int> roomBed, Nullable<int> roomMin, Nullable<int> roomMax, Nullable<int> hotelId)
         {
@@ -590,6 +591,33 @@ namespace DBSysProj.AppData
                 new ObjectParameter("uId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_YourCarts_Result>("sp_YourCarts", uIdParameter);
+        }
+    
+        public virtual int sp_DeleteCart(Nullable<int> cId)
+        {
+            var cIdParameter = cId.HasValue ?
+                new ObjectParameter("cId", cId) :
+                new ObjectParameter("cId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteCart", cIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_YourCarts1_Result> sp_YourCarts1(Nullable<int> uId)
+        {
+            var uIdParameter = uId.HasValue ?
+                new ObjectParameter("uId", uId) :
+                new ObjectParameter("uId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_YourCarts1_Result>("sp_YourCarts1", uIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_YourCarts2_Result> sp_YourCarts2(Nullable<int> uId)
+        {
+            var uIdParameter = uId.HasValue ?
+                new ObjectParameter("uId", uId) :
+                new ObjectParameter("uId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_YourCarts2_Result>("sp_YourCarts2", uIdParameter);
         }
     }
 }

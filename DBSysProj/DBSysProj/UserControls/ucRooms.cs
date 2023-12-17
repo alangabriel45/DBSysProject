@@ -39,7 +39,7 @@ namespace DBSysProj.UserControls
         }
         private void loadRoom()
         {
-            dataGridView1.DataSource = userRepo.AllRoomTable();           
+            dataGridView1.DataSource = userRepo.AdminRoomsTable();           
         }
         private void loadCbHotel()
         {
@@ -243,7 +243,7 @@ namespace DBSysProj.UserControls
             catch (Exception ex)
             {
 
-                throw ex;
+                MessageBox.Show("");
             }
         }
 

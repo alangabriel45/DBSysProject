@@ -39,11 +39,18 @@ namespace DBSysProj.Repositories
                 return db.vw_AllUsers.ToList();
             }
         }
-        public List<sp_YourCarts_Result> AllCartTable(int uId)
+        public List<vw_Rooms> AdminRoomsTable()
+        {
+            using (db = new DBSYSPROJEntities())
+            {
+                return db.vw_Rooms.ToList();
+            }
+        }
+        public List<sp_YourCarts2_Result> AllCartTable(int uId)
         {
             using (db = new DBSYSPROJEntities())
             {           
-                   return db.sp_YourCarts(uId).ToList();
+                   return db.sp_YourCarts2(uId).ToList();
             }
         }
         public List<sp_CheckOutTable_Result> UserCheckOutTable(int uId)

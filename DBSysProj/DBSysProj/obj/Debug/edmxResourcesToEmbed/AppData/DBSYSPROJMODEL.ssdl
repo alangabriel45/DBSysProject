@@ -136,22 +136,24 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllRooms' does not have a primary
 warning 6002: The table/view 'DBSYSPROJ.dbo.vw_AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vw_AllUsers">
     <Key>
+      <PropertyRef Name="Id" />
       <PropertyRef Name="Last Name" />
       <PropertyRef Name="First Name" />
       <PropertyRef Name="Middle Initial" />
       <PropertyRef Name="Address" />
       <PropertyRef Name="Email" />
       <PropertyRef Name="Phone Number" />
-      <PropertyRef Name="User Name" />
+      <PropertyRef Name="Username" />
       <PropertyRef Name="Password" />
     </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Last Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="First Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Middle Initial" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Phone Number" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="User Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Role" Type="nvarchar" MaxLength="128" />
     <Property Name="Created By" Type="nvarchar" MaxLength="128" />
@@ -187,6 +189,25 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a pr
     <Property Name="Balance" Type="int" />
     <Property Name="Booked-By Id" Type="int" />
     <Property Name="Booked-by Name" Type="nvarchar" MaxLength="102" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DBSYSPROJ.dbo.vw_Rooms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_Rooms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Room Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Room Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aircon" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bed" Type="int" />
+    <Property Name="Minimum Guest" Type="int" />
+    <Property Name="Maximum Guest" Type="int" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Hotel Id" Type="int" />
+    <Property Name="Hotel" Type="nvarchar" MaxLength="128" />
+    <Property Name="Hotel Address" Type="nvarchar" MaxLength="128" />
+    <Property Name="Available" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_CheckOut_Rooms">
     <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
@@ -290,6 +311,9 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a pr
     <Parameter Name="version" Type="int" Mode="In" />
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
   </Function>
+  <Function Name="sp_DeleteCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cId" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_DeleteCheckOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="coId" Type="int" Mode="In" />
   </Function>
@@ -354,6 +378,12 @@ warning 6002: The table/view 'DBSYSPROJ.dbo.vw_CheckOutTable' does not have a pr
   <Function Name="sp_YourCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="uId" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_YourCarts1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_YourCarts2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="uId" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="DBSYSPROJModelStoreContainer">
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CheckOut" EntityType="Self.CheckOut" Schema="dbo" store:Type="Tables" />
@@ -384,13 +414,14 @@ FROM [dbo].[vw_AllRooms] AS [vw_AllRooms]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="vw_AllUsers" EntityType="Self.vw_AllUsers" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
+[vw_AllUsers].[Id] AS [Id], 
 [vw_AllUsers].[Last Name] AS [Last Name], 
 [vw_AllUsers].[First Name] AS [First Name], 
 [vw_AllUsers].[Middle Initial] AS [Middle Initial], 
 [vw_AllUsers].[Address] AS [Address], 
 [vw_AllUsers].[Email] AS [Email], 
 [vw_AllUsers].[Phone Number] AS [Phone Number], 
-[vw_AllUsers].[User Name] AS [User Name], 
+[vw_AllUsers].[Username] AS [Username], 
 [vw_AllUsers].[Password] AS [Password], 
 [vw_AllUsers].[Role] AS [Role], 
 [vw_AllUsers].[Created By] AS [Created By]
@@ -422,6 +453,22 @@ FROM [dbo].[vw_AllUsers] AS [vw_AllUsers]</DefiningQuery>
 [vw_CheckOutTable].[Booked-By Id] AS [Booked-By Id], 
 [vw_CheckOutTable].[Booked-by Name] AS [Booked-by Name]
 FROM [dbo].[vw_CheckOutTable] AS [vw_CheckOutTable]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_Rooms" EntityType="Self.vw_Rooms" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[vw_Rooms].[Id] AS [Id], 
+[vw_Rooms].[Room Number] AS [Room Number], 
+[vw_Rooms].[Room Type] AS [Room Type], 
+[vw_Rooms].[Aircon] AS [Aircon], 
+[vw_Rooms].[Bed] AS [Bed], 
+[vw_Rooms].[Minimum Guest] AS [Minimum Guest], 
+[vw_Rooms].[Maximum Guest] AS [Maximum Guest], 
+[vw_Rooms].[Price] AS [Price], 
+[vw_Rooms].[Hotel Id] AS [Hotel Id], 
+[vw_Rooms].[Hotel] AS [Hotel], 
+[vw_Rooms].[Hotel Address] AS [Hotel Address], 
+[vw_Rooms].[Available] AS [Available]
+FROM [dbo].[vw_Rooms] AS [vw_Rooms]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_CheckOut_Rooms" Association="Self.FK_CheckOut_Rooms">
       <End Role="Rooms" EntitySet="Rooms" />

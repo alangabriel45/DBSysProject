@@ -17,11 +17,12 @@
         <EntityTypeShape EntityType="DBSYSPROJModel.RoomType" Width="1.5" PointX="5.75" PointY="9.75" />
         <EntityTypeShape EntityType="DBSYSPROJModel.UserAccount" Width="1.5" PointX="3" PointY="6.25" />
         <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllRooms" Width="1.5" PointX="9.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllUsers" Width="1.5" PointX="0.75" PointY="10.75" />
         <AssociationConnector Association="DBSYSPROJModel.FK_CheckOut_Rooms" />
         <AssociationConnector Association="DBSYSPROJModel.FK_CheckOut_UserAccount" />
         <AssociationConnector Association="DBSYSPROJModel.FK_Rooms_Hotel1" />
         <EntityTypeShape EntityType="DBSYSPROJModel.vw_CheckOutTable" Width="1.5" PointX="8.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.vw_AllUsers" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DBSYSPROJModel.vw_Rooms" Width="1.5" PointX="10.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

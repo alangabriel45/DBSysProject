@@ -114,13 +114,21 @@ namespace DBSysProj.UserControls
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-            roomId = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Room_Id"].Value;
-            txtAvailable.Text = dataGridView1.Rows[e.RowIndex].Cells["Available"].Value.ToString();
-            dtpCheckIn.Value = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["Check_in"].Value;
-            dtpCheckOut.Value = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["Check_out"].Value;
-            pay = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Payment"].Value;
-            balance = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Balance"].Value;
+            try
+            {
+                selectedId = (Int32)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                roomId = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Room_Id"].Value;
+                txtAvailable.Text = dataGridView1.Rows[e.RowIndex].Cells["Available"].Value.ToString();
+                dtpCheckIn.Value = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["Check_in"].Value;
+                dtpCheckOut.Value = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["Check_out"].Value;
+                pay = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Payment"].Value;
+                balance = (Int32)dataGridView1.Rows[e.RowIndex].Cells["Balance"].Value;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("1 row at a time!");
+            }
+           
         }
     }
 }

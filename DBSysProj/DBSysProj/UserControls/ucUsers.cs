@@ -214,9 +214,9 @@ namespace DBSysProj.UserControls
                 txtPass.Text = dgvUsers.Rows[e.RowIndex].Cells["Password"].Value.ToString();
                 txtConfirmPass.Text = dgvUsers.Rows[e.RowIndex].Cells["Password"].Value.ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                MessageBox.Show("1 row at a time!");
             }
         }
 

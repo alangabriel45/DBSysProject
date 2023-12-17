@@ -165,22 +165,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vw_AllUsers">
-      <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
-        <MappingFragment StoreEntitySet="vw_AllUsers">
-          <ScalarProperty Name="Created_By" ColumnName="Created By" />
-          <ScalarProperty Name="Role" ColumnName="Role" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="User_Name" ColumnName="User Name" />
-          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Middle_Initial" ColumnName="Middle Initial" />
-          <ScalarProperty Name="First_Name" ColumnName="First Name" />
-          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_CheckOut" FunctionName="DBSYSPROJModel.Store.sp_CheckOut" />
     <FunctionImportMapping FunctionImportName="sp_CheckOutTable" FunctionName="DBSYSPROJModel.Store.sp_CheckOutTable">
       <ResultMapping>
@@ -259,5 +243,79 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="vw_AllUsers">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.vw_AllUsers">
+        <MappingFragment StoreEntitySet="vw_AllUsers">
+          <ScalarProperty Name="Created_By" ColumnName="Created By" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Middle_Initial" ColumnName="Middle Initial" />
+          <ScalarProperty Name="First_Name" ColumnName="First Name" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_DeleteCart" FunctionName="DBSYSPROJModel.Store.sp_DeleteCart" />
+    <FunctionImportMapping FunctionImportName="sp_YourCarts1" FunctionName="DBSYSPROJModel.Store.sp_YourCarts1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCarts1_Result">
+          <ScalarProperty Name="Cart_Id" ColumnName="Cart Id" />
+          <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_YourCarts2" FunctionName="DBSYSPROJModel.Store.sp_YourCarts2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBSYSPROJModel.sp_YourCarts2_Result">
+          <ScalarProperty Name="Cart_Id" ColumnName="Cart Id" />
+          <ScalarProperty Name="Room_Id" ColumnName="Room Id" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vw_Rooms">
+      <EntityTypeMapping TypeName="DBSYSPROJModel.vw_Rooms">
+        <MappingFragment StoreEntitySet="vw_Rooms">
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="Hotel_Address" ColumnName="Hotel Address" />
+          <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+          <ScalarProperty Name="Hotel_Id" ColumnName="Hotel Id" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Maximum_Guest" ColumnName="Maximum Guest" />
+          <ScalarProperty Name="Minimum_Guest" ColumnName="Minimum Guest" />
+          <ScalarProperty Name="Bed" ColumnName="Bed" />
+          <ScalarProperty Name="Aircon" ColumnName="Aircon" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room Type" />
+          <ScalarProperty Name="Room_Number" ColumnName="Room Number" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

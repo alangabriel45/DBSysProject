@@ -14,13 +14,14 @@ namespace DBSysProj.AppData
     
     public partial class vw_AllUsers
     {
+        public int Id { get; set; }
         public string Last_Name { get; set; }
         public string First_Name { get; set; }
         public string Middle_Initial { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone_Number { get; set; }
-        public string User_Name { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
         public string Created_By { get; set; }
