@@ -36,5 +36,15 @@ namespace DBSysProj.Forms
             ucAdminCheckOut uc = new ucAdminCheckOut();
             addUserControl(uc);
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pictureBox2_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(pictureBox2, "Close");
+        }
     }
 }

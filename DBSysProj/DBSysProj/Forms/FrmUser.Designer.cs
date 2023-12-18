@@ -37,13 +37,13 @@
             this.btnCheckOut = new System.Windows.Forms.PictureBox();
             this.btnYourCart = new System.Windows.Forms.PictureBox();
             this.btnBook = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnMinimize = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYourCart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBook)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlContainer
@@ -92,27 +92,27 @@
             this.btnBook.Click += new System.EventHandler(this.btnBook_Click);
             this.btnBook.MouseHover += new System.EventHandler(this.btnBook_MouseHover);
             // 
-            // pictureBox3
+            // btnMinimize
             // 
-            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Image = global::DBSysProj.Properties.Resources.minimize_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox3.Location = new System.Drawing.Point(986, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(29, 23);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 4;
-            this.pictureBox3.TabStop = false;
+            this.btnMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMinimize.Image = global::DBSysProj.Properties.Resources.minimize_FILL0_wght400_GRAD0_opsz24;
+            this.btnMinimize.Location = new System.Drawing.Point(986, 12);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(29, 23);
+            this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnMinimize.TabIndex = 4;
+            this.btnMinimize.TabStop = false;
             // 
-            // pictureBox2
+            // btnClose
             // 
-            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox2.Image = global::DBSysProj.Properties.Resources.close_FILL0_wght400_GRAD0_opsz24;
-            this.pictureBox2.Location = new System.Drawing.Point(1017, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(29, 23);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.Image = global::DBSysProj.Properties.Resources.close_FILL0_wght400_GRAD0_opsz24;
+            this.btnClose.Location = new System.Drawing.Point(1017, 12);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(29, 23);
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnClose.TabIndex = 3;
+            this.btnClose.TabStop = false;
             // 
             // FrmUser
             // 
@@ -124,23 +124,23 @@
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.btnYourCart);
             this.Controls.Add(this.btnBook);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.btnMinimize);
+            this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmUser";
             this.Text = "FrmUser";
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYourCart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBook)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox btnMinimize;
+        private System.Windows.Forms.PictureBox btnClose;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.PictureBox btnBook;
